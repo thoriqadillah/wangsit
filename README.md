@@ -10,7 +10,6 @@ cd wangsit
 composer install
 php artisan key:generate
 npm i
-
 ```
 ## Run Local Server
 Untuk run Laravel:
