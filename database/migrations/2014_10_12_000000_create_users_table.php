@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
+            $table->time('tgl_lahir');
+            $table->string('profile_pic')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
