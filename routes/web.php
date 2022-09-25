@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExampleController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,5 @@ Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/event', [EventController::class, 'index']);
 // Route::post('/daftar-event', [EventController::class, 'index']);
 
-Route::get('/daftar-event', [EventController::class, 'daftar']);
+Route::get('/daftar-event', [UserController::class, 'daftar']);
 Route::get('/ParticipantList', [EventController::class, 'showParticipants']);

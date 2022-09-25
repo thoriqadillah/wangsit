@@ -20,10 +20,7 @@ class EventController extends Controller
         dd($this->event->showEvent());
     }
 
-    public function daftar()
-    {
-        $this->event->daftarEvent(1, 'Andi', '215150400111034', 2021, 'andi35');
-    }
+
 
     //Buat admin
     public function showParticipants()

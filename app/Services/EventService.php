@@ -13,19 +13,6 @@ class EventService
         dd($event);
     }
 
-    public function daftarEvent(int $eventId, string $name, string $nim, string $angkatan, string $idLine)
-    {
-        $participant = new Participant();
-
-        $participant->name = $name;
-        $participant->event_id = $eventId;
-        $participant->nim = $nim;
-        $participant->angakatan = $angkatan;
-        $participant->idLine = $idLine;
-
-        $participant->save();
-    }
-
 
     //Buat admin
     public function showParticipants(int $eventId)
