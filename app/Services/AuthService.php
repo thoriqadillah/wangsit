@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService {
@@ -16,7 +15,9 @@ class AuthService {
   }
 
   private function register(string $nim, string $password): bool {
-    $newUser = ScrapperService::scrapUser($nim, $password);
+    $scraper = new ScrapperService($nim, $password);
+    $newUser = $scraper->scrapUser();
+
     if (count($newUser) !== 0) {
       User::create($newUser);
       return Auth::attempt(['nim' => $nim, 'password' => $password]);
@@ -28,6 +29,10 @@ class AuthService {
   private function validNim(string $nim): bool {
     $NIM_SI = '515040';
     return substr($nim, 2, 6) === $NIM_SI;
+  }
+
+  public function logout(): void {
+    Auth::logout();
   }
 
 }
