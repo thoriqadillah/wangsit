@@ -12,8 +12,9 @@ php artisan key:generate
 npm i
 ```
 ## Collab
-- buat branch baru ```git checkout -b dev/nama```
-ngoding seperti biasa, terus
+buat branch baru ```git checkout -b dev/nama```
+
+ngoding seperti biasa, terus:
 ```
 git add .
 git commit -m "<message>"
