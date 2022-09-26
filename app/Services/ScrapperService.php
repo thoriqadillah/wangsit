@@ -5,6 +5,7 @@ namespace App\Services;
 use Carbon\Carbon;
 use DOMDocument;
 use DOMXPath;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\SessionCookieJar;
 
@@ -21,50 +22,53 @@ class ScrapperService {
   public function scrapUser(): array {
     $cookieJar = new SessionCookieJar('PHPSESSID', true);
     $http = new Client();
+    $user = [];
 
-    $response = $http->request('POST', 'https://siam.ub.ac.id/index.php', [
-      'headers' => [
-        'Content-Type' => 'application/x-www-form-urlencoded',
-      ],
-      'form_params' => [
-        'status_loc' =>	"Unable+to+retrieve+your+location",
-        'lat' =>	"",
-        'long' =>	"",
-        'username' => $this->nim,
-        'password' => $this->password,
-        'login' => "Masuk"
-      ],
-      'cookies' => $cookieJar
-    ]);
+    try {
+      $response = $http->request('POST', 'https://siam.ub.ac.id/index.php', [
+        'headers' => [
+          'Content-Type' => 'application/x-www-form-urlencoded',
+        ],
+        'form_params' => [
+          'status_loc' =>	"Unable+to+retrieve+your+location",
+          'lat' =>	"",
+          'long' =>	"",
+          'username' => $this->nim,
+          'password' => $this->password,
+          'login' => "Masuk"
+        ],
+        'cookies' => $cookieJar
+      ]);
 
-    $html = $response->getBody()->getContents();
-    $dom = $this->getDom($html);
+      $html = $response->getBody()->getContents();
+      $dom = $this->getDom($html);
 
-    $nim = $dom->evaluate('//div[@class="bio-info"]/div[1]/b[1]/text()')[0]->nodeValue;
-    $nama = $dom->evaluate('//div[@class="bio-info"]/div[2]/text()')[0]->nodeValue;
-    $announcement = substr($dom->evaluate('//section[@id="announcement"]/div[1]/p/text()')[0]->nodeValue, 51);
-    $email = substr($announcement, 0, strlen($announcement) - 1);
-    $angkatan = substr($nim, 0, 2);
-    $profile_pic = "https://siakad.ub.ac.id/dirfoto/foto/foto_20{$angkatan}/{$nim}.jpg";
+      $user['nim'] = $dom->evaluate('//div[@class="bio-info"]/div[1]/b[1]/text()')[0]->nodeValue;
+      $user['nama'] = $dom->evaluate('//div[@class="bio-info"]/div[2]/text()')[0]->nodeValue;
+      $announcement = substr($dom->evaluate('//section[@id="announcement"]/div[1]/p/text()')[0]->nodeValue, 51);
+      $user['email'] = substr($announcement, 0, strlen($announcement) - 1);
+      $angkatan = substr($user['nim'], 0, 2);
+      $user['profile_pic'] = "https://siakad.ub.ac.id/dirfoto/foto/foto_20{$angkatan}/{$user['nim']}.jpg";
 
-    $response = $http->request('GET', 'https://siam.ub.ac.id/biodata.tampil.php', [
-      'cookies' => $cookieJar
-    ]);
+      $response = $http->request('GET', 'https://siam.ub.ac.id/biodata.tampil.php', [
+        'cookies' => $cookieJar
+      ]);
 
-    $html = $response->getBody()->getContents();
-    $dom = $this->getDom($html);
+      $html = $response->getBody()->getContents();
+      $dom = $this->getDom($html);
 
-    $tgl_lahir = $dom->evaluate('//table[@class="tampilbio"]/tr[3]/td[2]/text()')[0]->nodeValue;
-  
-    if ($nim && $nama) return [
-      'nim' => $nim,
-      'nama' => $nama,
-      'email' => $email,
-      'tgl_lahir' => $this->parseDate($tgl_lahir),
-      'profile_pic' => $profile_pic
-    ];
-  
+      $tgl_lahir = $dom->evaluate('//table[@class="tampilbio"]/tr[3]/td[2]/text()')[0]->nodeValue;
+      $user['tgl_lahir'] = $this->parseDate($tgl_lahir);
+      $user['password'] = bcrypt($this->password);
+
+      $http->request('GET', 'https://siam.ub.ac.id/logout.php', [
+        'cookies' => $cookieJar
+      ]);
+
+      return $user;
+  } catch(Exception $e) {
     return [];
+  }
   }
 
   private function getDom(string $html): DOMXPath {

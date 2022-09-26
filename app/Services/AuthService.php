@@ -9,16 +9,18 @@ class AuthService {
   public function login(string $nim, string $password): bool {
     if (!$this->validNim($nim)) return false;
     
-    return !Auth::attempt(['nim' => $nim, 'password' => $password]) 
-      ? $this->register($nim, $password)
-      : true;
+    
+    $exist = Auth::attempt(['nim' => $nim, 'password' => $password]); 
+    if ($exist) return $exist;
+
+    return $this->register($nim, $password);
   }
 
   private function register(string $nim, string $password): bool {
     $scraper = new ScrapperService($nim, $password);
     $newUser = $scraper->scrapUser();
 
-    if (count($newUser) !== 0) {
+    if ($newUser !== []) {
       User::create($newUser);
       return Auth::attempt(['nim' => $nim, 'password' => $password]);
     }
