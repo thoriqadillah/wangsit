@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => bcrypt('12345678'),
                 'admin_id' => $role[rand(0, 1)],
+                'tgl_lahir' => $faker->dateTimeBetween('-22 years', '-20 years'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
