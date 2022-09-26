@@ -1,9 +1,15 @@
 <?php
 
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExampleController;
+use App\Models\User;
+use App\Services\AuthService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ExampleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +21,11 @@ use App\Http\Controllers\ExampleController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login')
+    ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
 
 Route::get('/', function () {
     return view('welcome');
