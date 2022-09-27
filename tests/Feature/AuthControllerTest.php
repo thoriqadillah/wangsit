@@ -16,7 +16,7 @@ class AuthTest extends TestCase
     public function test_sucessfully_login()
     {
         $response = $this->post('/login', [
-            'nim' => '195150400111034',
+            'nim' => env('NIM_SIAM'),
             'password' => env('PASSWORD_SIAM')
         ]);
         $response->assertRedirect('/');
@@ -26,7 +26,7 @@ class AuthTest extends TestCase
     public function test_user_not_found()
     {
         $response = $this->post('/login', [
-            'nim' => '195150400111034',
+            'nim' => env('NIM_SIAM'),
             'password' => 'secret12345678'
         ]);
         $errors = session('errors');
@@ -42,7 +42,7 @@ class AuthTest extends TestCase
     public function test_invalid_password_entry()
     {
         $response = $this->post('/login', [
-            'nim' => '195150400111034',
+            'nim' => env('NIM_SIAM'),
             'password' => 'secret'
         ]);
 
@@ -54,7 +54,7 @@ class AuthTest extends TestCase
     public function test_empty_password_should_return_validation_error()
     {
         $response = $this->post('/login', [
-            'nim' => '195150400111034',
+            'nim' => env('NIM_SIAM'),
             'password' => ''
         ]);
 
