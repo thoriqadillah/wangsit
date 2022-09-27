@@ -31,4 +31,12 @@ Route::get('home', function () {
     return view('home');
 });
 
+Route::get('event', function () {
+    return view('event');
+});
+
+Route::get('academy', function () {
+    return view('academy');
+});
+
 Route::get('/example', [ExampleController::class, 'index']);
