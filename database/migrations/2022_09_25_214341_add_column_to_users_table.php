@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             // $table->date('tgl_lahir')->format('d.m.Y')->after('nama');
-            $table->binary('profile_pic')->after('nama');
+            // $table->binary('profile_pic')->after('nama');
         });
     }
 
@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             // $table->dropColumn('tgl_lahir');
-            $table->dropColumn('profile_pic');
+            // $table->dropColumn('profile_pic');
         });
     }
 };

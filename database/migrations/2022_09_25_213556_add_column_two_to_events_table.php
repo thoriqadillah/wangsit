@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('events', function (Blueprint $table) {
             //
             $table->string('slug')->after('departement_id');
-            $table->binary('thumbnail')->nullable()->after('end_date');
+            $table->string('thumbnail')->nullable()->after('end_date');
             $table->string('spreadsheet_url')->after('thumbnail');
         });
     }

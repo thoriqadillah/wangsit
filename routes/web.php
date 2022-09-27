@@ -33,6 +33,9 @@ Route::get('/', function () {
 
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/event', [EventController::class, 'index']);
+Route::get('/add-event', [EventController::class, 'addEvent']);
+Route::get('/update-event', [EventController::class, 'updateEvent']);
+Route::get('/delete-event/{id}', [EventController::class, 'deleteEvent']);
 // Route::post('/daftar-event', [EventController::class, 'index']);
 
 Route::get('/daftar-event', [UserController::class, 'daftar']);
