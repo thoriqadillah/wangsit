@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ScraperTest extends TestCase
+class ScraperServiceTest extends TestCase
 {
     public function test_successfuly_scrap_user()
     {

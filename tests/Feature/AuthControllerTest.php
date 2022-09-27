@@ -51,18 +51,6 @@ class AuthTest extends TestCase
         $this->assertEquals($errors->get('password')[0], 'password minimal berisi 8 karakter');
     }
 
-    public function test_empty_nim_should_return_validation_error()
-    {
-        $response = $this->post('/login', [
-            'nim' => '',
-            'password' => 'secret'
-        ]);
-
-        $errors = session('errors');
-        $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('nim')[0], 'nim wajib diisi');
-    }
-
     public function test_empty_password_should_return_validation_error()
     {
         $response = $this->post('/login', [
@@ -73,6 +61,18 @@ class AuthTest extends TestCase
         $errors = session('errors');
         $response->assertSessionHasErrors();
         $this->assertEquals($errors->get('password')[0], 'password wajib diisi');
+    }
+    
+    public function test_empty_nim_should_return_validation_error()
+    {
+        $response = $this->post('/login', [
+            'nim' => '',
+            'password' => 'secret'
+        ]);
+
+        $errors = session('errors');
+        $response->assertSessionHasErrors();
+        $this->assertEquals($errors->get('nim')[0], 'nim wajib diisi');
     }
 
     public function test_nim_too_short()
@@ -103,21 +103,5 @@ class AuthTest extends TestCase
     {
         $response = $this->post('/logout');
         $response->assertRedirect('/login');
-    }
-
-    public function test_login_attempt_should_return_false()
-    {
-        $auth = new AuthService();
-        $loggedIn = $auth->login('195150400111034', 'secret');
-        
-        $this->assertFalse($loggedIn);
-    }
-
-    public function test_login_attempt_should_return_true()
-    {
-        $auth = new AuthService();
-        $loggedIn = $auth->login('195150400111034', env('PASSWORD_SIAM'));
-        
-        $this->assertTrue($loggedIn);
     }
 }
