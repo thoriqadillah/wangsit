@@ -14,6 +14,6 @@ class ExampleController extends Controller
     }
 
     public function index() {
-        dd($this->example->hello("world"));
+        return $this->example->hello("example");
     }
 }
