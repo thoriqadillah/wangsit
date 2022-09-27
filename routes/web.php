@@ -27,4 +27,8 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('home', function () {
+    return view('home');
+});
+
 Route::get('/example', [ExampleController::class, 'index']);
