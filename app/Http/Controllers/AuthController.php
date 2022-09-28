@@ -15,8 +15,12 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         $credentials = $request->validate([
-            'nim' => ['required', 'min:15', 'max:15'],
-            'password' => ['required', 'min:8']
+            'nim' => ['required', 'size:15'],
+            'password' => ['required', 'min:8', ]
+        ],[
+            'required' => ':attribute wajib diisi',
+            'size' => ':attribute harus 15 karakter',
+            'min' => ':attribute minimal berisi 8 karakter'
         ]);
 
         $loggedIn = $this->auth->login($credentials['nim'], $credentials['password']);
