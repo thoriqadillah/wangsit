@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
-use App\Models\Event;
-use App\Models\Participant;
 use Carbon\Carbon;
+use App\Models\Event;
+use App\Models\Departement;
+use App\Models\Participant;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Console\EventMakeCommand;
 
 class EventService
@@ -24,46 +26,54 @@ class EventService
 
     //Buat admin
 
-    public function addEvent(int $deptId, string $slug, string $name, string $desc, string $start, string $end, string $thumbnail, string $url)
+    public function addEvent(Request $request)
     {
         // validasi input dulu sebelum melakukan insert
-        // $validated = $request->validate([
-        //     'departement_name' => 'required|unique:posts|max:255',
-        //     'name' => 'required',
-        //      ...
-        // ]);
+        $request->validate([
+            'departement_id' => 'required|max:255',
+            'slug' => 'required',
+            'name' => 'required',
+            'deskripsi' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'spreadsheet_url' => 'required'
+        ]);
 
-        $event = new Event();
-        $event->departement_id = $deptId;
-        $event->slug = $slug;
-        $event->name = $name;
-        $event->deskripsi = $desc;
-        $event->start_date = $start;
-        $event->end_date = $end;
-        $event->thumbnail = $thumbnail;
-        $event->spreadsheet_url = $url;
+        // $deptName = $request->input('departement_name');
 
-        $event->save();
+        // $getDeptId = Departement::where('departement', $deptName)->value('id');
+        // // $deptId = $getDeptId->id;
+
+
+        Event::create([
+            'departement_id' => $request->input('departement_id'),
+            'slug' => $request->input('slug'),
+            'name' => $request->input('name'),
+            'deskripsi' => $request->input('deskripsi'),
+            'start_date' => $request->input('start_date'),
+            'end_date' => $request->input('end_date'),
+            'spreadsheet_url' => $request->input('spreadsheet_url')
+        ]);
+        return redirect()->route('event');
     }
 
-    public function updateEvent(int $id, int $deptId, string $slug, string $name, string $desc, string $start, string $end, string $thumbnail, string $url)
+    public function updateEvent(Request $request, int $id)
     {
+
+        $request->validate([
+            'departement_id' => 'required|max:255',
+            'slug' => 'required',
+            'name' => 'required',
+            'deskripsi' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'spreadsheet_url' => 'required'
+        ]);
+
         $event = Event::findOrFail($id);
-        //manual
-        $event->departement_id = $deptId;
-        $event->slug = $slug;
-        $event->name = $name;
-        $event->deskripsi = $desc;
-        $event->start_date = $start;
-        $event->end_date = $end;
-        $event->thumbnail = $thumbnail;
-        $event->spreadsheet_url = $url;
 
-        $event->update();
-
-        //Harusnya ini nanti
-        // $event->update($request->all());
-        // return redirect('/Event');
+        $event->update($request->all());
+        return redirect('/Event');
     }
 
     public function deleteEvent(int $id)

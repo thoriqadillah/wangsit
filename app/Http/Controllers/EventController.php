@@ -25,28 +25,19 @@ class EventController extends Controller
 
 
     //Buat admin
-    public function addEvent()
+    public function addEvent(Request $request)
     {
-        // input diambil dari value form select untuk departement id
-        // input masih dummy
-        $deptIds = Departement::where('id', 1)->first();
-        $deptIdy = $deptIds->id;
-
-        $this->event->addEvent($deptIdy, 'event1', 'Event 1', 'Event mengenai angka 1', '2022-12-01', '2022-12-10', 'satu.jpg', 'satu.com');
+        $this->event->addEvent($request);
     }
 
-    public function updateEvent()
+    public function updateEvent(Request $request, int $id)
     {
-        // input diambil dari value form select untuk departement id
-        // input masih dummy
-        $deptIds = Departement::where('id', 1)->first();
-        $deptIdy = $deptIds->id;
-        $this->event->updateEvent(1, $deptIdy, 'event1.1', 'Event 1', 'Event mengenai angka 1', '2022-12-01', '2022-12-10', 'satu.jpg', 'satu.com');
+
+        $this->event->updateEvent($request, $id);
     }
 
     public function deleteEvent(int $id)
     {
-        //parameter nya $id diambil dari route
         $this->event->deleteEvent($id);
     }
 
