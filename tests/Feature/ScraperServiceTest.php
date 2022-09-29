@@ -7,11 +7,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ScraperTest extends TestCase
+class ScraperServiceTest extends TestCase
 {
     public function test_successfuly_scrap_user()
     {
-        $scraper = new ScrapperService('195150400111034', env('PASSWORD_SIAM'));
+        $scraper = new ScrapperService(env('NIM_SIAM'), env('PASSWORD_SIAM'));
         $user = $scraper->scrapUser();
         
         $this->assertNotEquals([], $user);
@@ -19,7 +19,7 @@ class ScraperTest extends TestCase
 
     public function test_failed_scrap_user()
     {
-        $scraper = new ScrapperService('195150400111034', 'secret');
+        $scraper = new ScrapperService(env('NIM_SIAM'), 'secret');
         $user = $scraper->scrapUser();
         
         $this->assertEquals([], $user);
