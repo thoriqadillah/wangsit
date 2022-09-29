@@ -24,6 +24,8 @@
         </div>
     </nav>
     @yield('content')
+
+    <script src="{{url('/script/script.js')}}"></script>
 </body>
 
 </html>
