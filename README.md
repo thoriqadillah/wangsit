@@ -5,7 +5,7 @@
 - PHP v8
 ## Getting Started
 ```
-clone https://github.com/thoriqadillah/antrian-rs-api.git
+clone https://github.com/thoriqadillah/wangsit.git
 cd wangsit
 composer install
 php artisan key:generate
@@ -23,12 +23,7 @@ git push -u origin <branch baru>
 ```
 kalo branch baru sudah ada di github, langsung aja ```git push```
 ## Run Local Server
-Untuk run Laravel:
-```
-php artisan serve
-```
-Untuk run tailwind css
 ```
 npm run dev 
+php artisan serve
 ```
-
