@@ -23,7 +23,6 @@ git push -u origin <branch baru>
 ```
 kalo branch baru sudah ada di github, langsung aja ```git push```
 ## Run Local Server
-Untuk run Laravel:
 ```
 npm run dev 
 php artisan serve
