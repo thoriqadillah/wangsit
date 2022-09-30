@@ -29,8 +29,8 @@
                     Login
                 </div>
                 <div class="px-4 w-full flex-col flex gap-5 lg:gap-8 my-8">
-                    <input type="text" class="bg-gray-100 p-2 rounded outline-mainColor lg:text-lg" placeholder="NIM" name="nim" required />
-                    <input type="password" class="bg-gray-100 p-2 rounded outline-mainColor lg:text-lg" placeholder="Password" name="password" required />
+                    <input type="text" class="bg-gray-100 p-2 rounded placeholder:text-[#8690d2] outline-mainColor lg:text-lg" placeholder="NIM" name="nim" required />
+                    <input type="password" class="bg-gray-100 p-2 rounded placeholder:text-[#8690d2] outline-mainColor lg:text-lg" placeholder="Password" name="password" required />
                     <input type="submit" value="Login" class="block bg-mainColor text-white w-full rounded py-2 mt-3 lg:mt-8 cursor-pointer" />
                 </div>
             </form>
