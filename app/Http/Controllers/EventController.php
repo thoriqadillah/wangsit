@@ -23,17 +23,53 @@ class EventController extends Controller
     }
 
 
-
-    //Buat admin
     public function addEvent(Request $request)
     {
-        $this->event->addEvent($request);
+
+        $validated = $request->validate([
+            'departement_id' => 'required',
+            'slug' => 'required',
+            'name' => 'required',
+            'deskripsi' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'spreadsheet_url' => 'required'
+        ], [
+            'required' => ':attribute wajib diisi'
+        ]);
+
+        $event = $this->event->addEvent($validated);
+        if ($event) {
+            // do something
+            return redirect('event')->with('status', 'Event berhasil didaftarkan');
+        }
+
+        // else do something
+        return redirect('event')->with('status', 'Event gagal didaftarkan');
     }
+
+
 
     public function updateEvent(Request $request, int $id)
     {
 
-        $this->event->updateEvent($request, $id);
+        $validate = $request->validate([
+            'departement_id' => 'required|max:255',
+            'slug' => 'required',
+            'name' => 'required',
+            'deskripsi' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'spreadsheet_url' => 'required'
+        ]);
+
+        $updEvent = $this->event->updateEvent($validate, $id);
+        if ($updEvent) {
+            return redirect()->back()->with('status', 'Event berhasil diupdate');
+        }
+
+        // else do something
+        return redirect()->back()->with('status', 'Event gagal diupdate')->withInput();
     }
 
     public function deleteEvent(int $id)

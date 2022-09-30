@@ -38,10 +38,13 @@ class EventTest extends TestCase
         $this->assertDatabaseHas('events', $input);
     }
 
+
+
+
     public function test_update_event()
     {
-        $id = 10;
-        // $event = Event::first();
+
+        $event = Event::first();
 
         $input = [
             'departement_id' => 6,
@@ -53,7 +56,7 @@ class EventTest extends TestCase
             'spreadsheet_url' => 'eventkwuupd.com'
         ];
 
-        $response = $this->json('PUT', 'update-event/' . $id, $input);
+        $response = $this->json('PUT', 'update-event/' . $event->id, $input);
 
         $this->assertEquals('eventkwu update', Event::first()->slug);
     }

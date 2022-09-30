@@ -8,6 +8,7 @@ use App\Models\Departement;
 use App\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Console\EventMakeCommand;
+use Illuminate\Database\Eloquent\Collection;
 
 class EventService
 {
@@ -26,54 +27,39 @@ class EventService
 
     //Buat admin
 
-    public function addEvent(Request $request)
+    public function addEvent(array $eventData): Collection
     {
-        // validasi input dulu sebelum melakukan insert
-        $request->validate([
-            'departement_id' => 'required|max:255',
-            'slug' => 'required',
-            'name' => 'required',
-            'deskripsi' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'spreadsheet_url' => 'required'
+
+        return Event::create([
+            'departement_id' => $eventData['departement_id'],
+            'slug' => $eventData['slug'],
+            'name' => $eventData['name'],
+            'deskripsi' => $eventData['deskripsi'],
+            'start_date' => $eventData['start_date'],
+            'end_date' => $eventData['end_date'],
+            'spreadsheet_url' => $eventData['spreadsheet_url']
         ]);
+        // return redirect()->route('event');
 
-        // $deptName = $request->input('departement_name');
-
-        // $getDeptId = Departement::where('departement', $deptName)->value('id');
-        // // $deptId = $getDeptId->id;
-
-
-        Event::create([
-            'departement_id' => $request->input('departement_id'),
-            'slug' => $request->input('slug'),
-            'name' => $request->input('name'),
-            'deskripsi' => $request->input('deskripsi'),
-            'start_date' => $request->input('start_date'),
-            'end_date' => $request->input('end_date'),
-            'spreadsheet_url' => $request->input('spreadsheet_url')
-        ]);
-        return redirect()->route('event');
     }
 
-    public function updateEvent(Request $request, int $id)
+    public function updateEvent(array $eventData, int $id): Collection
     {
 
-        $request->validate([
-            'departement_id' => 'required|max:255',
-            'slug' => 'required',
-            'name' => 'required',
-            'deskripsi' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'spreadsheet_url' => 'required'
+        return Event::where('id', $id)->update([
+            'departement_id' => $eventData['departement_id'],
+            'slug' => $eventData['slug'],
+            'name' => $eventData['name'],
+            'deskripsi' => $eventData['deskripsi'],
+            'start_date' => $eventData['start_date'],
+            'end_date' => $eventData['end_date'],
+            'spreadsheet_url' => $eventData['spreadsheet_url']
         ]);
 
-        $event = Event::findOrFail($id);
+        // $event = Event::findOrFail($id);
 
-        $event->update($request->all());
-        return redirect('/Event');
+        // $event->update($request->all());
+        // return redirect('/Event');
     }
 
     public function deleteEvent(int $id)
