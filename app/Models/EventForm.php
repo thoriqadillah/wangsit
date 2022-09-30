@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Participant extends Model
+class EventForm extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['event_id', 'name', 'nim', 'angakatan', 'idLine'];
+    protected $fillable = ['event_id', 'form_type_id', 'name', 'title', 'placeholder'];
 }

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Departement extends Model
+class EventLulusStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['departement'];
+    protected $fillable = ['event_id', 'user_id'];
 }

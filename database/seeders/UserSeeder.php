@@ -18,10 +18,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create('id_ID');
+        DB::table('users')->insert([
+            'nim' => '0000000000kbmsi',
+            'nama' => 'KEMSI',
+            'email' => 'kemsi@gmail.com',
+            'password' => bcrypt('semangatpagi'),
+            'admin_id' => 1,
+            'tgl_lahir' => Carbon::now(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
 
+        $faker = Factory::create('id_ID');
         for ($i = 0; $i < 20; $i++) {
-            $role = [null, rand(1, 8)];
+            $role = [null, rand(2, 7)];
 
             DB::table('users')->insert([
                 'nim' => Str::random(15),
@@ -29,6 +39,7 @@ class UserSeeder extends Seeder
                 'email' => $faker->email,
                 'password' => bcrypt('12345678'),
                 'admin_id' => $role[rand(0, 1)],
+                'profile_pic' => $faker->imageUrl(480, 640, 'technics'),
                 'tgl_lahir' => $faker->dateTimeBetween('-22 years', '-20 years'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

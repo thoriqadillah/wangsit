@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
         for ($i = 1; $i <= 7; $i++) {
             DB::table('admins')->insert([
                 'id' => $i,
-                'departement_id' => $i,
+                'departement_id' => $i == 1 ? null : $i, //null untuk root => kemsi
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
