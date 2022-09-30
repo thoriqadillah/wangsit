@@ -27,9 +27,21 @@ Route::post('/login', [AuthController::class, 'login'])
     ->name('login')
     ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('login');
+// });
+
+// Route::get('home', function () {
+//     return view('home');
+// });
+
+// Route::get('event', function () {
+//     return view('event');
+// });
+
+// Route::get('academy', function () {
+//     return view('academy');
+// });
 
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/event', [EventController::class, 'index'])->name('event');
