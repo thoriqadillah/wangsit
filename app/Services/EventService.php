@@ -4,79 +4,56 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Models\Event;
-use App\Models\Departement;
-use App\Models\Participant;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Console\EventMakeCommand;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
-class EventService
-{
+class EventService {
 
-    // user
-    public function showEvent()
-    {
-        $event = Event::where('end_date', ">", Carbon::now())->get();
-        // return $event
-        for ($i = 0; $i < sizeof($event); $i++) {
-            echo ($event[$i]->name);
-        }
+    public function showEvent(): Collection {
+        return Event::where('end_date', ">", Carbon::now())->get();
     }
 
+    public function showBy(string $column, $value, bool $forAdmin = false): Collection {
+        if ($forAdmin) {
+            return Event::where($column, $value)->first();
+        }
 
+        return Event::where($column, $value)
+            ->where('end_date', ">", Carbon::now())
+            ->get();
+    }
 
     //Buat admin
-
-    public function addEvent(array $eventData): Collection
-    {
+    public function addEvent(array $eventData): Collection {
+        $hash = str_replace("=", "", base64_encode(Carbon::now()));
 
         return Event::create([
-            'departement_id' => $eventData['departement_id'],
-            'slug' => $eventData['slug'],
-            'name' => $eventData['name'],
+            'departement_id' => Auth::user()->admin->departement_id,
+            'nama' => $eventData['nama'],
+            'slug' => Str::slug($eventData['nama']).'-'.$hash,
             'deskripsi' => $eventData['deskripsi'],
             'start_date' => $eventData['start_date'],
             'end_date' => $eventData['end_date'],
-            'spreadsheet_url' => $eventData['spreadsheet_url']
         ]);
-        // return redirect()->route('event');
-
     }
 
-    public function updateEvent(array $eventData, int $id): Collection
-    {
+    public function updateEvent(array $eventData, int $id): Collection {
+        $hash = str_replace("=", "", base64_encode(Carbon::now()));
 
         return Event::where('id', $id)->update([
-            'departement_id' => $eventData['departement_id'],
-            'slug' => $eventData['slug'],
-            'name' => $eventData['name'],
+            'departement_id' => Auth::user()->admin->departement_id,
+            'nama' => $eventData['nama'],
+            'slug' => Str::slug($eventData['nama']).'-'.$hash,
             'deskripsi' => $eventData['deskripsi'],
             'start_date' => $eventData['start_date'],
             'end_date' => $eventData['end_date'],
-            'spreadsheet_url' => $eventData['spreadsheet_url']
         ]);
-
-        // $event = Event::findOrFail($id);
-
-        // $event->update($request->all());
-        // return redirect('/Event');
     }
 
-    public function deleteEvent(int $id)
-    {
+    public function deleteEvent(int $id): bool {
         $event = Event::find($id);
-        $event->delete();
-        echo ('berhasil');
-    }
-
-    public function showParticipants(int $eventId)
-    {
-        $participants = Participant::where('event_id', $eventId)->get();
-
-        for ($i = 0; $i < sizeof($participants); $i++) {
-            echo ($participants[$i]->name);
-        }
-
-        // dd($participants[1]->name);
+        return $event->delete();
     }
 }

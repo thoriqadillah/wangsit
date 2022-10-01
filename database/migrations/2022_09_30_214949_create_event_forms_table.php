@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('form_type_id');
-            $table->string('name', 50);
-            $table->string('title', 100);
+            $table->string('nama', 50);
+            $table->string('judul', 100);
             $table->string('placeholder', 100);
             $table->timestamps();
             $table->softDeletes();

@@ -20,13 +20,14 @@ class EventSeeder extends Seeder
     {
         $faker = Factory::create();
         for ($i = 0; $i < 20; $i++) {
-            $name = $faker->words(rand(3, 5), true);
+            $nama = $faker->words(rand(3, 5), true);
+            $hash = str_replace("=", "", base64_encode(Carbon::now()));
 
             DB::table('events')->insert([
                 "id" => $i + 1,
                 "departement_id" => rand(1, 7),
-                "name" => $name,
-                "slug" => Str::slug($name),
+                "nama" => $nama,
+                "slug" => Str::slug($nama).'-'.$hash,
                 "deskripsi" => $faker->words(rand(8, 10), true),
                 "thumbnail" => $faker->imageUrl(480, 640, 'technics'),
                 "start_date" => Carbon::now(),

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('departement_id');
             $table->string('nama', 100);
-            $table->string('slug', 100);
+            $table->string('slug');
             $table->text('deskripsi');
             $table->string('thumbnail')->nullable();
             $table->date('start_date');
