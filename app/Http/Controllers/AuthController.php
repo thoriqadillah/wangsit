@@ -9,13 +9,11 @@ class AuthController extends Controller
 {
     protected AuthService $auth;
 
-    public function __construct(AuthService $auth)
-    {
+    public function __construct(AuthService $auth) {
         $this->auth = $auth;
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $credentials = $request->validate([
             'nim' => ['required', 'size:15'],
             'password' => ['required', 'min:8', ]
@@ -37,8 +35,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request) {
         $this->auth->logout();
 
         $request->session()->invalidate();

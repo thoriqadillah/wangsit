@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
 
-class AuthTest extends TestCase
+class AuthControllerTest extends TestCase
 {
     
     public function test_sucessfully_login()

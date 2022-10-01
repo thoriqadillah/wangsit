@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('event_lulus_statuses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('departement_id')->nullable(); //null = root account => untuk kemsi
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('event_lulus_statuses');
     }
 };

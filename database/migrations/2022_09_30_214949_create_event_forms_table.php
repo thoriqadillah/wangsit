@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('event_forms', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('departement_id')->nullable(); //null = root account => untuk kemsi
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('form_type_id');
+            $table->string('nama', 50);
+            $table->string('judul', 100);
+            $table->string('placeholder', 100);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('event_forms');
     }
 };

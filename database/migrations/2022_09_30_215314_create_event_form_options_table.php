@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,12 +14,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            // $table->date('tgl_lahir')->format('d.m.Y')->after('nama');
-            // $table->binary('profile_pic')->after('nama');
+        Schema::create('event_form_options', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('event_form_id');
+            $table->json('value');
+            $table->json('text');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -27,10 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            // $table->dropColumn('tgl_lahir');
-            // $table->dropColumn('profile_pic');
-        });
+        Schema::dropIfExists('event_form_options');
     }
 };

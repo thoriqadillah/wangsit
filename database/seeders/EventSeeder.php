@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use App\Models\Event;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class EventSeeder extends Seeder
 {
@@ -16,31 +18,24 @@ class EventSeeder extends Seeder
      */
     public function run()
     {
-        //
-        Event::insert([
-            "id" => 1,
-            "departement_id" => 5,
-            "slug" => "Genius-Accelerate",
-            "name" => "Genius : Accelerate",
-            "deskripsi" => "Pengantar Data Saintis",
-            "start_date" => Carbon::create('2022', '12', '01'),
-            "end_date" => Carbon::create('2022', '12', '10'),
-            "spreadsheet_url" => "genius.com",
-            "created_at" => Carbon::now(),
-            "updated_at" => Carbon::now(),
-        ]);
+        $faker = Factory::create();
+        for ($i = 0; $i < 20; $i++) {
+            $nama = $faker->words(rand(3, 5), true);
+            $hash = str_replace("=", "", base64_encode(Carbon::now()));
 
-        Event::insert([
-            "id" => 2,
-            "departement_id" => 4,
-            "slug" => "Atraksi",
-            "name" => "Atraksi",
-            "deskripsi" => "Belajar Figma",
-            "start_date" => Carbon::create('2022', '11', '01'),
-            "end_date" => Carbon::create('2022', '12', '5'),
-            "spreadsheet_url" => "atrkasi.com",
-            "created_at" => Carbon::now(),
-            "updated_at" => Carbon::now(),
-        ]);
+            DB::table('events')->insert([
+                "id" => $i + 1,
+                "departement_id" => rand(1, 7),
+                "nama" => $nama,
+                "slug" => Str::slug($nama).'-'.$hash,
+                "deskripsi" => $faker->words(rand(8, 10), true),
+                "thumbnail" => $faker->imageUrl(480, 640, 'technics'),
+                "start_date" => Carbon::now(),
+                "end_date" => Carbon::now()->addDays(rand(5, 7)),
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now(),
+            ]);
+        }
+        
     }
 }

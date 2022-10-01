@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,11 +20,12 @@ use App\Http\Controllers\EventController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/login', [AuthController::class, 'login'])
-    ->name('login')
-    ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
+Route::controller(AuthController::class)->group(function() {
+    Route::post('/logout', 'logout');
+    Route::post('/login', 'login')
+        ->name('login')
+        ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
+});
 
 // Route::get('/', function () {
 //     return view('login');
@@ -43,13 +43,18 @@ Route::post('/login', [AuthController::class, 'login'])
 //     return view('academy');
 // });
 
-Route::get('/example', [ExampleController::class, 'index']);
-Route::get('/event', [EventController::class, 'index'])->name('event');
-Route::post('/add-event', [EventController::class, 'addEvent']);
-// Route::get('/update-event/{id}', [EventController::class, 'updateEventPage']);
-Route::put('/update-event/{id}', [EventController::class, 'updateEvent']);
-Route::delete('/delete-event/{id}', [EventController::class, 'deleteEvent']);
-// Route::post('/daftar-event', [EventController::class, 'index']);
+//untuk debuging tidak masalah route grouping dikomen dulu
+Route::middleware('auth')->group(function() {
+    Route::get('/event', [EventController::class, 'index']);
+    Route::get('/event/{departementId}', [EventController::class, 'showByDepartement']);
+    Route::get('/event/{slug}', [EventController::class, 'showDetail']);
+});
 
-Route::get('/daftar-event', [UserController::class, 'daftar']);
-Route::get('/ParticipantList', [EventController::class, 'showParticipants']);
+//untuk debuging tidak masalah route grouping dikomen dulu
+Route::middleware('admin')->group(function() {
+    Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
+    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
+    Route::post('/admin/event', [EventController::class, 'addEvent']);
+});
+
+Route::get('/example', [ExampleController::class, 'index']);
