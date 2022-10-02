@@ -2,7 +2,8 @@
 
 ## Prerequisite
 - Node js v16.16.0
-- PHP v8
+- NPM
+- PHP v8.1
 ## Getting Started
 ```
 clone https://github.com/thoriqadillah/wangsit.git
