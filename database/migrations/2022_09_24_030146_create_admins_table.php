@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('departement_id')->nullable(); //null = root account => untuk kemsi
+            $table->string('role', 30); 
             $table->timestamps();
             $table->softDeletes();
         });
