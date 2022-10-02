@@ -16,4 +16,8 @@ class ExampleController extends Controller
     public function index() {
         return $this->example->hello("example");
     }
+
+    public function debug() {
+        return 'hello debug';
+    }
 }
