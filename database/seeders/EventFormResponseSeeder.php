@@ -8,7 +8,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class EventResponseSeeder extends Seeder
+class EventFormResponseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,7 +28,7 @@ class EventResponseSeeder extends Seeder
         }
 
         for ($i = 0; $i <= 60; $i++) {
-            DB::table('event_response_jsons')->insert([
+            DB::table('event_form_responses')->insert([
                 'event_id' => 1,
                 'user_id' => rand(1, 20),
                 'response' => json_encode($response),
