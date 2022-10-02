@@ -3,9 +3,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExampleController;
-use App\Models\User;
-use App\Services\AuthService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
@@ -57,4 +54,6 @@ Route::middleware('admin')->group(function() {
     Route::post('/admin/event', [EventController::class, 'addEvent']);
 });
 
+//untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
+Route::get('/debug', [ExampleController::class, 'debug']);
 Route::get('/example', [ExampleController::class, 'index']);

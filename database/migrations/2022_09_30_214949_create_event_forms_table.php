@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nama', 50);
             $table->string('judul', 100);
             $table->string('placeholder', 100);
+            $table->json('value_options')->nullable(); //opsi pilihan untuk tipe form checkbox, radio/dropdown => isinya value dan text
             $table->timestamps();
             $table->softDeletes();
         });
