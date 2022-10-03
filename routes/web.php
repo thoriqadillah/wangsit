@@ -55,3 +55,8 @@ Route::middleware('admin')->group(function () {
 //untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
 Route::get('/debug', [ExampleController::class, 'debug']);
 Route::get('/example', [ExampleController::class, 'index']);
+
+Route::get('/academy', [AcademyController::class, 'showAcademy']);
+Route::post('/admin/academy', [AcademyController::class, 'addAcademy']);
+Route::delete('/admin/academy/{id}', [AcademyController::class, 'deleteAcademy']);
+Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
