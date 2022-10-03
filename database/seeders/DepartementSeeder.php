@@ -18,43 +18,43 @@ class DepartementSeeder extends Seeder
     {
         DB::table('departements')->insert([
             "id" => 1,
-            "departement" => "NONDEPT",
+            "nama" => "NONDEPT",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
         DB::table('departements')->insert([
             "id" => 2,
-            "departement" => "MEDKOMINFO",
+            "nama" => "MEDKOMINFO",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
         DB::table('departements')->insert([
             "id" => 3,
-            "departement" => "ADVOKESMA",
+            "nama" => "ADVOKESMA",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
         DB::table('departements')->insert([
             "id" => 4,
-            "departement" => "PSDM",
+            "nama" => "PSDM",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
         DB::table('departements')->insert([
             "id" => 5,
-            "departement" => "P2S",
+            "nama" => "P2S",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
         DB::table('departements')->insert([
             "id" => 6,
-            "departement" => "KWU",
+            "nama" => "KWU",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
         DB::table('departements')->insert([
             "id" => 7,
-            "departement" => "SOSMA",
+            "nama" => "SOSMA",
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
         ]);
