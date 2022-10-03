@@ -4,8 +4,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Livewire\Academy;
+use App\Http\Livewire\Event;
 
 /*
 |--------------------------------------------------------------------------

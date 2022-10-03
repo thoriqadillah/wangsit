@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('slug');
             $table->text('deskripsi');
             $table->string('thumbnail')->nullable();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('tgl_acara');
+            $table->date('start_date'); //waktu buka pendaftaran
+            $table->date('end_date'); //waktu tutup pendaftaran
             $table->timestamps();
             $table->softDeletes();
         });

@@ -30,6 +30,7 @@ class EventSeeder extends Seeder
                 "slug" => Str::slug($nama).'-'.$hash,
                 "deskripsi" => $faker->words(rand(8, 10), true),
                 "thumbnail" => $faker->imageUrl(480, 640, 'technics'),
+                "tgl_acara" => Carbon::now()->addDays(rand(8, 10)),
                 "start_date" => Carbon::now(),
                 "end_date" => Carbon::now()->addDays(rand(5, 7)),
                 "created_at" => Carbon::now(),
