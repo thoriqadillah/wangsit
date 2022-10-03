@@ -17,38 +17,39 @@ use App\Http\Controllers\EventController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(AuthController::class)->group(function() {
+
+Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout');
     Route::post('/login', 'login')
         ->name('login')
         ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
 });
 
-// Route::get('/', function () {
-//     return view('login');
-// });
+Route::get('/', function () {
+    return view('home');
+});
 
-// Route::get('home', function () {
-//     return view('home');
-// });
+Route::get('home', function () {
+    return view('home');
+});
 
-// Route::get('event', function () {
-//     return view('event');
-// });
+Route::get('event', function () {
+    return view('event');
+});
 
-// Route::get('academy', function () {
-//     return view('academy');
-// });
+Route::get('academy', function () {
+    return view('academy');
+});
 
 //untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/event', [EventController::class, 'index']);
     Route::get('/event/{departementId}', [EventController::class, 'showByDepartement']);
     Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 });
 
 //untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('admin')->group(function() {
+Route::middleware('admin')->group(function () {
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
     Route::post('/admin/event', [EventController::class, 'addEvent']);
