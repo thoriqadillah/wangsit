@@ -1,12 +1,13 @@
 <?php
 
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ExampleController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EventController;
-use App\Http\Livewire\Academy;
 use App\Http\Livewire\Event;
+use App\Http\Livewire\Academy;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\ExampleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use App\Http\Livewire\Event;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(AuthController::class)->group(function() {
+
+Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout');
     Route::post('/login', 'login')
         ->name('login')
@@ -37,14 +39,14 @@ Route::get('/event', Event::class);
 Route::get('/academy', Academy::class);
 
 //untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     // Route::get('/event', [EventController::class, 'index']);
     Route::get('/event/{departementId}', [EventController::class, 'showByDepartement']);
     Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 });
 
 //untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('admin')->group(function() {
+Route::middleware('admin')->group(function () {
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
     Route::post('/admin/event', [EventController::class, 'addEvent']);
