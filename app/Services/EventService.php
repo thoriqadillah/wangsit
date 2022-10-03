@@ -4,20 +4,22 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Models\Event;
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Console\EventMakeCommand;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\Cursor;
 use Illuminate\Support\Facades\Auth;
 
 class EventService {
 
-    public function showEvent(): Collection {
+    public function showEvent($perPage = 10) {
         return Event::where('end_date', ">", Carbon::now())->get();
     }
 
-    public function showBy(string $column, $value, bool $forAdmin = false): Collection {
+    public function showBy(string $column, $value, int $total = 10, bool $forAdmin = false): Collection {
         if ($forAdmin) {
-            return Event::where($column, $value)->first();
+            return Event::where($column, $value)->get();
         }
 
         return Event::where($column, $value)
