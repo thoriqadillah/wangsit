@@ -1,4 +1,4 @@
-@extends('layouts.layouts')
+@extends('layouts.app')
 @section('content')
 <div class="flex flex-col lg:flex-row gap-5 px-8 lg:px-20 py-20 lg:py-28">
 
@@ -6,7 +6,7 @@
         <!-- Apps Section -->
         <div class="w-full border border-mainColor rounded flex flex-col gap-5">
             <div class="w-full h-16 text-white rounded-t bg-mainColor flex items-center justify-center text-lg">
-                Apss
+                Apps
             </div>
 
             <div class="flex flex-col lg:flex-row lg:justify-evenly ">
