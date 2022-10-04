@@ -19,7 +19,7 @@ class ScraperServiceTest extends TestCase
 
     public function test_failed_scrap_user()
     {
-        $scraper = new ScrapperService(env('NIM_SIAM'), 'secret');
+        $scraper = new ScrapperService('19515040011111', 'secret');
         $user = $scraper->scrapUser();
         
         $this->assertEquals([], $user);
