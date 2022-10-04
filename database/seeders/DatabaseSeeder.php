@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FormTypeSeeder::class);
         $this->call(EventSeeder::class);
         $this->call(EventFormResponseSeeder::class);
+        $this->call(AcademySeeder::class);
     }
 }

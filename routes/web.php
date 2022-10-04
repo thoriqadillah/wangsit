@@ -4,8 +4,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Livewire\Academy;
+use App\Http\Livewire\Event;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,21 +29,16 @@ Route::controller(AuthController::class)->group(function() {
 //     return view('login');
 // });
 
-// Route::get('home', function () {
-//     return view('home');
-// });
+Route::get('/', function () {
+    return view('home');
+});
 
-// Route::get('event', function () {
-//     return view('event');
-// });
-
-// Route::get('academy', function () {
-//     return view('academy');
-// });
+Route::get('/event', Event::class);
+Route::get('/academy', Academy::class);
 
 //untuk debuging tidak masalah route grouping dikomen dulu
 Route::middleware('auth')->group(function() {
-    Route::get('/event', [EventController::class, 'index']);
+    // Route::get('/event', [EventController::class, 'index']);
     Route::get('/event/{departementId}', [EventController::class, 'showByDepartement']);
     Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 });
