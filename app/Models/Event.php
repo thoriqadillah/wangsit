@@ -14,4 +14,8 @@ class Event extends Model
     protected $casts = [
         'tgl_acara'  => 'datetime',
     ];
+
+    public function forms() {
+        return $this->hasMany(EventForm::class, 'event_id');
+    }
 }

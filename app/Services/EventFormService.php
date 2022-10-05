@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Event;
 use App\Models\EventForm;
+use Illuminate\Database\Eloquent\Collection;
 
 class EventFormService {
 
@@ -15,5 +17,9 @@ class EventFormService {
     }
 
     return EventForm::insert($forms);
+  }
+
+  public function getEventForm(string $slug): Collection {
+    return Event::where('slug', $slug)->first()->forms;
   }
 }
