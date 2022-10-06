@@ -61,15 +61,15 @@ class EventFormMaker extends Component {
         ];
     }
 
-    public function deleteInputOption(int $input_id, int $option_id) {
-        if (count($this->forms[$input_id]['value_options']) !== 1) {
-            unset($this->forms[$input_id]['value_options'][$option_id]);
-            $this->forms[$input_id]['value_options'] = array_values($this->forms[$input_id]['value_options']);
+    public function deleteInputOption(int $inputId, int $optionId) {
+        if (count($this->forms[$inputId]['value_options']) > 1) {
+            unset($this->forms[$inputId]['value_options'][$optionId]);
+            $this->forms[$inputId]['value_options'] = array_values($this->forms[$inputId]['value_options']);
         }
     }
 
     public function deleteInput(int $index) {
-        if (count($this->forms) !== 1) {
+        if (count($this->forms) > 1) {
             unset($this->forms[$index]);
             $this->forms = array_values($this->forms);
         }
