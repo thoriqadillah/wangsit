@@ -23,11 +23,11 @@ class Event extends Component {
         $this->events = $this->eventService->showEvent();
     }
     
-    public function showEvents(int $dept_id = 0) {
-        if ($dept_id == 0) {
+    public function showEvents(int $deptId = 0) {
+        if ($deptId == 0) {
             $this->events = $this->eventService->showEvent();
         } else {
-            $this->events = $this->eventService->showBy('departement_id', $dept_id);
+            $this->events = $this->eventService->showBy('departement_id', $deptId);
         }
     }
 

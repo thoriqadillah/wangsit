@@ -66,9 +66,9 @@ class ScrapperService {
       ]);
 
       return $user;
-  } catch(Exception $e) {
-    return [];
-  }
+    } catch(Exception $e) {
+      return [];
+    }
   }
 
   private function getDom(string $html): DOMXPath {
