@@ -32,14 +32,13 @@ class EventRegistration extends Component {
     public function saveResponse() {
         $event = $this->eventForm[0]->event;
 
-        $created = $this->formResponseService->saveResponse($event->id, $this->formResponse);
+        $created = $this->formResponseService->findOrSaveResponse($event->id, $this->formResponse);
         if ($created) {
-            return redirect()->to("/event/$event->slug")
-                ->with('status', "Berhasil mendaftar event $event->nama");
+            return redirect()->to("/event/$event->slug/berhasil");
         }
-
+        
         return redirect()->refresh()
-            ->withErrors(['status' => "Berhasil mendaftar event $event->nama"]);
+            ->withErrors(['status' => "Kesalahan terjadi saat mendaftar event $event->nama"]);
     }
 
     public function render() {

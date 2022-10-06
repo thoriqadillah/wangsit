@@ -38,7 +38,7 @@ Route::get('/event', Event::class);
 Route::get('/academy', Academy::class);
 // Route::get('/admin/event/{event_id}/tambah-form', EventForm::class);
 Route::get('/event/{slug}/daftar', EventRegistration::class);
-Route::post('/event/{slug}/daftar', [EventRegistration::class, 'saveResponse']);
+Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
 
 //untuk debuging tidak masalah route grouping dikomen dulu
 Route::middleware('auth')->group(function() {
