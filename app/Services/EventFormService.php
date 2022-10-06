@@ -11,7 +11,7 @@ class EventFormService {
   public function createForm(array $forms) {
     //encoding assoc array to json
     foreach ($forms as $form) {
-      $form['value_options'] = $form['value_options'] == null 
+      $form['value_options'] = $form['value_options']['text'] == '' && $form['value_options']['value'] == ''
         ? null
         : json_encode($form['value_options']);
     }

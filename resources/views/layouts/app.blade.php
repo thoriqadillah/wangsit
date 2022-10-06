@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    @auth
     <nav class="w-full flex h-16 px-5 lg:px-16 items-center bg-white shadow z-20 fixed justify-between">
         <img src="{{url('/asset/menu.svg')}}" class="w-6 lg:hidden" onclick="mySidebar()" />
         <img src="{{url('/asset/logo.png')}}" class="w-24 lg:w-32" />
@@ -48,6 +49,7 @@
             </a>
         </div>
     </nav>
+    @endauth
 
     <!-- sidebar -->
     <div id="sidebar" class="h-screen fixed z-10 w-60 top-0 bg-white transition -left-60 duration-700 px-5 py-20">

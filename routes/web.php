@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Livewire\Academy;
 use App\Http\Livewire\Event;
+use App\Http\Livewire\EventFormMaker;
 use App\Http\Livewire\EventRegistration;
 
 /*
@@ -37,6 +38,7 @@ Route::get('/', function () {
 Route::get('/event', Event::class);
 Route::get('/academy', Academy::class);
 // Route::get('/admin/event/{event_id}/tambah-form', EventForm::class);
+Route::get('/event/{slug}/buat-form', EventFormMaker::class);
 Route::get('/event/{slug}/daftar', EventRegistration::class);
 Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
 
