@@ -12,10 +12,16 @@
         <div class="py-2">
             <label><strong>JUDUL</strong></label>
             <input type="Text" wire:model.defer="forms.{{$i}}.judul" class="border p-3">
+            @error("forms.*.*")
+                <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+            @enderror
         </div>
         <div class="py-2">
             <label><strong>PLACEHOLDER</strong></label>
             <input type="text" wire:model.defer="forms.{{$i}}.placeholder" class="border p-3">
+            @error("forms.*.*")
+                <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+            @enderror
         </div>
         @if ($forms[$i]['form_type_id'] !== "1") 
             <div class="py-2 border my-2">
@@ -24,8 +30,16 @@
                     <div>
                         <label><strong>JUDUL OPSI</strong></label>
                         <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.text"  class="border p-3">
+                        @error("forms.$i.value_options.$j.text")
+                            <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+                        @enderror
+
                         <label><strong>VALUE OPSI</strong></label>
                         <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.value" class="border p-3">
+                        @error("forms.$i.value_options.$j.value")
+                            <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+                        @enderror
+
                         <button type="button" wire:click="addInputOption({{ $i }})" class="p-2 border bg-gray-200">TAMBAH OPSI</button>
                         <button type="button" wire:click="deleteInputOption({{ $i }}, {{ $j }})" class="p-2 border bg-gray-200">HAPUS OPSI</button>
                     </div>

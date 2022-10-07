@@ -30,6 +30,6 @@ class EventFormService {
   }
 
   public function getEventForm(string $slug) {
-    return Event::where('slug', $slug)->first()->forms;
+    return Event::where('slug', $slug)->first()->form;
   }
 }

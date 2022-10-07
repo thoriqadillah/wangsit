@@ -24,6 +24,6 @@ class EventFormResponseService {
   public function checkUserResponse(int $eventId) {
     return EventFormResponse::where('event_id', $eventId)
       ->where('user_id', Auth::id())
-      ->get();
+      ->first();
   }
 }

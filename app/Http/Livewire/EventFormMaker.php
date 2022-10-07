@@ -86,7 +86,9 @@ class EventFormMaker extends Component {
     }
 
     public function createForm() {
-        //TODO: buat validasi
+        $validatorRules = $this->createRule($this->forms);
+        $this->validate($validatorRules, ['required' => 'input wajib diisi']);
+
         $created = $this->eventFormService->createForm($this->forms, $this->event->id);
         if ($created) {
             return redirect()->to('/event/'.$this->event->slug)
@@ -98,7 +100,9 @@ class EventFormMaker extends Component {
     }
 
     public function updateForm() {
-        //TODO: buat validasi
+        $validatorRules = $this->createRule($this->forms);
+        $this->validate($validatorRules, ['required' => 'input wajib diisi']);
+
         $updated = $this->eventFormService->updateForm($this->forms, $this->event->id);
         if ($updated) {
             return redirect()->to('/event/'.$this->event->slug)
@@ -109,9 +113,25 @@ class EventFormMaker extends Component {
             ->withErrors(['status' => 'Kesalahan terjadi saat membuat form']);
     }
 
+    public function createRule($forms) {
+        $validatorRules = [];
+        $validatorRules['forms.*.*'] = ['required'];
+        foreach ($forms as $i => $form) {
+            if ($form['form_type_id'] !== "1") {
+                foreach ($form['value_options'] as $j => $opt) {
+                    $validatorRules["forms.$i.value_options.$j.text"] = ['required'];
+                    $validatorRules["forms.$i.value_options.$j.value"] = ['required'];
+                }
+            }
+        }
+        
+        return $validatorRules;
+    }
+
     public function render() {
         return view('livewire.event-form-maker')
             ->extends('layouts.app')
             ->section('content');
     }
+
 }

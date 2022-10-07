@@ -3,6 +3,9 @@
     <div class="py-2">
       <label><strong>LABEL</strong> {{ $form['judul'] }}</label>
       <input type="text" wire:model.defer="formResponse.{{$index}}.response" class="border p-3">
+      @error("formResponse.*.response")
+          <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+      @enderror
     </div>
   @endforeach
 

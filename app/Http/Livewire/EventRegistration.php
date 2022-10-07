@@ -35,8 +35,9 @@ class EventRegistration extends Component {
     }
 
     public function saveResponse() {
-        //TODO: buat validasi
         $event = $this->eventForm->event;
+        $validatorRules = $this->createRule($this->formResponse);
+        $this->validate($validatorRules, ['required' => 'input wajib diisi']);
 
         $created = $this->formResponseService->saveResponse($event->id, $this->formResponse);
         if ($created) {
@@ -45,6 +46,13 @@ class EventRegistration extends Component {
         
         return redirect()->refresh()
             ->withErrors(['status' => "Kesalahan terjadi saat mendaftar event $event->nama"]);
+    }
+
+    public function createRule($formResponse) {
+        $validatorRules = [];
+        $validatorRules['formResponse.*.response'] = ['required'];
+
+        return $validatorRules;
     }
 
     public function render() {
