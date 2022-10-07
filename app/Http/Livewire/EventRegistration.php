@@ -50,7 +50,9 @@ class EventRegistration extends Component {
 
     public function createRule($formResponse) {
         $validatorRules = [];
-        $validatorRules['formResponse.*.response'] = ['required'];
+        foreach ($formResponse as $i => $form) {
+            $validatorRules["formResponse.$i.response"] = ['required'];
+        }
 
         return $validatorRules;
     }

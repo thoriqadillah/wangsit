@@ -115,8 +115,9 @@ class EventFormMaker extends Component {
 
     public function createRule($forms) {
         $validatorRules = [];
-        $validatorRules['forms.*.*'] = ['required'];
         foreach ($forms as $i => $form) {
+            $validatorRules["forms.$i.judul"] = ['required'];
+            $validatorRules["forms.$i.placeholder"] = ['required'];
             if ($form['form_type_id'] !== "1") {
                 foreach ($form['value_options'] as $j => $opt) {
                     $validatorRules["forms.$i.value_options.$j.text"] = ['required'];

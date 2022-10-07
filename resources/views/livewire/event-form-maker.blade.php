@@ -12,14 +12,14 @@
         <div class="py-2">
             <label><strong>JUDUL</strong></label>
             <input type="Text" wire:model.defer="forms.{{$i}}.judul" class="border p-3">
-            @error("forms.*.*")
+            @error("forms.$i.judul")
                 <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
             @enderror
         </div>
         <div class="py-2">
             <label><strong>PLACEHOLDER</strong></label>
             <input type="text" wire:model.defer="forms.{{$i}}.placeholder" class="border p-3">
-            @error("forms.*.*")
+            @error("forms.$i.placeholder")
                 <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
             @enderror
         </div>
