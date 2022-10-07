@@ -1,7 +1,7 @@
 <div class="px-8 lg:px-20 py-20 lg:py-28">
-  @foreach ($eventForm as $index => $form)
+  @foreach ($eventForm->format as $index => $form)
     <div class="py-2">
-      <label><strong>LABEL</strong> {{ $form->judul }}</label>
+      <label><strong>LABEL</strong> {{ $form['judul'] }}</label>
       <input type="text" wire:model.defer="formResponse.{{$index}}.response" class="border p-3">
     </div>
   @endforeach

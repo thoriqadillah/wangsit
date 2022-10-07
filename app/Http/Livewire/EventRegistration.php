@@ -21,18 +21,24 @@ class EventRegistration extends Component {
 
     public function mount(string $slug) {
         $this->eventForm = $this->eventFormService->getEventForm($slug);
+        $event = $this->eventForm->event;
 
-        foreach ($this->eventForm as $index => $form) {
+        $hasRegistered = $this->formResponseService->checkUserResponse($this->eventForm->event->id);
+        if ($hasRegistered) {
+            return redirect()->to("/event/$event->slug/berhasil");
+        }
+        foreach ($this->eventForm->format as $index => $form) {
             $this->formResponse[$index] = [
-                'judul' => $form->judul
+                'judul' => $form['judul']
             ];
         }
     }
 
     public function saveResponse() {
-        $event = $this->eventForm[0]->event;
+        //TODO: buat validasi
+        $event = $this->eventForm->event;
 
-        $created = $this->formResponseService->findOrSaveResponse($event->id, $this->formResponse);
+        $created = $this->formResponseService->saveResponse($event->id, $this->formResponse);
         if ($created) {
             return redirect()->to("/event/$event->slug/berhasil");
         }

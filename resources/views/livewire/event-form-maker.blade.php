@@ -3,7 +3,7 @@
     <div class="border py-2 my-2">
         <div class="py-2">
             <label><strong>TIPE FORM</strong></label>
-            <select name="form_type" wire:model="forms.{{$i}}.form_type_id" data-selector="selector-{{$i}}">
+            <select name="form_type" wire:model="forms.{{$i}}.form_type_id">
                 @foreach ($formTypes as $type)
                     <option value="{{ $type->id }}">{{ $type->nama }}</option>
                 @endforeach
@@ -17,15 +17,15 @@
             <label><strong>PLACEHOLDER</strong></label>
             <input type="text" wire:model.defer="forms.{{$i}}.placeholder" class="border p-3">
         </div>
-        @if ($forms[$i]['form_type_id'] !== 1) 
-            <div class="py-2 border my-2" data-option="option={{$i}}">
+        @if ($forms[$i]['form_type_id'] !== "1") 
+            <div class="py-2 border my-2">
                 @foreach ($forms[$i]['value_options'] as $j => $options)
                     <label><strong>OPSI PILIHAN {{ $j }}</strong></label>
                     <div>
                         <label><strong>JUDUL OPSI</strong></label>
-                        <input type="text" wire:model.defer="forms.{{$i}}.value_options.{{$j}}.text" class="border p-3">
+                        <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.text"  class="border p-3">
                         <label><strong>VALUE OPSI</strong></label>
-                        <input type="text" wire:model.defer="forms.{{$i}}.value_options.{{$j}}.value" class="border p-3">
+                        <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.value" class="border p-3">
                         <button type="button" wire:click="addInputOption({{ $i }})" class="p-2 border bg-gray-200">TAMBAH OPSI</button>
                         <button type="button" wire:click="deleteInputOption({{ $i }}, {{ $j }})" class="p-2 border bg-gray-200">HAPUS OPSI</button>
                     </div>
@@ -33,16 +33,16 @@
             </div>
         @endif
         <div>
+            <button type="button" wire:click="addInput({{ $i+1 }})" class="p-2 border bg-gray-200">TAMBAH INPUT</button>
             <button type="button" wire:click="deleteInput({{ $i }})" class="p-2 border bg-gray-200">HAPUS INPUT</button>
         </div>
     </div>
   @endforeach
-
   <div>
-    <button type="button" wire:click="addInput()" class="p-2 border bg-gray-200">TAMBAH INPUT</button>
-  </div>
-  <br>
-  <div>
-    <button type="button" wire:click="createForm()" class="p-2 border bg-gray-200">SAVE</button>
+    @if ($isUpdate)
+        <button type="button" wire:click="updateForm()" class="p-2 border bg-gray-200">UPDATE</button>
+    @else
+        <button type="button" wire:click="createForm()" class="p-2 border bg-gray-200">SAVE</button>
+    @endif
   </div>
 </div>

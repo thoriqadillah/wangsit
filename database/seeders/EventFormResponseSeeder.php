@@ -30,7 +30,7 @@ class EventFormResponseSeeder extends Seeder
         for ($i = 0; $i <= 60; $i++) {
             DB::table('event_form_responses')->insert([
                 'event_id' => 1,
-                'user_id' => rand(1, 20),
+                'user_id' => $i, 
                 'response' => json_encode($response),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

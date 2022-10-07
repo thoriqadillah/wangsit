@@ -11,13 +11,19 @@ class EventFormResponseService {
   /**
    * Untuk mencegah user mendaftarkan diri pada event 2x
    */
-  public function findOrSaveResponse(int $eventId, array $responseData): Collection {
-    return EventFormResponse::firstOrCreate(['event_id' => $eventId, 'user_id' => Auth::id()], [
-      'response' => json_encode($responseData)
+  public function saveResponse(array $responseData) {
+    return EventFormResponse::create([
+      'response' => $responseData
     ]);
   }
 
   public function getResponses(int $eventId, int $perPage = 15) {
     return EventFormResponse::where('event_id', $eventId)->paginate($perPage);
+  }
+
+  public function checkUserResponse(int $eventId) {
+    return EventFormResponse::where('event_id', $eventId)
+      ->where('user_id', Auth::id())
+      ->get();
   }
 }

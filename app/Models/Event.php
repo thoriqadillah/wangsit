@@ -15,7 +15,7 @@ class Event extends Model
         'tgl_acara'  => 'datetime',
     ];
 
-    public function forms() {
-        return $this->hasMany(EventForm::class, 'event_id');
+    public function form() {
+        return $this->hasOne(EventForm::class, 'event_id');
     }
 }
