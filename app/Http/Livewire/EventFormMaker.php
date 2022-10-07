@@ -27,7 +27,7 @@ class EventFormMaker extends Component {
     public function mount(string $slug) {
         $this->formTypes = FormType::all();
         $this->event = $this->eventService->showBy('slug', $slug)[0];
-        $this->existedForm = $this->event->form->toArray();
+        $this->existedForm = $this->event->form == null ? $this->event->form : $this->event->form->toArray();
 
         if ($this->existedForm) {
             $this->forms = $this->existedForm['format'];
