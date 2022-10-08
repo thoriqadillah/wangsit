@@ -14,4 +14,8 @@ class Event extends Model
     protected $casts = [
         'tgl_acara'  => 'datetime',
     ];
+
+    public function form() {
+        return $this->hasOne(EventForm::class, 'event_id');
+    }
 }

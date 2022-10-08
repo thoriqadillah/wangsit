@@ -48,7 +48,8 @@ class ScrapperService {
       $announcement = substr($dom->evaluate('//section[@id="announcement"]/div[1]/p/text()')[0]->nodeValue, 51);
       $user['email'] = substr($announcement, 0, strlen($announcement) - 1);
       $angkatan = substr($user['nim'], 0, 2);
-      $user['profile_pic'] = "https://siakad.ub.ac.id/dirfoto/foto/foto_20{$angkatan}/{$user['nim']}.jpg";
+      $nim = $user['nim'];
+      $user['profile_pic'] = "https://siakad.ub.ac.id/dirfoto/foto/foto_20$angkatan/$nim.jpg";
 
       $response = $http->request('GET', 'https://siam.ub.ac.id/biodata.tampil.php', [
         'cookies' => $cookieJar
@@ -66,9 +67,9 @@ class ScrapperService {
       ]);
 
       return $user;
-  } catch(Exception $e) {
-    return [];
-  }
+    } catch(Exception $e) {
+      return [];
+    }
   }
 
   private function getDom(string $html): DOMXPath {
