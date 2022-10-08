@@ -11,8 +11,8 @@ class EventFormResponseService {
   /**
    * Untuk mencegah user mendaftarkan diri pada event 2x
    */
-  public function saveResponse(array $responseData) {
-    return EventFormResponse::create([
+  public function saveResponse(int $eventId, array $responseData) {
+    return EventFormResponse::firstOrCreate([ 'event_id' => $eventId, 'user_id' => Auth::id() ], [
       'response' => $responseData
     ]);
   }
