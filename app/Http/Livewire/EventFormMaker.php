@@ -37,6 +37,7 @@ class EventFormMaker extends Component {
 				'form_type_id' => "1",
 				'judul' => '',
 				'placeholder' => '',
+				'required' => false,
 				'value_options' => [
 					[
 						'text' => '',
@@ -53,6 +54,7 @@ class EventFormMaker extends Component {
 				'form_type_id' => "1",
 				'judul' => '',
 				'placeholder' => '',
+				'required' => false,
 				'value_options' => [
 					[
 						'text' => '',
@@ -83,6 +85,10 @@ class EventFormMaker extends Component {
 			unset($this->forms[$index]);
 			$this->forms = array_values($this->forms);
 		}
+	}
+
+	public function setRequired(int $index) {
+		$this->forms[$index]['required'] = !$this->forms[$index]['required'];
 	}
 
 	public function createForm() {

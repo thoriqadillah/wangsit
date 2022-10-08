@@ -18,17 +18,22 @@ class EventFormSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) {
-            $format = [
+        $format = [];
+        for ($i=0; $i < 10; $i++) { 
+            $format[] = [
                 'form_type_id' => "1",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
+                'required' => $faker->boolean(),
                 'value_options' => [
                     ['text' => '','value' => '']
                 ]
             ];
+        }
+
+        for ($i = 0; $i < 10; $i++) {
             DB::table('event_forms')->insert([
-                'event_id' => 1,
+                'event_id' => $i,
                 'format' => json_encode($format),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

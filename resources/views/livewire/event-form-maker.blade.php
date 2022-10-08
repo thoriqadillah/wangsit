@@ -23,7 +23,11 @@
                 <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
             @enderror
         </div>
-        @if ($forms[$i]['form_type_id'] !== "1") 
+        <div class="py-2">
+            <label><strong>REQUIRED</strong></label>
+            <input type="checkbox" wire:click="setRequired({{ $i }})" class="border p-3" @if ($forms[$i]["required"]) checked @endif>
+        </div>
+        @if ($forms[$i]['form_type_id'] != "1") 
             <div class="py-2 border my-2">
                 @foreach ($forms[$i]['value_options'] as $j => $options)
                     <label><strong>OPSI PILIHAN {{ $j }}</strong></label>

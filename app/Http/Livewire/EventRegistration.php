@@ -21,15 +21,18 @@ class EventRegistration extends Component {
 
 	public function mount(string $slug) {
 		$this->eventForm = $this->eventFormService->getEventForm($slug);
-		$event = $this->eventForm->event;
+		if (!$this->eventForm) return abort(404);
 
+		$event = $this->eventForm->event;
 		$hasRegistered = $this->formResponseService->checkUserResponse($this->eventForm->event->id);
 		if ($hasRegistered) {
 			return redirect()->to("/event/$event->slug/berhasil");
 		}
+
 		foreach ($this->eventForm->format as $index => $form) {
 			$this->formResponse[$index] = [
-					'judul' => $form['judul']
+				'judul' => $form['judul'],
+				'required' => $form['required']
 			];
 		}
 	}
@@ -51,7 +54,9 @@ class EventRegistration extends Component {
 	public function createRule($formResponse) {
 		$validatorRules = [];
 		foreach ($formResponse as $i => $form) {
-			$validatorRules["formResponse.$i.response"] = ['required'];
+			if ($form['required']) {
+				$validatorRules["formResponse.$i.response"] = ['required'];
+			}
 		}
 
 		return $validatorRules;
