@@ -33,7 +33,7 @@ class EventFormSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             DB::table('event_forms')->insert([
-                'event_id' => $i,
+                'event_id' => $i + 1,
                 'format' => json_encode($format),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
