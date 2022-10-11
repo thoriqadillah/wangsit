@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <!-- untuk 404 -->
+    @yield('error') 
+    
     @auth
     <nav class="w-full flex h-16 px-5 lg:px-16 items-center bg-white shadow z-20 fixed justify-between">
         <img src="{{url('/asset/menu.svg')}}" class="w-6 lg:hidden" onclick="mySidebar()" />
@@ -49,7 +52,6 @@
             </a>
         </div>
     </nav>
-    @endauth
 
     <!-- sidebar -->
     <div id="sidebar" class="h-screen fixed z-10 w-60 top-0 bg-white transition -left-60 duration-700 px-5 py-20">
@@ -77,6 +79,7 @@
         </div>
     </div>
     <!-- sidebar -->
+    @endauth
 
     <!-- background modal -->
     <div id="modal" class="fixed w-full h-full bg-[#000000e1] hidden"></div>

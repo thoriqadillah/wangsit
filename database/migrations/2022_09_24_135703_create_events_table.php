@@ -18,11 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('departement_id');
             $table->string('nama', 100);
             $table->string('slug');
-            $table->text('deskripsi');
             $table->string('thumbnail')->nullable();
-            $table->date('tgl_acara');
-            $table->date('start_date'); //waktu buka pendaftaran
-            $table->date('end_date'); //waktu tutup pendaftaran
+            $table->date('tgl_buka_pendaftaran'); //waktu buka pendaftaran
+            $table->date('tgl_tutup_pendaftaran'); //waktu tutup pendaftaran
+            $table->date('tgl_buka_pengumuman'); //waktu buka pengumuman
+            $table->date('tgl_tutup_pengumuman'); //waktu tutup pengumuman
             $table->timestamps();
             $table->softDeletes();
         });

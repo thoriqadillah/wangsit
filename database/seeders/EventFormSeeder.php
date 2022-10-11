@@ -21,7 +21,7 @@ class EventFormSeeder extends Seeder
         $format = [];
         for ($i=0; $i < 10; $i++) { 
             $format[] = [
-                'form_type_id' => "1",
+                'form_type_id' => "Text",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),

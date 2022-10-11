@@ -18,7 +18,7 @@
                 <div class="p-4">
                     <div>
                         <h1 class="text-lg text-mainColor">{{ $event->nama }}</h1>
-                        <p class="font-thin text-sm text-gray-400">{{ $event->tgl_acara->format('j F Y') }}</p>
+                        <p class="font-thin text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
                     </div>
                     <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">REGISTER</button>
                 </div>

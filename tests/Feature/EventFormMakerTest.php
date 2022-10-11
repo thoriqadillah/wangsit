@@ -20,9 +20,9 @@ class EventFormMakerTest extends TestCase
     public function test_should_renders_component_with_existed_forms()
     {
         $event = Event::find(1);
+        $existedForm = $event->form['format'];
         $component = Livewire::test(EventFormMaker::class, ['slug' => $event->slug]);
-        $existedForm = $event->form->toArray();
-        $component->assertSet('forms', $existedForm['format']);
+        $component->assertSet('forms', $existedForm);
     }
 
     public function test_should_renders_component_with_preset_forms()
@@ -31,7 +31,7 @@ class EventFormMakerTest extends TestCase
         $component = Livewire::test(EventFormMaker::class, ['slug' => $event->slug]);
         $presetForm = [
 			[
-				'form_type_id' => "1",
+				'form_type_id' => "Text",
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
@@ -53,7 +53,7 @@ class EventFormMakerTest extends TestCase
         $forms = [];
         for ($i=0; $i < 10; $i++) { 
             $forms[] = [
-                'form_type_id' => "1",
+                'form_type_id' => "Text",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
@@ -78,7 +78,7 @@ class EventFormMakerTest extends TestCase
         $forms = [];
         for ($i=0; $i < 10; $i++) { 
             $forms[] = [
-                'form_type_id' => "1",
+                'form_type_id' => "Text",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
