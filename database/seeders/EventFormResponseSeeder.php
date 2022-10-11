@@ -23,6 +23,7 @@ class EventFormResponseSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $response[] = [
                 'judul' => $faker->words(rand(5, 10), true),
+                'required' => $faker->boolean(),
                 'response' => $faker->words(rand(5, 10), true)
             ];
         }
@@ -30,7 +31,7 @@ class EventFormResponseSeeder extends Seeder
         for ($i = 0; $i <= 60; $i++) {
             DB::table('event_form_responses')->insert([
                 'event_id' => 1,
-                'user_id' => rand(1, 20),
+                'user_id' => $i + 1, 
                 'response' => json_encode($response),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

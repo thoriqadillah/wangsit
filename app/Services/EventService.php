@@ -13,17 +13,17 @@ use Illuminate\Support\Facades\Auth;
 
 class EventService {
 
-    public function showEvent($perPage = 10) {
-        return Event::where('end_date', ">", Carbon::now())->get();
+    public function showEvent() {
+        return Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
     }
 
-    public function showBy(string $column, $value, int $total = 10, bool $forAdmin = false): Collection {
+    public function showBy(string $column, $value, bool $forAdmin = false): Collection {
         if ($forAdmin) {
             return Event::where($column, $value)->get();
         }
 
         return Event::where($column, $value)
-            ->where('end_date', ">", Carbon::now())
+            ->where('tgl_tutup_pendaftaran', ">", Carbon::now())
             ->get();
     }
 
@@ -35,9 +35,10 @@ class EventService {
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']).'-'.$hash,
-            'deskripsi' => $eventData['deskripsi'],
-            'start_date' => $eventData['start_date'],
-            'end_date' => $eventData['end_date'],
+            'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
+            'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
+            'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
+            'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
         ]);
     }
 
@@ -48,9 +49,10 @@ class EventService {
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']).'-'.$hash,
-            'deskripsi' => $eventData['deskripsi'],
-            'start_date' => $eventData['start_date'],
-            'end_date' => $eventData['end_date'],
+            'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
+            'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
+            'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
+            'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
         ]);
     }
 

@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\ExampleController;
+use App\Http\Livewire\EventFormMaker;
+use App\Http\Livewire\EventRegistration;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +39,15 @@ Route::get('/', function () {
 
 Route::get('/event', Event::class);
 Route::get('/academy', Academy::class);
+// Route::get('/admin/event/{event_id}/tambah-form', EventForm::class);
+Route::get('/event/{slug}/form', EventFormMaker::class);
+Route::get('/event/{slug}/daftar', EventRegistration::class);
+Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
 
+Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 //untuk debuging tidak masalah route grouping dikomen dulu
 Route::middleware('auth')->group(function () {
     // Route::get('/event', [EventController::class, 'index']);
-    Route::get('/event/{departementId}', [EventController::class, 'showByDepartement']);
-    Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 });
 
 //untuk debuging tidak masalah route grouping dikomen dulu

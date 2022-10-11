@@ -17,17 +17,27 @@ class FormTypeSeeder extends Seeder
     public function run()
     {
         DB::table('form_types')->insert([
-            'type' => 'text',
+            'nama' => 'Text',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('form_types')->insert([
-            'type' => 'checkbox',
+            'nama' => 'Textarea',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('form_types')->insert([
-            'type' => 'radio',
+            'nama' => 'Checkbox',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('form_types')->insert([
+            'nama' => 'Radio',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('form_types')->insert([
+            'nama' => 'Dropdown',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
