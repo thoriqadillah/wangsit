@@ -22,6 +22,11 @@ class FormTypeSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('form_types')->insert([
+            'nama' => 'Textarea',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('form_types')->insert([
             'nama' => 'Checkbox',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

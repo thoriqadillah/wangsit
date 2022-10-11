@@ -27,6 +27,7 @@ class ScrapperService {
     try {
       $response = $http->request('POST', 'https://siam.ub.ac.id/index.php', [
         'headers' => [
+          'User-Agent' => 'Wangsit KBMSI',
           'Content-Type' => 'application/x-www-form-urlencoded',
         ],
         'form_params' => [

@@ -32,7 +32,7 @@ class Event extends Component {
 
 	public function render() {
 		return view('livewire.event')
-			->extends('layouts.app')
+			->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error
 			->section('content');
 	}
 }

@@ -5,7 +5,7 @@
             <label><strong>TIPE FORM</strong></label>
             <select name="form_type" wire:model="forms.{{$i}}.form_type_id">
                 @foreach ($formTypes as $type)
-                    <option value="{{ $type->id }}">{{ $type->nama }}</option>
+                    <option value="{{ $type->nama }}">{{ $type->nama }}</option>
                 @endforeach
             </select>
         </div>
@@ -27,7 +27,7 @@
             <label><strong>REQUIRED</strong></label>
             <input type="checkbox" wire:click="setRequired({{ $i }})" class="border p-3" @if ($forms[$i]["required"]) checked @endif>
         </div>
-        @if ($forms[$i]['form_type_id'] != "1") 
+        @if ($forms[$i]['form_type_id'] != "Text" && $forms[$i]['form_type_id'] != "Textarea") 
             <div class="py-2 border my-2">
                 @foreach ($forms[$i]['value_options'] as $j => $options)
                     <label><strong>OPSI PILIHAN {{ $j }}</strong></label>

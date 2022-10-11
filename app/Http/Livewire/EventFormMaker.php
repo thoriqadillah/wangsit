@@ -26,15 +26,17 @@ class EventFormMaker extends Component {
 
 	public function mount(string $slug) {
 		$this->formTypes = FormType::all();
-		$this->event = $this->eventService->showBy('slug', $slug)[0];
-		$this->existedForm = $this->event->form == null ? $this->event->form : $this->event->form->toArray();
+		$this->event = $this->eventService->showBy('slug', $slug);
+		if ($this->event->isEmpty()) return abort(404);
+		
+		$this->existedForm = $this->event[0]->form;
 
 		if ($this->existedForm) {
 			$this->forms = $this->existedForm['format'];
 			$this->isUpdate = true;
 		} else {
 			$this->forms[] = [
-				'form_type_id' => "1",
+				'form_type_id' => "Text",
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
@@ -51,7 +53,7 @@ class EventFormMaker extends Component {
 	public function addInput(int $position) {
 		$newInput = [
 			[
-				'form_type_id' => "1",
+				'form_type_id' => "Text",
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
@@ -95,10 +97,10 @@ class EventFormMaker extends Component {
 		$validatorRules = $this->createRule($this->forms);
 		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
 
-		$created = $this->eventFormService->createForm($this->forms, $this->event->id);
+		$created = $this->eventFormService->createForm($this->forms, $this->event[0]->id);
 		if ($created) {
-			return redirect()->to('/event/'.$this->event->slug)
-				->with('status', 'Berhasil menambahkan form pada event '. $this->event->nama);
+			return redirect()->to('/event/'.$this->event[0]->slug)
+				->with('status', 'Berhasil menambahkan form pada event '. $this->event[0]->nama);
 		}
 
 		return redirect()->refresh()
@@ -109,10 +111,10 @@ class EventFormMaker extends Component {
 		$validatorRules = $this->createRule($this->forms);
 		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
 
-		$updated = $this->eventFormService->updateForm($this->forms, $this->event->id);
+		$updated = $this->eventFormService->updateForm($this->forms, $this->event[0]->id);
 		if ($updated) {
-			return redirect()->to('/event/'.$this->event->slug)
-				->with('status', 'Berhasil menambahkan form pada event '. $this->event->nama);
+			return redirect()->to('/event/'.$this->event[0]->slug)
+				->with('status', 'Berhasil menambahkan form pada event '. $this->event[0]->nama);
 		}
 
 		return redirect()->refresh()
@@ -124,7 +126,8 @@ class EventFormMaker extends Component {
 		foreach ($forms as $i => $form) {
 			$validatorRules["forms.$i.judul"] = ['required'];
 			$validatorRules["forms.$i.placeholder"] = ['required'];
-			if ($form['form_type_id'] !== "1") {
+			
+			if ($form['form_type_id'] !== "Text" && $form['form_type_id'] !== "Textarea") {
 				foreach ($form['value_options'] as $j => $opt) {
 					$validatorRules["forms.$i.value_options.$j.text"] = ['required'];
 					$validatorRules["forms.$i.value_options.$j.value"] = ['required'];
@@ -137,7 +140,7 @@ class EventFormMaker extends Component {
 
 	public function render() {
 		return view('livewire.event-form-maker')
-			->extends('layouts.app')
+			->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error
 			->section('content');
 	}
 }
