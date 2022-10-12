@@ -19,7 +19,7 @@ class EventService
         return Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
     }
 
-    public function showBy(string $column, $value, bool $forAdmin = false): Collection
+    public function showBy(string $column, $value, bool $forAdmin = false)
     {
         if ($forAdmin) {
             return Event::where($column, $value)->get();
@@ -44,11 +44,10 @@ class EventService
     }
 
     //Buat admin
-    public function addEvent(array $eventData): Collection
+    public function addEvent(array $eventData)
     {
-        $hash = str_replace("=", "", base64_encode(Carbon::now()));
-
-        return Event::create([
+        $hash = bin2hex(random_bytes(6));
+        $eventCreate = Event::create([
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
@@ -57,13 +56,15 @@ class EventService
             'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
             'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
         ]);
+
+        return $eventCreate;
     }
 
-    public function updateEvent(array $eventData, int $id): Collection
+    public function updateEvent(array $eventData, int $id)
     {
-        $hash = str_replace("=", "", base64_encode(Carbon::now()));
+        $hash = bin2hex(random_bytes(6));
 
-        return Event::where('id', $id)->update([
+        $eventUpdate = Event::where('id', $id)->update([
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
@@ -72,6 +73,8 @@ class EventService
             'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
             'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
         ]);
+
+        return $eventUpdate;
     }
 
     public function deleteEvent(int $id): bool
