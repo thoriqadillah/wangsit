@@ -26,35 +26,24 @@ Route::controller(AuthController::class)->group(function () {
         ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
 });
 
+// Route::get('/', function () {
+//     return view('login');
+// });
+
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('home', function () {
-    return view('home');
-});
-
-Route::get('event', function () {
-    return view('event');
-});
-
-Route::get('academy', function () {
-    return view('academy');
-});
+Route::get('/event', Event::class);
+Route::get('/academy', Academy::class);
 
 //untuk debuging tidak masalah route grouping dikomen dulu
 Route::middleware('auth')->group(function () {
-    Route::get('/event', [EventController::class, 'index']);
+    // Route::get('/event', [EventController::class, 'index']);
     Route::get('/event/{departementId}', [EventController::class, 'showByDepartement']);
     Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 });
 
-//untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('admin')->group(function () {
-    Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
-    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
-    Route::post('/admin/event', [EventController::class, 'addEvent']);
-});
 
 //untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
 Route::get('/debug', [ExampleController::class, 'debug']);
