@@ -33,24 +33,9 @@ class EventController extends Controller
         if ($event->isEmpty()) return abort(404);
     }
 
-    public function showAktif()
+    public function showFilterbyDate($status)
     {
-        $event = $this->event->showByDate('tgl_buka_pendaftaran', ">=", 'tgl_tutup_pendaftaran');
-    }
-
-    public function showPengumuman()
-    {
-        $event = $this->event->showByDate('tgl_buka_pengumuman', ">=", 'tgl_tutup_pengumuman');
-    }
-
-    public function showWaiting()
-    {
-        $event = $this->event->showByDate('tgl_buka_pendaftaran', "<");
-    }
-
-    public function showTutup()
-    {
-        $event = $this->event->showByDate('tgl_tutup_pengumuman', "<");
+        $event = $this->event->showByDate($status);
     }
 
     public function addEvent(Request $request)

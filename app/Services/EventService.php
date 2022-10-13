@@ -30,17 +30,27 @@ class EventService
             ->get();
     }
 
-    public function showByDate(string $columnDate, string $sign, $optDate = null): Collection
+    public function showByDate($status): Collection
     {
         $deptId = Auth::user()->admin->departement_id;
-        if ($optDate === 'tgl_tutup_pendaftaran' || $optDate === 'tgl_tutup_pengumuman') {
+        if ($status === 'aktif') {
             return Event::where('departement_id', $deptId)
-                ->where($columnDate, $sign, Carbon::now())->where($optDate, $sign, Carbon::now())
+                ->where('tgl_buka_pendaftaran', '>=', Carbon::now())->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
                 ->get();
-        }
-        return Event::where('departement_id', $deptId)
-            ->where($columnDate, $sign, Carbon::now())
-            ->get();
+        } else if ($status === 'pengumuman') {
+            return Event::where('departement_id', $deptId)
+                ->where('tgl_buka_pengumuman', '>=', Carbon::now())->where('tgl_tutup_pengumuman', '>=', Carbon::now())
+                ->get();
+        } else if ($status === 'waiting') {
+            return Event::where('departement_id', $deptId)
+                ->where('tgl_buka_pendaftaran', '<', Carbon::now())
+                ->get();
+        } else if ($status === 'tutup') {
+            return Event::where('departement_id', $deptId)
+                ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+                ->get();
+        } else
+            return Event::where('departement_id', $deptId)->get();
     }
 
     //Buat admin

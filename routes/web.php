@@ -55,6 +55,7 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
     Route::post('/admin/event', [EventController::class, 'addEvent']);
+    Route::get('/admin/event/{status}', [EventController::class, 'showFilterbyDate']);
 });
 
 //untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
