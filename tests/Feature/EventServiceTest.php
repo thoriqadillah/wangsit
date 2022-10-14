@@ -108,4 +108,14 @@ class EventServiceTest extends TestCase
 
         $this->assertJson($show);
     }
+
+    public function test_show_by_date()
+    {
+        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+
+        $event = new EventService();
+        $show = $event->showByDate('aktif');
+
+        $this->assertJson($show);
+    }
 }

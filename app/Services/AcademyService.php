@@ -15,25 +15,28 @@ class AcademyService
         return Academy::all();
     }
 
-    public function addAcademy(array $academyData): Collection
+    public function addAcademy(array $academyData)
     {
-
-        return Academy::create([
+        $add = Academy::create([
             'nama' => $academyData['nama'],
             'kategori' => $academyData['kategori'],
             'link' => $academyData['link'],
             'thumbnail' => $academyData['thumbnail'],
         ]);
+
+        return $add;
     }
 
-    public function updateAcademy(array $academyData, int $id): Collection
+    public function updateAcademy(array $academyData, int $id)
     {
-        return Academy::where('id', $id)->update([
+        $update = Academy::where('id', $id)->update([
             'nama' => $academyData['nama'],
             'kategori' => $academyData['kategori'],
             'link' => $academyData['link'],
             'thumbnail' => $academyData['thumbnail'],
         ]);
+
+        return $update;
     }
 
     public function deleteAcademy(int $id): bool
