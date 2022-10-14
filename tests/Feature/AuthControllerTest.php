@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Services\AuthService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -12,7 +11,6 @@ use function PHPUnit\Framework\assertEquals;
 
 class AuthControllerTest extends TestCase
 {
-    
     public function test_sucessfully_login()
     {
         $response = $this->post('/login', [

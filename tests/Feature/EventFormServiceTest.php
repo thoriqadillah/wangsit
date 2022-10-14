@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Models\Event;
+use App\Models\EventForm;
 use App\Services\EventFormService;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -31,14 +31,19 @@ class EventFormServiceTest extends TestCase
                 ]
             ];
         }
-        $eventId = 15; //pastikan di db gak ada, biar unik
+        Event::factory()->create();
+        $event = Event::latest()->first();
         $service = new EventFormService();
-        $service->createForm($format, $eventId);
+        $service->createForm($format, $event->id);
 
         $this->assertDatabaseHas('event_forms', [
-            'event_id' => $eventId,
+            'event_id' => $event->id,
             'format' => json_encode($format)
         ]);
+
+        //biar gak kesimpen di db aja, jadi didelete
+        EventForm::latest()->first()->delete(); 
+        $event->delete();
     }
 
     public function test_successfuly_update_form()
@@ -56,12 +61,13 @@ class EventFormServiceTest extends TestCase
                 ]
             ];
         }
-        $eventId = 15; //pastikan di db gak ada, biar unik
+        $event = Event::first(); //pastikan di db gak ada, biar unik
+        
         $service = new EventFormService();
-        $service->updateForm($format, $eventId);
+        $service->updateForm($format, $event->id);
 
         $this->assertDatabaseHas('event_forms', [
-            'event_id' => $eventId,
+            'event_id' => $event->id,
             'format' => json_encode($format)
         ]);
     }
