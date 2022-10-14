@@ -17,15 +17,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $role = [null, rand(2, 7)];
-
         return [
             'nim' => Str::random(15),
             'nama' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'admin_id' => $role[rand(0, 1)],
+            'admin_id' => rand(2, 7),
             'profile_pic' => fake()->imageUrl(480, 640, 'technics'),
             'tgl_lahir' => fake()->dateTimeBetween('-22 years', '-20 years'),
             'remember_token' => Str::random(10),
