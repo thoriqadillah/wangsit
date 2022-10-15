@@ -4,15 +4,21 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Models\Event;
-use GuzzleHttp\Client;
-use Illuminate\Foundation\Console\EventMakeCommand;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\Cursor;
 use Illuminate\Support\Facades\Auth;
 
 class EventService
 {
+
+    public function getLatestEvent()
+    {
+        return Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
+            ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+    }
 
     public function showEvent()
     {

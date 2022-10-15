@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
 
+        //TODO: import data dari db yang lama
         $faker = Factory::create('id_ID');
         for ($i = 0; $i < 20; $i++) {
             $role = [null, rand(2, 7)];

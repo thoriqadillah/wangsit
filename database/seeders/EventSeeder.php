@@ -21,7 +21,7 @@ class EventSeeder extends Seeder
         $faker = Factory::create();
         for ($i = 0; $i < 20; $i++) {
             $nama = $faker->words(rand(3, 5), true);
-            $hash = str_replace("=", "", base64_encode(Carbon::now()));
+            $hash = bin2hex(random_bytes(6));
 
             DB::table('events')->insert([
                 "id" => $i + 1,
