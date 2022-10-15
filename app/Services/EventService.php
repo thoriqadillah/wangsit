@@ -13,16 +13,30 @@ class EventService
 
     public function getLatestEvent()
     {
-        return Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
+        $events = Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
             ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
             ->orderBy('created_at', 'desc')
             ->limit(6)
             ->get();
+
+        $now = Carbon::now();
+        foreach ($events as $i => $event) {
+            $events[$i]->countdown = $now->diffInDays($event->tgl_tutup_pendaftaran);
+        }
+
+        return $events;
     }
 
     public function showEvent()
     {
-        return Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
+        $events = Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
+
+        $now = Carbon::now();
+        foreach ($events as $i => $event) {
+            $events[$i]->countdown = $now->diffInDays($event->tgl_tutup_pendaftaran);
+        }
+
+        return $events;
     }
 
     public function showBy(string $column, $value, bool $forAdmin = false)

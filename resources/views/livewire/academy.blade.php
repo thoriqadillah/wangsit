@@ -7,9 +7,9 @@
         </form>
     </div>
 
-    <div class="grid grid-col-1 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2 mt-16 gap-x-8 gap-y-10 justify-items-center">
+    <div class="grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-16 gap-x-8 gap-y-10 justify-items-center">
         @foreach ($academies as $academy)
-        <div class="w-80 h-80 bg-white border rounded shadow">
+        <div class="w-80 sm:w-[300px] h-80 bg-white border rounded shadow">
             <div>
                 <img src="{{url('/asset/icons/thumbnail2.png')}}" class="w-40 h-40 object-cover block mx-auto" />
 

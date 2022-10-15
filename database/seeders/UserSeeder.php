@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
             'nim' => '0000000000kbmsi',
             'nama' => 'KEMSI',
             'email' => 'kemsi@gmail.com',
+            'hp' => '000000000000',
             'password' => bcrypt('semangatpagi'),
             'admin_id' => 1,
             'tgl_lahir' => Carbon::now(),
@@ -29,7 +30,6 @@ class UserSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
 
-        //TODO: import data dari db yang lama
         $faker = Factory::create('id_ID');
         for ($i = 0; $i < 20; $i++) {
             $role = [null, rand(2, 7)];
@@ -38,6 +38,7 @@ class UserSeeder extends Seeder
                 'nim' => Str::random(15),
                 'nama' => $faker->name,
                 'email' => $faker->email,
+                'hp' => $faker->phoneNumber(),
                 'password' => bcrypt('12345678'),
                 'admin_id' => $role[rand(0, 1)],
                 'profile_pic' => $faker->imageUrl(480, 640, 'technics'),
