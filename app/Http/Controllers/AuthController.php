@@ -13,6 +13,10 @@ class AuthController extends Controller
         $this->auth = $auth;
     }
 
+    public function index() {
+        return view('login');
+    }
+
     public function login(Request $request) {
         $credentials = $request->validate([
             'nim' => ['required', 'size:15'],

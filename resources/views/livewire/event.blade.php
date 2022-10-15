@@ -20,8 +20,13 @@
 
             <div class="p-4 h-40 flex flex-col justify-between">
                 <div>
+<<<<<<< HEAD
                     <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
                     <p class="text-sm text-gray-400">End: {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
+=======
+                    <h1 class="text-lg text-mainColor">{{ $event->nama }}</h1>
+                    <p class="font-thin text-sm text-gray-400">Berakhir {{ $event->countdown }} hari lagi</p>
+>>>>>>> e5ba3507f609bd287b63950431978db3614a5681
                 </div>
                 <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">REGISTER</button>
             </div>

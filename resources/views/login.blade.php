@@ -14,6 +14,7 @@
 
     <div class="w-full md:px-40 lg:px-44">
         <form class="border border-mainColor rounded shadow mt-5" method="POST" action="/login">
+            @csrf
             <div class="w-full text-center py-3 font-medium text-xl bg-mainColor rounded-t text-white shadow-md">
                 Login
             </div>

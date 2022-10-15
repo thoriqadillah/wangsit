@@ -15,10 +15,12 @@ class Academy extends Component {
 	//     $this->academyService = $academyService;
 	// }
 
+	//TODO: gunakan academyService
 	public function mount() {
 		$this->academies = ModelsAcademy::all();
 	}
 
+	//TODO: gunakan academyService
 	public function updatedSearch() {
 		$this->academies = ModelsAcademy::where('nama', 'like', "%$this->search%")->get();
 	}

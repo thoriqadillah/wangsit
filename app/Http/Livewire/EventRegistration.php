@@ -46,9 +46,6 @@ class EventRegistration extends Component {
 		if ($created) {
 			return redirect()->to("/event/$event->slug/berhasil");
 		}
-
-		return redirect()->refresh()
-			->withErrors(['status' => "Kesalahan terjadi saat mendaftar event $event->nama"]);
 	}
 
 	public function createRule($formResponse) {

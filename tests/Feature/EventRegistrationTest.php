@@ -6,13 +6,13 @@ use App\Http\Livewire\EventRegistration;
 use App\Models\Event;
 use App\Models\User;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class EventRegistrationTest extends TestCase
 {
+    
     /**
      * A basic feature test example.
      *
@@ -21,23 +21,28 @@ class EventRegistrationTest extends TestCase
     //TODO: test livewire
     public function test_should_redirect_to_404()
     {
-        $event = Event::find(16); //check aja di db event mana yang gak ada. kalo gak mau ribet ya migrate:refresh aja. BERLAKU HANYA UNTUK DEVELOPMENT
+        Event::factory()->create();
+        $event = Event::latest()->first(); //check aja di db event mana yang gak ada. kalo gak mau ribet ya migrate:refresh aja. BERLAKU HANYA UNTUK DEVELOPMENT
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
         $component->assertStatus(404);
+
+        $event->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_should_redirected_if_already_registered()
     {
-        $event = Event::find(1); //check aja di db event mana yang gak ada. kalo gak mau ribet ya migrate:refresh aja. BERLAKU HANYA UNTUK DEVELOPMENT
-        $this->actingAs(User::find(1));
+        $this->actingAs(User::first());
+        $event = Event::first(); 
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
         $component->assertRedirect("/event/$event->slug/berhasil");
     }
 
     public function test_should_redirected_after_sucessfully_registered()
     {
-        $event = Event::find(1); //check aja di db event mana yang gak ada. kalo gak mau ribet ya migrate:refresh aja. BERLAKU HANYA UNTUK DEVELOPMENT
-        $this->actingAs(User::find(3));
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+        $event = Event::first();
 
         $faker = Factory::create();
 
@@ -54,5 +59,7 @@ class EventRegistrationTest extends TestCase
             ->set('formResponse', $response)
             ->call('saveResponse')
             ->assertRedirect("/event/$event->slug/berhasil");
+
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 }
