@@ -36,7 +36,7 @@ class EventFormMaker extends Component {
 			$this->isUpdate = true;
 		} else {
 			$this->forms[] = [
-				'form_type_id' => "Text",
+				'form_type' => "Text",
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
@@ -53,7 +53,7 @@ class EventFormMaker extends Component {
 	public function addInput(int $position) {
 		$newInput = [
 			[
-				'form_type_id' => "Text",
+				'form_type' => "Text",
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
@@ -121,7 +121,7 @@ class EventFormMaker extends Component {
 			$validatorRules["forms.$i.judul"] = ['required'];
 			$validatorRules["forms.$i.placeholder"] = ['required'];
 			
-			if ($form['form_type_id'] !== "Text" && $form['form_type_id'] !== "Textarea") {
+			if ($form['form_type'] !== "Text" && $form['form_type'] !== "Textarea") {
 				foreach ($form['value_options'] as $j => $opt) {
 					$validatorRules["forms.$i.value_options.$j.text"] = ['required'];
 					$validatorRules["forms.$i.value_options.$j.value"] = ['required'];

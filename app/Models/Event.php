@@ -16,6 +16,7 @@ class Event extends Model
         'tgl_tutup_pendaftaran'  => 'datetime',
         'tgl_buka_pengumuman'  => 'datetime',
         'tgl_tutup_pengumuman'  => 'datetime',
+        'adanya_kelulusan' => 'boolean'
     ];
 
     public function form() {

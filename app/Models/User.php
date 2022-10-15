@@ -21,6 +21,7 @@ class User extends Authenticatable
         'nim',
         'nama',
         'email',
+        'hp',
         'password',
         'tgl_lahir',
         'profile_pic',

@@ -22,11 +22,6 @@ class Event extends Component {
 	public function mount() {
 		$this->departements = Departement::all();
 		$this->events = $this->eventService->showEvent();
-		
-		$now = Carbon::now();
-		foreach ($this->events as $i => $event) {
-				$this->events[$i]->countdown = $now->diffInDays($event->tgl_tutup_pendaftaran);
-		}
 	}
 
 	public function showEvents(int $deptId = 0) {

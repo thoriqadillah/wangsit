@@ -60,6 +60,7 @@ class ScrapperService {
       $dom = $this->getDom($html);
 
       $tgl_lahir = $dom->evaluate('//table[@class="tampilbio"]/tr[3]/td[2]/text()')[0]->nodeValue;
+      $user['hp'] = $dom->evaluate('//table[@class="tampilbio"]/tr[23]/td[2]/text()')[0]->nodeValue;
       $user['tgl_lahir'] = $this->parseDate($tgl_lahir);
       $user['password'] = bcrypt($this->password);
 

@@ -33,7 +33,7 @@ class EventFormMakerTest extends TestCase
         $component = Livewire::test(EventFormMaker::class, ['slug' => $event->slug]);
         $presetForm = [
 			[
-				'form_type_id' => "Text",
+				'form_type' => "Text",
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
@@ -56,7 +56,7 @@ class EventFormMakerTest extends TestCase
         $forms = [];
         for ($i=0; $i < 10; $i++) { 
             $forms[] = [
-                'form_type_id' => "Text",
+                'form_type' => "Text",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
@@ -80,7 +80,7 @@ class EventFormMakerTest extends TestCase
         $forms = [];
         for ($i=0; $i < 10; $i++) { 
             $forms[] = [
-                'form_type_id' => "Text",
+                'form_type' => "Text",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),

@@ -22,11 +22,6 @@ class HomeController extends Controller {
         $birthdayUsers = $this->userService->getBirthdayUsers();
         $latestEvent = $this->eventService->getLatestEvent();
 
-        $now = Carbon::now();
-        foreach ($latestEvent as $i => $event) {
-            $latestEvent[$i]->countdown = $now->diffInDays($event->tgl_tutup_pendaftaran);
-        }
-
         return view('home', compact(['user', 'birthdayUsers', 'latestEvent']));
     }
 }
