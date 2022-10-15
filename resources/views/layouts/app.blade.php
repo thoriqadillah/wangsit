@@ -42,23 +42,13 @@
                 </div>
             </a>
             @endif
-            <<<<<<< HEAD <a href="/logout">
-                <div class="hover:after:content-[''] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative after:transition after:ease-in after:duration-500 px-2">
-                    <div class="flex gap-2 items-center">
-                        <h1>Logout </h1>
-                        <img src="{{url('/asset/icons/logout.svg')}}" class="w-4" />
-                    </div>
-                </div>
-                </a>
-                =======
-                <form action="/logout" method="POST">
-                    @csrf
-                    <button type="submit" class="flex items-center gap-2">
-                        <h1>Logout </h1>
-                        <img src="{{url('/asset/logout.svg')}}" class="w-4" />
-                    </button>
-                </form>
-                >>>>>>> e5ba3507f609bd287b63950431978db3614a5681
+            <form action="/logout" method="POST">
+                @csrf
+                <button type="submit" class="flex items-center gap-2">
+                    <h1>Logout </h1>
+                    <img src="{{url('/asset/icons/logout.svg')}}" class="w-4" />
+                </button>
+            </form>
         </div>
     </nav>
 
@@ -83,7 +73,7 @@
             <form action="/logout" method="POST">
                 @csrf
                 <button type="submit" class="flex items-center gap-2">
-                    <img src="{{url('/asset/logout.svg')}}" class="w-4" />
+                    <img src="{{url('/asset/icons/logout.svg')}}" class="w-4" />
                     <h1>Logout </h1>
                 </button>
             </form>
