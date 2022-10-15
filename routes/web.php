@@ -33,7 +33,7 @@ Route::controller(AuthController::class)->group(function () {
 // });
 
 Route::get('/', function () {
-    return view('response');
+    return view('home');
 });
 
 Route::get('/event', Event::class);

@@ -27,7 +27,7 @@
 
     <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
         <div class="w-96 h-96 bg-white border rounded shadow relative p-5">
-            <img src="{{url('/asset/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
+            <img src="{{url('/asset/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4" onclick="confirmDelete()">
             <div class="w-full h-52 bg-red-400">
                 <img src="{{url('/asset/thumbnail1.png')}}" class="w-full h-full" alt="">
             </div>
@@ -43,6 +43,16 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<div class="absolute w-full top-0 bottom-0 right-0 left-0 bg-[#1b1b1be1] hidden" id="modalConfirm">
+    <div class="rounded bg-white p-10 w-[500px] mx-auto mt-40">
+        <h1 class="text-lg font-medium text-center">Hapus Event Ini ?</h1>
+        <div class="flex px-6 items-center justify-between gap-8 mt-8">
+            <button class="border rounded text-newRed bg-white border-newRed py-1 grow text-center" onclick="confirmDelete()">Cancel</button>
+            <a href="" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</a>
+        </div>
     </div>
 </div>
 @stop
