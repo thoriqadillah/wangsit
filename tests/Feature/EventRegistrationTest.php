@@ -18,7 +18,6 @@ class EventRegistrationTest extends TestCase
      *
      * @return void
      */
-    //TODO: test livewire
     public function test_should_redirect_to_404()
     {
         Event::factory()->create();

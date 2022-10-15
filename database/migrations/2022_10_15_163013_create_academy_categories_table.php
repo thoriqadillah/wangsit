@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('academies', function (Blueprint $table) {
+        Schema::create('academy_categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('academy_category_id');
-            $table->string('nama', 100);
-            $table->string('kategori', 50);
-            $table->string('link');
-            $table->string('thumbnail');
+            $table->string('nama');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('academies');
+        Schema::dropIfExists('academy_categories');
     }
 };
