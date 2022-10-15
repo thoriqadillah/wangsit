@@ -34,8 +34,8 @@ Route::controller(AuthController::class)->group(function () {
 //     return view('login');
 // });
 
-Route::get('/', function () {
-    return view('addEvent');
+Route::get('/tes', function () {
+    return view('admin-event');
 });
 
 Route::get('/event', Event::class);

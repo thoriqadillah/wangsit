@@ -53,7 +53,7 @@
     </nav>
 
     <!-- sidebar -->
-    <div id="sidebar" class="h-screen fixed z-10 w-60 top-0 bg-white transition -left-60 duration-700 px-5 py-20">
+    <div id="sidebar" class="h-screen fixed z-10 w-60 top-0 bg-white transition -translate-x-60 duration-700 px-5 py-20">
         <div class="flex flex-col gap-8 text-xl font-medium text-mainColor">
             <a href="/home" class="flex items-center gap-2">
                 <img src="{{url('/asset/icons/home.svg')}}" class="w-4" />
@@ -84,7 +84,7 @@
     @endauth
 
     <!-- background modal -->
-    <div id="modal" class="fixed w-full h-full bg-[#000000e1] hidden"></div>
+    <div id="modal" class="fixed w-full h-full scale-0 transition duration-500 bg-[#000000e1] z-50"></div>
     <!-- background modal -->
     @yield('content')
 
