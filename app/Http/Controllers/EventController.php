@@ -26,18 +26,24 @@ class EventController extends Controller
 
     public function showDetail(string $slug) {
         $event = $this->event->showBy('slug', $slug);
+        if ($event->isEmpty()) return abort(404);
+
     }
 
     public function addEvent(Request $request) {
         $validated = $request->validate([
             'nama' => 'required',
             'deskripsi' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'tgl_buka_pendaftaran' => 'required',
+            'tgl_tutup_pendaftaran' => 'required',
+            'tgl_buka_pengumuman' => 'required',
+            'tgl_tutup_pengumuman' => 'required',
         ], [
             'required' => ':attribute wajib diisi',
-            'start_date.required' => 'waktu mulai wajib diisi',
-            'end_date.required' => 'waktu selesai wajib diisi'
+            'tgl_buka_pendaftaran.required' => 'waktu mulai wajib diisi',
+            'tgl_tutup_pendaftaran.required' => 'waktu selesai wajib diisi',
+            'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
+            'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
 
         $event = $this->event->addEvent($validated);
@@ -52,12 +58,16 @@ class EventController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'deskripsi' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'tgl_buka_pendaftaran' => 'required',
+            'tgl_tutup_pendaftaran' => 'required',
+            'tgl_buka_pengumuman' => 'required',
+            'tgl_tutup_pengumuman' => 'required',
         ], [
             'required' => ':attribute wajib diisi',
-            'start_date.required' => 'waktu mulai wajib diisi',
-            'end_date.required' => 'waktu selesai wajib diisi'
+            'tgl_buka_pendaftaran.required' => 'waktu mulai wajib diisi',
+            'tgl_tutup_pendaftaran.required' => 'waktu selesai wajib diisi',
+            'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
+            'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
 
         $updEvent = $this->event->updateEvent($validated, $id);

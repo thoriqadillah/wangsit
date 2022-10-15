@@ -16,11 +16,7 @@ return new class extends Migration
         Schema::create('event_forms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('event_id');
-            $table->unsignedBigInteger('form_type_id');
-            $table->string('nama', 50);
-            $table->string('judul', 100);
-            $table->string('placeholder', 100);
-            $table->json('value_options')->nullable(); //opsi pilihan untuk tipe form checkbox, radio/dropdown => isinya value dan text
+            $table->json('format');
             $table->timestamps();
             $table->softDeletes();
         });

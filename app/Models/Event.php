@@ -9,9 +9,16 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['departement_id', 'slug', 'nama', 'deskripsi', 'tgl_acara', 'start_date', 'end_date', 'thumbnail'];
+    protected $fillable = ['departement_id', 'slug', 'nama', 'tgl_buka_pendaftaran', 'tgl_tutup_pendaftaran','tgl_buka_pengumuman', 'tgl_tutup_pengumuman', 'thumbnail'];
 
     protected $casts = [
-        'tgl_acara'  => 'datetime',
+        'tgl_buka_pendaftaran'  => 'datetime',
+        'tgl_tutup_pendaftaran'  => 'datetime',
+        'tgl_buka_pengumuman'  => 'datetime',
+        'tgl_tutup_pengumuman'  => 'datetime',
     ];
+
+    public function form() {
+        return $this->hasOne(EventForm::class, 'event_id');
+    }
 }

@@ -20,35 +20,26 @@ class AuthControllerTest extends TestCase
             'password' => env('PASSWORD_SIAM')
         ]);
         $response->assertRedirect('/');
-        $response->assertStatus(302);
     }
 
     public function test_user_not_found()
     {
         $response = $this->post('/login', [
-            'nim' => env('NIM_SIAM'),
+            'nim' => '123456789012345',
             'password' => 'secret12345678'
         ]);
-        $errors = session('errors');
 
         $response->assertRedirect('/login');
-        $response->assertStatus(302);
-        
-        $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('nim')[0], 'NIM atau password salah');
-        $this->assertEquals($errors->get('password')[0], 'NIM atau password salah');
     }
 
     public function test_invalid_password_entry()
     {
         $response = $this->post('/login', [
-            'nim' => env('NIM_SIAM'),
+            'nim' => '123456789012345',
             'password' => 'secret'
         ]);
 
-        $errors = session('errors');
         $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('password')[0], 'password minimal berisi 8 karakter');
     }
 
     public function test_empty_password_should_return_validation_error()
@@ -58,9 +49,7 @@ class AuthControllerTest extends TestCase
             'password' => ''
         ]);
 
-        $errors = session('errors');
         $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('password')[0], 'password wajib diisi');
     }
     
     public function test_empty_nim_should_return_validation_error()
@@ -70,9 +59,7 @@ class AuthControllerTest extends TestCase
             'password' => 'secret'
         ]);
 
-        $errors = session('errors');
         $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('nim')[0], 'nim wajib diisi');
     }
 
     public function test_nim_too_short()
@@ -82,9 +69,7 @@ class AuthControllerTest extends TestCase
             'password' => env('PASSWORD_SIAM')
         ]);
         
-        $errors = session('errors');
         $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('nim')[0], 'nim harus 15 karakter');
     }
 
     public function test_nim_too_long()
@@ -94,9 +79,7 @@ class AuthControllerTest extends TestCase
             'password' => env('PASSWORD_SIAM')
         ]);
 
-        $errors = session('errors');
         $response->assertSessionHasErrors();
-        $this->assertEquals($errors->get('nim')[0], 'nim harus 15 karakter');
     }
 
     public function test_sucessfully_logged_out() 
