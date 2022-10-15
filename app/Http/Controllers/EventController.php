@@ -17,32 +17,12 @@ class EventController extends Controller
         $this->event = $eventService;
     }
 
-    public function index()
-    {
-        $event = $this->event->showEvent();
-    }
-
-    public function showByDepartement(int $departementId)
-    {
-        $event = $this->event->showBy('departement_id', $departementId);
-    }
-
-    public function showDetail(string $slug)
-    {
-        $event = $this->event->showBy('slug', $slug);
-        if ($event->isEmpty()) return abort(404);
-    }
-
-    public function showFilterbyDate($status)
-    {
-        $event = $this->event->showByDate($status);
-    }
 
     public function addEvent(Request $request)
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'deskripsi' => 'required',
+            'slug' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -67,7 +47,7 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'deskripsi' => 'required',
+            'slug' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',

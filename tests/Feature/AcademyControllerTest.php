@@ -20,8 +20,8 @@ class AcademyControllerTest extends TestCase
         $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
         $faker = Factory::create();
 
-        $nama = $faker->words(10, true);
-        $kategori = $faker->words(3, true);
+        $nama = $faker->words(3, true);
+        $kategori = $faker->words(2, true);
         $link = $faker->words(7, true);
         $thumbnail = $faker->words(5, true);
 
@@ -34,12 +34,8 @@ class AcademyControllerTest extends TestCase
 
         // $this->post('/admin/academy', $input);
         $response = $this->post('/admin/academy', $input);
-        // $eventS = new EventService();
-        // $event = new EventController($eventS);
-        // $event->addEvent($input);
-        $response->assertOk();
-        // $this->assertDatabaseHas('academies', [
-        //     'nama' => $nama
-        // ]);
+        $this->assertDatabaseHas('academies', [
+            'kategori' => $kategori
+        ]);
     }
 }

@@ -17,21 +17,21 @@ class AcademyService
 
     public function addAcademy(array $academyData)
     {
-        // $add = Academy::create([
-        //     'nama' => $academyData['nama'],
-        //     'kategori' => $academyData['kategori'],
-        //     'link' => $academyData['link'],
-        //     'thumbnail' => $academyData['thumbnail'],
-        // ]);
-
-        // return $add;
-
-        return Academy::create([
+        $add = Academy::create([
             'nama' => $academyData['nama'],
             'kategori' => $academyData['kategori'],
             'link' => $academyData['link'],
             'thumbnail' => $academyData['thumbnail'],
         ]);
+
+        return $add;
+
+        // return Academy::create([
+        //     'nama' => $academyData['nama'],
+        //     'kategori' => $academyData['kategori'],
+        //     'link' => $academyData['link'],
+        //     'thumbnail' => $academyData['thumbnail'],
+        // ]);
     }
 
     public function updateAcademy(array $academyData, int $id)
