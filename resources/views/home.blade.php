@@ -11,15 +11,15 @@
 
             <div class="flex flex-col sm:flex-row lg:justify-evenly ">
                 <div class="w-full px-3 rounded">
-                    <img src="{{url('/asset/e-complaint.png')}}" class="block mx-auto" />
+                    <img src="{{url('/asset/icons/e-complaint.png')}}" class="block mx-auto" />
                 </div>
 
                 <div class="w-full px-3 rounded">
-                    <img src="{{url('/asset/website-kbmsi.png')}}" class="block mx-auto" />
+                    <img src="{{url('/asset/icons/website-kbmsi.png')}}" class="block mx-auto" />
                 </div>
 
                 <div class="w-full px-3 rounded mb-8">
-                    <img src="{{url('/asset/wakanda.png')}}" class="block mx-auto" />
+                    <img src="{{url('/asset/icons/wakanda.png')}}" class="block mx-auto" />
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="grid grid-col-1 md:grid-cols-2 w-full xl:grid-cols-3 mt-8 gap-8 justify-items-center">
                 <div class="w-80 h-96 shadow">
                     <div class="w-full h-52">
-                        <img src="{{url('/asset/thumbnail1.png')}}" class="w-full h-full object-cover" />
+                        <img src="{{url('/asset/icons/thumbnail1.png')}}" class="w-full h-full object-cover" />
                     </div>
 
                     <div class="p-4 h-40 flex flex-col justify-between">

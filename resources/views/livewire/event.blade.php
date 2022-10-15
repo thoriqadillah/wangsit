@@ -1,4 +1,4 @@
-<div class="">
+<div class="py-20 px-4">
     <div>
         <h1 class="text-mainColor text-3xl text-center lg:text-left">KBMSI Events</h1>
         <div class="flex mt-3 gap-5 overflow-x-auto hideScroll">
@@ -10,25 +10,23 @@
         </div>
     </div>
 
-    <div class="grid grid-col-1 lg:grid-cols-4 md:grid-cols-3 mt-8 gap-8">
+    <div class="grid grid-col-1 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2 mt-8 gap-8 justify-items-center">
         @foreach ($events as $event)
-        <div class="w-full shadow-xl">
-            <div class="w-full h-60">
+
+        <div class="w-80 h-96 shadow">
+            <div class="w-full h-52">
                 <img src="{{ $event->thumbnail }}" class="w-full h-full object-cover" />
             </div>
-            <div class="p-4">
+
+            <div class="p-4 h-40 flex flex-col justify-between">
                 <div>
-                    <h1 class="text-lg text-mainColor">{{ $event->nama }}</h1>
-                    <p class="font-thin text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
+                    <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
+                    <p class="text-sm text-gray-400">End: {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
                 </div>
                 <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">REGISTER</button>
             </div>
         </div>
-
-        <div class="w-full px-4 pb-2">
-            <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">REGISTER</button>
-        </div>
+        @endforeach
     </div>
-    @endforeach
 </div>
 </div>

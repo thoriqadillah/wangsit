@@ -105,7 +105,7 @@
 
                 <div class="rounded bg-white shadow border p-8 mt-10 mx-3 relative">
                     <!-- hapus input -->
-                    <img src="{{url('/asset/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
+                    <img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
                     <!-- hapus input -->
 
                     <!-- nama dan value opsi -->

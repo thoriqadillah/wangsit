@@ -33,7 +33,7 @@ Route::controller(AuthController::class)->group(function () {
 // });
 
 Route::get('/', function () {
-    return view('livewire/event');
+    return view('addEvent');
 });
 
 Route::get('/event', Event::class);

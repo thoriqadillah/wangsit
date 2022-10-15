@@ -13,9 +13,9 @@
 
     <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
         <div class="w-96 h-96 bg-white border rounded shadow relative p-5">
-            <img src="{{url('/asset/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
+            <img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
             <div class="w-full h-52">
-                <img src="{{url('/asset/thumbnail2.png')}}" alt="" class="w-full h-full">
+                <img src="{{url('/asset/icons/thumbnail2.png')}}" alt="" class="w-full h-full">
             </div>
             <div class="mt-5 flex flex-col h-28 justify-between">
                 <div>
