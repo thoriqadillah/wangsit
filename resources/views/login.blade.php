@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<img src="{{url('/asset/logo.png')}}" class="block mx-auto mt-28 md:mt-10" />
+<img src="{{url('/asset/icons/logo.png')}}" class="block mx-auto mt-28 md:mt-10" />
 
 <div class="grid grid-cols-1 lg:grid-cols-2 px-5 mt-5 lg:mt-10">
     <div class="hidden lg:block ml-44">
