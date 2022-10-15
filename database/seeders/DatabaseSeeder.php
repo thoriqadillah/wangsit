@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //TODO: cek data dari db wangsit yang lama
         $this->call(DepartementSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);

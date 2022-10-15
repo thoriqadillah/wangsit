@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('academy_category_id');
             $table->string('nama', 100);
-            $table->string('kategori', 50);
             $table->string('link');
             $table->string('thumbnail');
             $table->timestamps();

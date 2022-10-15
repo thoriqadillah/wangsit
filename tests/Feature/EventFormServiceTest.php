@@ -22,7 +22,7 @@ class EventFormServiceTest extends TestCase
         $format = [];
         for ($i=0; $i < 10; $i++) { 
             $format[] = [
-                'form_type_id' => "1",
+                'form_type' => "Text",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
@@ -52,7 +52,7 @@ class EventFormServiceTest extends TestCase
         $format = [];
         for ($i=0; $i < 5; $i++) { 
             $format[] = [
-                'form_type_id' => "1",
+                'form_type' => "Textarea",
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),

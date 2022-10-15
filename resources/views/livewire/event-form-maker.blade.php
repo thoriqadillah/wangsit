@@ -3,7 +3,7 @@
     <div class="border py-2 my-2">
         <div class="py-2">
             <label><strong>TIPE FORM</strong></label>
-            <select name="form_type" wire:model="forms.{{$i}}.form_type_id">
+            <select name="form_type" wire:model="forms.{{$i}}.form_type">
                 @foreach ($formTypes as $type)
                     <option value="{{ $type->nama }}">{{ $type->nama }}</option>
                 @endforeach
@@ -16,7 +16,7 @@
                 <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
             @enderror
         </div>
-        @if ($forms[$i]['form_type_id'] == "Text" || $forms[$i]['form_type_id'] == "Textarea") 
+        @if ($forms[$i]['form_type'] == "Text" || $forms[$i]['form_type'] == "Textarea") 
             <div class="py-2">
                 <label><strong>PLACEHOLDER</strong></label>
                 <input type="text" wire:model.defer="forms.{{$i}}.placeholder" class="border p-3">

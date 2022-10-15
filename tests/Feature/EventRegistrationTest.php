@@ -21,7 +21,7 @@ class EventRegistrationTest extends TestCase
     public function test_should_redirect_to_404()
     {
         Event::factory()->create();
-        $event = Event::latest()->first(); //check aja di db event mana yang gak ada. kalo gak mau ribet ya migrate:refresh aja. BERLAKU HANYA UNTUK DEVELOPMENT
+        $event = Event::latest()->first(); 
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
         $component->assertStatus(404);
 
