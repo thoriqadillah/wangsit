@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nama', 100);
             $table->string('slug');
             $table->string('thumbnail')->nullable();
-            //TODO: kasih bool value ada kelulusan gak
+            $table->boolean('adanya_kelulusan');
             $table->date('tgl_buka_pendaftaran'); //waktu buka pendaftaran
             $table->date('tgl_tutup_pendaftaran'); //waktu tutup pendaftaran
             $table->date('tgl_buka_pengumuman'); //waktu buka pengumuman

@@ -21,6 +21,7 @@ class UserFactory extends Factory
             'nim' => Str::random(15),
             'nama' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'hp' => fake()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'admin_id' => rand(2, 7),
