@@ -31,7 +31,7 @@
             <h1 class="text-mainColor text-2xl text-center font-bold mt-10">Current KBMSI Events</h1>
             <div class="grid grid-col-1 md:grid-cols-2 w-full mt-8 gap-8 justify-items-center">
                 @foreach ($latestEvent as $event)
-                <div class="w-80 md:w-[340px] lg:w-80 xl:w-96 h-96 shadow">
+                <div class="w-80 md:w-[340px] lg:w-72 xl:w-[340px] h-96 shadow">
                     <div class="w-full h-52">
                         <img src="{{ $event->thumbnail }}" class="w-full h-full object-cover" />
                     </div>
