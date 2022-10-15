@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserService {
     
-    public function getUsersBirthday() {
+    public function getBirthdayUsers() {
         $date = Carbon::now();
         return User::whereMonth('tgl_lahir', $date->month)
             ->whereDay('tgl_lahir', $date->day)
