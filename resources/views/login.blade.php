@@ -4,7 +4,7 @@
 
 <div class="grid grid-cols-1 lg:grid-cols-2 px-5 mt-5 lg:mt-10">
     <div class="hidden lg:block ml-44">
-        <img src="{{url('/asset/ilustrasi1.png')}}" class="block mx-auto w-96" />
+        <img src="{{url('/asset/icons/ilustrasi1.png')}}" class="block mx-auto w-96" />
 
         <h1 class="font-bold text-3xl mt-8">Wangsit Auth</h1>
         <p class="mt-3">
