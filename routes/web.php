@@ -42,12 +42,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/academy', Academy::class);
 });
 
-//untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('admin')->group(function() {
-    Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
-    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
-    Route::post('/admin/event', [EventController::class, 'addEvent']);
-});
 
 //untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
 Route::get('/debug', [ExampleController::class, 'debug']);

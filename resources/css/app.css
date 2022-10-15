@@ -17,3 +17,19 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+.customScroll::-webkit-scrollbar {
+    height: 5px;
+}
+
+.customScroll::-webkit-scrollbar-track {
+    background: #f8f8f8;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+    background: rgb(173, 173, 173);
+}
+
+.customScroll::-webkit-scrollbar-thumb:hover {
+    background: rgb(118, 118, 118);
+}
