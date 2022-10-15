@@ -102,9 +102,6 @@ class EventFormMaker extends Component {
 			return redirect()->to('/event/'.$this->event[0]->slug)
 				->with('status', 'Berhasil menambahkan form pada event '. $this->event[0]->nama);
 		}
-
-		return redirect()->refresh()
-			->withErrors(['status' => 'Kesalahan terjadi saat membuat form']);
 	}
 
 	public function updateForm() {
@@ -116,9 +113,6 @@ class EventFormMaker extends Component {
 			return redirect()->to('/event/'.$this->event[0]->slug)
 				->with('status', 'Berhasil menambahkan form pada event '. $this->event[0]->nama);
 		}
-
-		return redirect()->refresh()
-			->withErrors(['status' => 'Kesalahan terjadi saat membuat form']);
 	}
 
 	public function createRule($forms) {
