@@ -20,7 +20,8 @@ use App\Http\Livewire\EventRegistration;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(AuthController::class)->group(function() {
+
+Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'logout');
     Route::post('/login', 'login')
         ->name('login')
@@ -32,7 +33,7 @@ Route::controller(AuthController::class)->group(function() {
 // });
 
 Route::get('/', function () {
-    return view('home');
+    return view('response');
 });
 
 Route::get('/event', Event::class);
@@ -44,16 +45,10 @@ Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
 
 Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 //untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     // Route::get('/event', [EventController::class, 'index']);
 });
 
-//untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('admin')->group(function() {
-    Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
-    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
-    Route::post('/admin/event', [EventController::class, 'addEvent']);
-});
 
 //untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
 Route::get('/debug', [ExampleController::class, 'debug']);
