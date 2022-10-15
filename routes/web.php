@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExampleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Livewire\Academy;
 use App\Http\Livewire\Event;
 use App\Http\Livewire\EventFormMaker;
@@ -20,33 +21,24 @@ use App\Http\Livewire\EventRegistration;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::controller(AuthController::class)->group(function () {
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/login', 'index');
     Route::post('/logout', 'logout');
     Route::post('/login', 'login')
         ->name('login')
         ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
 });
 
-// Route::get('/', function () {
-//     return view('login');
-// });
-
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/event', Event::class);
-Route::get('/academy', Academy::class);
-// Route::get('/admin/event/{event_id}/tambah-form', EventForm::class);
 Route::get('/event/{slug}/form', EventFormMaker::class);
 Route::get('/event/{slug}/daftar', EventRegistration::class);
 Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
 
 Route::get('/event/{slug}', [EventController::class, 'showDetail']);
 //untuk debuging tidak masalah route grouping dikomen dulu
-Route::middleware('auth')->group(function () {
-    // Route::get('/event', [EventController::class, 'index']);
+Route::middleware('auth')->group(function() {
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/event', Event::class);
+    Route::get('/academy', Academy::class);
 });
 
 

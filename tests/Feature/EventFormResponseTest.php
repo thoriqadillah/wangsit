@@ -3,11 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Event;
+use App\Models\EventFormResponse;
 use App\Models\User;
 use App\Services\EventFormResponseService;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class EventFormResponseTest extends TestCase
@@ -31,28 +32,38 @@ class EventFormResponseTest extends TestCase
      */
     public function test_successfully_save_form_response()
     {
-        $this->actingAs(User::find(20)); //pastikan di db gak ada, karena user hanya bisa ngisi sekali
-        $event = Event::find(2);
-        
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+        $event = Event::first();
         
         $service = new EventFormResponseService();
         $service->saveResponse($event->id, $this->makeResponse());
 
         $this->assertDatabaseHas('event_form_responses', [
             'event_id' => $event->id,
-            'user_id' => 20,
+            'user_id' => Auth::id(),
         ]);
+
+        //biar gak kesimpen di db aja, jadi didelete
+        EventFormResponse::latest()->first()->delete(); 
+        $user->delete();
     }
 
     public function test_user_response_should_be_saved()
     {
-        $this->actingAs(User::find(20)); //pastikan di db gak ada, karena user hanya bisa ngisi sekali
-        $event = Event::find(2);
+        User::factory()->create();
+        $user = User::first();
+        $this->actingAs($user);
+        $event = Event::first();
         
         $service = new EventFormResponseService();
+        $service->saveResponse($event->id, $this->makeResponse());
         $userResponse = $service->checkUserResponse($event->id);
         
         $this->assertEquals($userResponse->event_id, $event->id);
-        $this->assertEquals($userResponse->user_id, 20);
+        $this->assertEquals($userResponse->user_id, Auth::id());
+
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 }

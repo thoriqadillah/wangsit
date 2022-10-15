@@ -4,10 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Models\Departement;
 use App\Services\EventService;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Event extends Component {
 
+	//TODO: tambahkan pagination
 	public $departements;
 	public $events;
 
@@ -20,6 +22,11 @@ class Event extends Component {
 	public function mount() {
 		$this->departements = Departement::all();
 		$this->events = $this->eventService->showEvent();
+		
+		$now = Carbon::now();
+		foreach ($this->events as $i => $event) {
+				$this->events[$i]->countdown = $now->diffInDays($event->tgl_tutup_pendaftaran);
+		}
 	}
 
 	public function showEvents(int $deptId = 0) {
