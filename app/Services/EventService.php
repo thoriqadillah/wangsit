@@ -39,6 +39,11 @@ class EventService
         return $events;
     }
 
+    public function detailEvent($slug)
+    {
+        return Event::where('slug', $slug)->first();
+    }
+
     public function showBy(string $column, $value, bool $forAdmin = false)
     {
         if ($forAdmin) {
@@ -96,7 +101,6 @@ class EventService
     {
         $hash = bin2hex(random_bytes(6));
 
-        // return $eventUpdate;
         return Event::where('id', $id)->update([
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],

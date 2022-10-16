@@ -143,4 +143,17 @@ class EventServiceTest extends TestCase
 
         $this->assertJson($show);
     }
+
+    public function test_detail_event()
+    {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+        $event = new EventService();
+
+        $eventM = Event::latest()->first();
+        $show = $event->detailEvent($eventM->slug);
+
+        $this->assertJson($show);
+    }
 }

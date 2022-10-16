@@ -15,6 +15,12 @@ class AcademyService
         return Academy::all();
     }
 
+    public function detailAcademy($id)
+    {
+        return Academy::where('id', $id)->first();
+    }
+
+
     public function addAcademy(array $academyData)
     {
         $add = Academy::create([
@@ -24,13 +30,6 @@ class AcademyService
         ]);
 
         return $add;
-
-        // return Academy::create([
-        //     'nama' => $academyData['nama'],
-        //     'kategori' => $academyData['kategori'],
-        //     'link' => $academyData['link'],
-        //     'thumbnail' => $academyData['thumbnail'],
-        // ]);
     }
 
     public function updateAcademy(array $academyData, int $id)

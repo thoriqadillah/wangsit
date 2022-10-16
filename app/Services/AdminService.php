@@ -11,12 +11,12 @@ class AdminService
 
     public function getAdmin()
     {
-        return Admin::all();
+        return User::whereNotNull('admin_id')->get();
     }
 
     public function deleteAdmin(int $id)
     {
-        $admin = Admin::find($id);
+        $admin = User::whereNotNull('admin_id')->get();
         return $admin->delete();
     }
 

@@ -20,6 +20,11 @@ class AcademyController extends Controller
         $this->academy->showAcademy();
     }
 
+    public function detailAcademy($id)
+    {
+        $this->academy->detailAcademy($id);
+    }
+
     public function addAcademy(Request $request)
     {
         $validated = $request->validate([

@@ -17,6 +17,11 @@ class EventController extends Controller
         $this->event = $eventService;
     }
 
+    public function detailEvent($slug)
+    {
+        $this->event->detailEvent($slug);
+    }
+
 
     public function addEvent(Request $request)
     {
