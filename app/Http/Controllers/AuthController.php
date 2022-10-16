@@ -9,19 +9,22 @@ class AuthController extends Controller
 {
     protected AuthService $auth;
 
-    public function __construct(AuthService $auth) {
+    public function __construct(AuthService $auth)
+    {
         $this->auth = $auth;
     }
 
-    public function index() {
+    public function index()
+    {
         return view('login');
     }
 
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             'nim' => ['required', 'size:15'],
-            'password' => ['required', 'min:8', ]
-        ],[
+            'password' => ['required', 'min:8',]
+        ], [
             'required' => ':attribute wajib diisi',
             'size' => ':attribute harus 15 karakter',
             'min' => ':attribute minimal berisi 8 karakter'
@@ -34,12 +37,12 @@ class AuthController extends Controller
         }
 
         return redirect()->refresh()->withErrors([
-            'nim' => 'NIM atau password salah',
-            'password' => 'NIM atau password salah',
+            'status' => 'NIM atau password salah',
         ]);
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $this->auth->logout();
 
         $request->session()->invalidate();
