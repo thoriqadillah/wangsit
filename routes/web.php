@@ -30,6 +30,9 @@ Route::controller(AuthController::class)->group(function () {
         ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
 });
 
+Route::get('/tes', function () {
+    return view('add-academy');
+});
 
 Route::get('/event', Event::class);
 Route::get('/academy', Academy::class);
