@@ -48,8 +48,6 @@ class AcademyController extends Controller
             'thumbnail' => 'required',
         ], [
             'required' => ':attribute wajib diisi',
-            'start_date.required' => 'waktu mulai wajib diisi',
-            'end_date.required' => 'waktu selesai wajib diisi'
         ]);
 
         $academy = $this->academy->updateAcademy($validated, $id);
