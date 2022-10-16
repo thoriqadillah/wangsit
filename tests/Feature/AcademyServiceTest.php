@@ -2,13 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Models\Academy;
 use Carbon\Carbon;
 use Faker\Factory;
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Academy;
+use App\Models\AcademyCategory;
 use App\Services\AcademyService;
 use Illuminate\Support\Facades\Auth;
+use Database\Seeders\AcademyCategorySeeder;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,19 +23,22 @@ class AcademyServiceTest extends TestCase
      */
     public function test_add_academy()
     {
-        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $faker = Factory::create();
 
+        $kategoriM = AcademyCategory::latest()->first();
+
         $nama = $faker->words(10, true);
-        $kategori = $faker->words(3, true);
+        $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
         $thumbnail = $faker->words(5, true);
 
         $input = [
+            'academy_category_id' => $kategori,
             'nama' => $nama,
-            'kategori' => $kategori,
             'link' => $link,
-            'thumbnail' => $thumbnail,
         ];
 
         $academy = new AcademyService();
@@ -42,23 +47,28 @@ class AcademyServiceTest extends TestCase
         $this->assertDatabaseHas('academies', [
             'nama' => $nama
         ]);
+
+        $user->delete();
     }
 
     public function test_update_academy()
     {
-        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $faker = Factory::create();
 
-        $nama = $faker->words(10, true);
-        $kategori = $faker->words(3, true);
+        $kategoriM = AcademyCategory::latest()->first();
+
+        $nama = $faker->words(10, true) . 'update';
+        $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
         $thumbnail = $faker->words(5, true);
 
         $input = [
+            'academy_category_id' => $kategori,
             'nama' => $nama,
-            'kategori' => $kategori,
             'link' => $link,
-            'thumbnail' => $thumbnail,
         ];
 
         $academyM = Academy::latest()->first();
@@ -69,11 +79,15 @@ class AcademyServiceTest extends TestCase
         $this->assertDatabaseHas('academies', [
             'nama' => $nama
         ]);
+
+        $user->delete();
     }
 
     public function test_delete_event()
     {
-        $this->actingAs(User::find(20)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $academyM = Academy::latest()->first();
 
         $academy = new AcademyService();
@@ -82,6 +96,8 @@ class AcademyServiceTest extends TestCase
         $this->assertDatabaseMissing('academies', [
             'id' => $academyM->id
         ]);
+
+        $user->delete();
     }
 
     public function test_show_all()

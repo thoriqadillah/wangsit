@@ -23,10 +23,9 @@ class AcademyController extends Controller
     public function addAcademy(Request $request)
     {
         $validated = $request->validate([
+            'academy_category_id' => 'required',
             'nama' => 'required',
-            'kategori' => 'required',
             'link' => 'required',
-            'thumbnail' => 'required',
         ], [
             'required' => ':attribute wajib diisi'
         ]);
@@ -42,10 +41,9 @@ class AcademyController extends Controller
     public function updateAcademy(Request $request, int $id)
     {
         $validated = $request->validate([
+            'academy_category_id' => 'required',
             'nama' => 'required',
-            'kategori' => 'required',
             'link' => 'required',
-            'thumbnail' => 'required',
         ], [
             'required' => ':attribute wajib diisi',
         ]);

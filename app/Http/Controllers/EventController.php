@@ -23,6 +23,8 @@ class EventController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'slug' => 'required',
+            'thumbnail' => 'required',
+            'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -48,6 +50,8 @@ class EventController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'slug' => 'required',
+            'thumbnail' => 'required',
+            'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',

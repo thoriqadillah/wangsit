@@ -18,10 +18,9 @@ class AcademyService
     public function addAcademy(array $academyData)
     {
         $add = Academy::create([
+            'academy_category_id' => $academyData['academy_category_id'],
             'nama' => $academyData['nama'],
-            'kategori' => $academyData['kategori'],
             'link' => $academyData['link'],
-            'thumbnail' => $academyData['thumbnail'],
         ]);
 
         return $add;
@@ -37,10 +36,9 @@ class AcademyService
     public function updateAcademy(array $academyData, int $id)
     {
         $update = Academy::where('id', $id)->update([
+            'academy_category_id' => $academyData['academy_category_id'],
             'nama' => $academyData['nama'],
-            'kategori' => $academyData['kategori'],
             'link' => $academyData['link'],
-            'thumbnail' => $academyData['thumbnail'],
         ]);
 
         return $update;

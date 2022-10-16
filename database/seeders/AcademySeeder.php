@@ -18,12 +18,11 @@ class AcademySeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        for ($i = 0; $i < 10; $i++) { 
+        for ($i = 0; $i < 10; $i++) {
             DB::table('academies')->insert([
                 'academy_category_id' => rand(1, 6),
                 'nama' => $faker->words(rand(3, 5), true),
                 'link' => $faker->url(),
-                'thumbnail' => $faker->imageUrl(),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

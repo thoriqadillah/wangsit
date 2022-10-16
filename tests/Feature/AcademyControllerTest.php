@@ -6,6 +6,7 @@ use Faker\Factory;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Academy;
+use App\Models\AcademyCategory;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -18,40 +19,47 @@ class AcademyControllerTest extends TestCase
      */
     public function test_add_academy()
     {
-        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $faker = Factory::create();
 
-        $nama = $faker->words(3, true);
-        $kategori = $faker->words(1, true);
+        $kategoriM = AcademyCategory::latest()->first();
+
+        $nama = $faker->words(10, true);
+        $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
         $thumbnail = $faker->words(5, true);
 
         $input = [
+            'academy_category_id' => $kategori,
             'nama' => $nama,
-            'kategori' => $kategori,
             'link' => $link,
-            'thumbnail' => $thumbnail,
         ];
 
         // $this->post('/admin/academy', $input);
         $response = $this->post('/admin/academy', $input);
-        $this->assertDatabaseHas('academies', [
-            'kategori' => $kategori
-        ]);
+        $response->assertRedirect('/academy');
+
+        $user->delete();
     }
     public function test_update_academy()
     {
-        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $faker = Factory::create();
 
-        $nama = $faker->words(3, true) . 'updated';
-        $kategori = $faker->words(1, true);
+        $kategoriM = AcademyCategory::latest()->first();
+
+        $nama = $faker->words(10, true) . 'update';
+        $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
         $thumbnail = $faker->words(5, true);
 
         $input = [
+            'academy_category_id' => $kategori,
             'nama' => $nama,
-            'kategori' => $kategori,
             'link' => $link,
             'thumbnail' => $thumbnail,
         ];
@@ -60,14 +68,17 @@ class AcademyControllerTest extends TestCase
 
         // $this->post('/admin/academy', $input);
         $response = $this->put('/admin/academy/' . $academyM->id, $input);
-        $this->assertDatabaseHas('academies', [
-            'kategori' => $kategori
-        ]);
+        $response->assertRedirect(session()->previousUrl());
+
+
+        $user->delete();
     }
 
     public function test_delete_academy()
     {
-        $this->actingAs(User::find(20)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $academyM = Academy::latest()->first();
 
 
@@ -75,8 +86,8 @@ class AcademyControllerTest extends TestCase
 
 
         // $this->get('/event')->assertStatus(200);
-        $this->assertDatabaseMissing('academies', [
-            'id' => $academyM->id
-        ]);
+        $response->assertRedirect(session()->previousUrl());
+
+        $user->delete();
     }
 }

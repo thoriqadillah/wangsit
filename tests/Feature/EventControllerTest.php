@@ -22,17 +22,24 @@ class EventControllerTest extends TestCase
      */
     public function test_add_event()
     {
-        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+        $event = Event::first();
         $faker = Factory::create();
 
         $nama = $faker->words(6, true);
         $slug = $faker->words(9, true);
+        $thumbnail = $faker->words(9, true);
+        $adanyaKelulusan = 1;
         $deptId = 16;
 
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $nama,
             'slug' => $slug,
+            'thumbnail' => $thumbnail,
+            'adanya_kelulusan' => $adanyaKelulusan,
             'tgl_buka_pendaftaran' => Carbon::now(),
             'tgl_tutup_pendaftaran' => Carbon::now()->addDays(7),
             'tgl_buka_pengumuman' => Carbon::now()->addDays(10),
@@ -41,24 +48,31 @@ class EventControllerTest extends TestCase
 
         // $this->post('/admin/event', $input);
         $response = $this->post('/admin/event', $input);
-        $this->assertDatabaseHas('events', [
-            'nama' => $nama
-        ]);
+        $response->assertRedirect('/event');
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
+
     }
 
     public function test_update_event()
     {
-        $this->actingAs(User::find(8)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+        $event = Event::first();
         $faker = Factory::create();
 
         $nama = $faker->words(6, true) . 'Updated';
         $slug = $faker->words(9, true);
+        $thumbnail = $faker->words(9, true);
+        $adanyaKelulusan = 1;
         $deptId = 16;
 
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $nama,
             'slug' => $slug,
+            'thumbnail' => $thumbnail,
+            'adanya_kelulusan' => $adanyaKelulusan,
             'tgl_buka_pendaftaran' => Carbon::now(),
             'tgl_tutup_pendaftaran' => Carbon::now()->addDays(7),
             'tgl_buka_pengumuman' => Carbon::now()->addDays(10),
@@ -70,25 +84,24 @@ class EventControllerTest extends TestCase
 
         // $this->post('/admin/event', $input);
         $response = $this->put('/admin/event/' . $eventM->id, $input);
+        $response->assertRedirect(session()->previousUrl());
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
 
-
-        $this->assertDatabaseHas('events', [
-            'nama' => $nama
-        ]);
     }
 
     public function test_delete_event()
     {
-        $this->actingAs(User::find(20)); //sesuaikan departement_id user dengan event
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
         $eventM = Event::latest()->first();
 
 
         $response = $this->delete('/admin/event/' . $eventM->id);
 
 
-        // $this->get('/event')->assertStatus(200);
-        $this->assertDatabaseMissing('events', [
-            'id' => $eventM->id
-        ]);
+        $response->assertRedirect(session()->previousUrl());
+
+        $user->delete();
     }
 }

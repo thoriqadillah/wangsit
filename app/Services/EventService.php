@@ -81,6 +81,8 @@ class EventService
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
+            'thumbnail' => $eventData['thumbnail'],
+            'adanya_kelulusan' => $eventData['adanya_kelulusan'],
             'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
             'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
             'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
@@ -94,21 +96,13 @@ class EventService
     {
         $hash = bin2hex(random_bytes(6));
 
-        // $eventUpdate = Event::where('id', $id)->update([
-        //     'departement_id' => Auth::user()->admin->departement_id,
-        //     'nama' => $eventData['nama'],
-        //     'slug' => Str::slug($eventData['nama']) . '-' . $hash,
-        //     'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
-        //     'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
-        //     'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
-        //     'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
-        // ]);
-
         // return $eventUpdate;
         return Event::where('id', $id)->update([
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
+            'thumbnail' => $eventData['thumbnail'],
+            'adanya_kelulusan' => $eventData['adanya_kelulusan'],
             'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
             'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
             'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],

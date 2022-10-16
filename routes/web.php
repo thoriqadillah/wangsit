@@ -3,12 +3,13 @@
 
 use App\Http\Livewire\Event;
 use App\Http\Livewire\Academy;
+use App\Http\Livewire\EventFormMaker;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\EventFormMaker;
 use App\Http\Livewire\EventRegistration;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\AcademyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +69,6 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/debug', [ExampleController::class, 'debug']);
 Route::get('/example', [ExampleController::class, 'index']);
 
-Route::get('/academy', [AcademyController::class, 'showAcademy']);
 Route::post('/admin/academy', [AcademyController::class, 'addAcademy']);
 Route::delete('/admin/academy/{id}', [AcademyController::class, 'deleteAcademy']);
 Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
