@@ -80,9 +80,6 @@ class EventControllerTest extends TestCase
         ];
 
         $eventM = Event::latest()->first();
-
-
-        // $this->post('/admin/event', $input);
         $response = $this->put('/admin/event/' . $eventM->id, $input);
         $response->assertRedirect(session()->previousUrl());
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
