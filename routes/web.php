@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Livewire\EventRegistration;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\ExampleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,52 +24,32 @@ use App\Http\Controllers\AcademyController;
 */
 
 Route::controller(AuthController::class)->group(function () {
-
     Route::get('/login', 'index');
     Route::post('/logout', 'logout');
-    Route::post('/login', 'login')
-        ->name('login')
-        ->middleware(['throttle:login']); //limit rate request -> search RouteServiceProvider
+    Route::post('/login', 'login')->middleware(['throttle:30,1']); //limit rate request 30/menit
 });
 
-// Route::get('/', function () {
-//     return view('login');
-// });
-
-// Route::get('/', function () {
-//     return view('addEvent');
-// });
-
-Route::get('/event', Event::class);
-Route::get('/academy', Academy::class);
-// Route::get('/admin/event/{event_id}/tambah-form', EventForm::class);
-Route::get('/event/{slug}/form', EventFormMaker::class);
-Route::get('/event/{slug}/daftar', EventRegistration::class);
-Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
-
-Route::get('/event/{slug}', [EventController::class, 'showDetail']);
-//untuk debuging tidak masalah route grouping dikomen dulu
 Route::middleware('auth')->group(function () {
-    // Route::get('/event', [EventController::class, 'index']);
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/event', Event::class);
+    Route::get('/academy', Academy::class);
+    Route::get('/event/{slug}/daftar', EventRegistration::class);
+    Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
 });
 
-//untuk debuging tidak masalah route grouping dikomen dulu
 Route::middleware('admin')->group(function () {
+    Route::get('/admin/event/{slug}/form', EventFormMaker::class);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
-    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
+    Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
     Route::post('/admin/event', [EventController::class, 'addEvent']);
-    Route::get('/admin/event/{status}', [EventController::class, 'showFilterbyDate']);
+    Route::post('/admin/academy', [AcademyController::class, 'addAcademy']);
+    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
+    Route::delete('/admin/academy/{id}', [AcademyController::class, 'deleteAcademy']);
 });
 
-Route::get('/', [HomeController::class, 'index']);
-
-
-
-
-//untuk testing dan debuging doang. Otak atik aja controllernya buat testing atau apapun, tapi jangan dimasukkin ke commit
-Route::get('/debug', [ExampleController::class, 'debug']);
+// Untuk testing dan debuging doang, jangan dimasukkin ke commit
 Route::get('/example', [ExampleController::class, 'index']);
+Route::get('/debug', function() {
+    // Debug here
+});
 
-Route::post('/admin/academy', [AcademyController::class, 'addAcademy']);
-Route::delete('/admin/academy/{id}', [AcademyController::class, 'deleteAcademy']);
-Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
