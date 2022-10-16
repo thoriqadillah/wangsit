@@ -12,28 +12,19 @@ class EventController extends Controller
     //
     protected EventService $event;
 
-    public function __construct(EventService $eventService) {
+    public function __construct(EventService $eventService)
+    {
         $this->event = $eventService;
     }
 
-    public function index() {
-        $event = $this->event->showEvent();
-    }
 
-    public function showByDepartement(int $departementId) {
-        $event = $this->event->showBy('departement_id', $departementId);
-    }
-
-    public function showDetail(string $slug) {
-        $event = $this->event->showBy('slug', $slug);
-        if ($event->isEmpty()) return abort(404);
-
-    }
-
-    public function addEvent(Request $request) {
+    public function addEvent(Request $request)
+    {
         $validated = $request->validate([
             'nama' => 'required',
-            'deskripsi' => 'required',
+            'slug' => 'required',
+            'thumbnail' => 'required',
+            'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -54,10 +45,13 @@ class EventController extends Controller
         return redirect()->refresh()->withErrors(['status' => 'Event gagal ditambah']);
     }
 
-    public function updateEvent(Request $request, int $id) {
+    public function updateEvent(Request $request, int $id)
+    {
         $validated = $request->validate([
             'nama' => 'required',
-            'deskripsi' => 'required',
+            'slug' => 'required',
+            'thumbnail' => 'required',
+            'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -78,12 +72,13 @@ class EventController extends Controller
         return redirect()->refresh()->withErrors(['status' => 'Event gagal diupdate']);
     }
 
-    public function deleteEvent(int $id) {
+    public function deleteEvent(int $id)
+    {
         $deleted = $this->event->deleteEvent($id);
         if ($deleted) {
             return redirect()->back()->with('status', 'Event berhasil dihapus');
         }
-        
+
         return redirect()->refresh()->withErrors(['status' => 'Event gagal dihapus']);
     }
 }
