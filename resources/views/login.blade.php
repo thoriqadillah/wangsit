@@ -18,9 +18,29 @@
             <div class="w-full text-center py-3 font-medium text-xl bg-mainColor rounded-t text-white shadow-md">
                 Login
             </div>
-            <div class="px-4 w-full flex-col flex gap-5 lg:gap-8 my-8">
-                <input type="text" class="bg-gray-100 p-2 rounded placeholder:text-[#8690d2] outline-mainColor lg:text-lg" placeholder="NIM" name="nim" required />
-                <input type="password" class="bg-gray-100 p-2 rounded placeholder:text-[#8690d2] outline-mainColor lg:text-lg" placeholder="Password" name="password" required />
+
+
+            <div class="px-4 my-8">
+                @error('status')
+                <div class="text-newRed text-center text-lg mb-2 mt-4">{{$message}}</div>
+                @enderror
+
+                <div class="w-full flex-col flex gap-5 lg:gap-8">
+                    <div class="w-full">
+                        <input type="text" class="bg-gray-100 p-2 w-full rounded placeholder:text-[#8690d2] outline-mainColor lg:text-lg" placeholder="NIM" name="nim" value="{{ old('nim') ?? '' }}" required />
+                        @error('nim')
+                        <div class="text-newRed text-sm">{{$message}}</div>
+                        @enderror
+                    </div>
+
+                    <div class="w-full">
+                        <input type="password" class="bg-gray-100 w-full p-2 rounded placeholder:text-[#8690d2] outline-mainColor lg:text-lg" placeholder="Password" name="password" value="{{ old('password') ?? '' }}" required />
+                        @error('password')
+                        <div class="text-newRed text-sm">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+
                 <input type="submit" value="Login" class="block bg-mainColor text-white w-full rounded py-2 mt-3 lg:mt-8 cursor-pointer" />
             </div>
         </form>

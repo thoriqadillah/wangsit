@@ -49,7 +49,6 @@ Route::middleware('admin')->group(function () {
 
 // Untuk testing dan debuging doang, jangan dimasukkin ke commit
 Route::get('/example', [ExampleController::class, 'index']);
-Route::get('/debug', function() {
+Route::get('/debug', function () {
     // Debug here
 });
-
