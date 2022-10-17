@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use App\Models\Academy;
+use Illuminate\Support\Str;
 use PhpParser\ErrorHandler\Collecting;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -15,17 +16,20 @@ class AcademyService
         return Academy::all();
     }
 
-    public function detailAcademy($id)
+    public function detailAcademy($slug)
     {
-        return Academy::where('id', $id)->first();
+        return Academy::where('slug', $slug)->join('academy_categories', 'academy_categories.id', '=', 'academy_category_id')->select('academies.*', 'academy_categories.nama as namaK')->first();
     }
 
 
     public function addAcademy(array $academyData)
     {
+        $hash = bin2hex(random_bytes(6));
+
         $add = Academy::create([
             'academy_category_id' => $academyData['academy_category_id'],
             'nama' => $academyData['nama'],
+            'slug' => Str::slug($academyData['nama']) . '-' . $hash,
             'link' => $academyData['link'],
         ]);
 

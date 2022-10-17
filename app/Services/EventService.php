@@ -55,9 +55,8 @@ class EventService
             ->get();
     }
 
-    public function showByDate($status): Collection
+    public function showByDate($status, int $deptId = 0): Collection
     {
-        $deptId = Auth::user()->admin->departement_id;
         if ($status === 'aktif') {
             return Event::where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '<=', Carbon::now())->where('tgl_tutup_pendaftaran', '>=', Carbon::now())

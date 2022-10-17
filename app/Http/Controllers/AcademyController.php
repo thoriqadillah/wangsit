@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AcademyCategory;
 use App\Services\AcademyService;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,37 @@ class AcademyController extends Controller
 
     public function showAcademy()
     {
-        $this->academy->showAcademy();
+        $academy =  $this->academy->showAcademy();
+
+        $data = [
+            'academy' => $academy
+        ];
+
+        return view('admin/admin-academy', $data);
     }
 
-    public function detailAcademy($id)
+    public function detailAcademy($slug)
     {
-        $this->academy->detailAcademy($id);
+        $detail = $this->academy->detailAcademy($slug);
+        $kategoriMateri = AcademyCategory::all();
+        $data = [
+            'detail' => $detail,
+            'materi' => $kategoriMateri
+
+        ];
+
+        return view('admin/add-academy', $data);
+    }
+
+    public function addAcademyPage()
+    {
+        $kategoriMateri = AcademyCategory::all();
+
+        $data = [
+            'materi' => $kategoriMateri
+        ];
+
+        return view('admin/add-academy', $data);
     }
 
     public function addAcademy(Request $request)
@@ -37,7 +63,7 @@ class AcademyController extends Controller
 
         $academy = $this->academy->addAcademy($validated);
         if ($academy) {
-            return redirect('/academy')->with('status', 'Academy berhasil ditambah');
+            return redirect('/admin/academy')->with('status', 'Academy berhasil ditambah');
         }
 
         return redirect()->refresh()->withErrors(['status' => 'Academy gagal ditambah']);
@@ -55,7 +81,7 @@ class AcademyController extends Controller
 
         $academy = $this->academy->updateAcademy($validated, $id);
         if ($academy) {
-            return redirect('/academy')->with('status', 'Academy berhasil diupdate');
+            return redirect('/admin/academy')->with('status', 'Academy berhasil diupdate');
         }
 
         return redirect()->refresh()->withErrors(['status' => 'Academy gagal diupdate']);

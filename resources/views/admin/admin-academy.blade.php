@@ -10,22 +10,24 @@
         <h1 class=" text-2xl font-medium">List Academy</h1>
         <a href="" class="py-2 rounded-full bg-mainColor text-white block w-40 text-center">Add Academy</a>
     </div>
-
+{{-- @method('DELETE') --}}
     <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
+        @foreach ($academy as $acdmy)
         <div class="w-96 h-96 bg-white border rounded shadow relative p-5">
-            <img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
+            <img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4" onclick="location.href='/admin/academy/{{ $acdmy->id }}/delete'">
             <div class="w-full h-52">
                 <img src="{{url('/asset/icons/thumbnail2.png')}}" alt="" class="w-full h-full">
             </div>
             <div class="mt-5 flex flex-col h-28 justify-between">
                 <div>
-                    <h1 class="font-medium uppercase text-center">Dasar Basis Data</h1>
+                    <h1 class="font-medium uppercase text-center">{{ $acdmy->nama }}</h1>
                 </div>
                 <div class="flex gap-4">
-                    <a class="border border-white rounded-md cursor-pointer grow block text-center text-white py-2 bg-mainColor">DETAIL</a>
+                    <a class="border border-white rounded-md cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/detail/academy/{{ $acdmy->slug }}">DETAIL</a>
                 </div>
             </div>
         </div>
+        @endforeach
 
     </div>
 </div>

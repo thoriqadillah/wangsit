@@ -44,9 +44,12 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
     Route::post('/admin/event', [EventController::class, 'addEvent']);
-    Route::post('/admin/academy', [AcademyController::class, 'addAcademy']);
+    Route::get('/admin/academy', [AcademyController::class, 'showAcademy']);
+    Route::get('/admin/detail/academy/{slug}', [AcademyController::class, 'detailAcademy']);
+    Route::post('/admin/add/academy', [AcademyController::class, 'addAcademy']);
+    Route::get('/admin/add/academy', [AcademyController::class, 'addAcademyPage']);
     Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
-    Route::delete('/admin/academy/{id}', [AcademyController::class, 'deleteAcademy']);
+    Route::delete('/admin/academy/{id}/delete', [AcademyController::class, 'deleteAcademy']);
 });
 
 // Untuk testing dan debuging doang, jangan dimasukkin ke commit
