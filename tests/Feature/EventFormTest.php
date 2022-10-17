@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Http\Livewire\EventFormMaker;
+use App\Http\Livewire\EventForm;
 use App\Models\Event;
-use App\Models\EventForm;
+use App\Models\EventForm as EventFormModel;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class EventFormMakerTest extends TestCase
+class EventFormTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -22,7 +22,7 @@ class EventFormMakerTest extends TestCase
         $event = Event::first();
 
         $existedForm = $event->form['format'];
-        $component = Livewire::test(EventFormMaker::class, ['slug' => $event->slug]);
+        $component = Livewire::test(EventForm::class, ['slug' => $event->slug]);
         $component->assertSet('forms', $existedForm);
     }
 
@@ -30,7 +30,7 @@ class EventFormMakerTest extends TestCase
     {
         Event::factory()->create();
         $event = Event::latest()->first();
-        $component = Livewire::test(EventFormMaker::class, ['slug' => $event->slug]);
+        $component = Livewire::test(EventForm::class, ['slug' => $event->slug]);
         $presetForm = [
 			[
 				'form_type' => "Text",
@@ -67,10 +67,10 @@ class EventFormMakerTest extends TestCase
             }
             
         $event = Event::first();
-        Livewire::test(EventFormMaker::class, ['slug' => $event->slug])
+        Livewire::test(EventForm::class, ['slug' => $event->slug])
             ->set('forms', $forms)
             ->call('updateForm')
-            ->assertRedirect("/event/$event->slug");
+            ->assertRedirect("/admin/event/$event->slug/form");
 
     }
 
@@ -92,13 +92,13 @@ class EventFormMakerTest extends TestCase
         
         Event::factory()->create();
         $event = Event::latest()->first();
-        Livewire::test(EventFormMaker::class, ['slug' => $event->slug])
+        Livewire::test(EventForm::class, ['slug' => $event->slug])
             ->set('forms', $forms)
             ->call('createForm')
-            ->assertRedirect("/event/$event->slug");
+            ->assertRedirect("/admin/event/$event->slug/form");
 
         //biar gak kesimpen di db aja, jadi didelete
-        EventForm::latest()->first()->delete(); 
+        EventFormModel::latest()->first()->delete(); 
         $event->delete();
     }
 }

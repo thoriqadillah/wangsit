@@ -9,13 +9,10 @@
             @endforeach
         </div>
 
-        <form class="ml-4 mt-8">
-            <select name="filterPengumuman" id="" class="text-lg border-2 border-mainColor bg-white rounded-md py-2 px-4 outline-mainColor">
-                <option selected value="all">Semua Event</option>
-                <option value="pengumuman">Pengumuman</option>
-                <option value="pendaftaran">Pendaftaran</option>
-            </select>
-        </form>
+        <select name="filterPengumuman" wire:model="filter" class="text-lg border-2 border-mainColor bg-white rounded-md py-2 px-4 outline-mainColor">
+            <option selected value="aktif">Pendaftaran</option>
+            <option value="pengumuman">Pengumuman</option>
+        </select>
     </div>
 
     <div class="grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-8 gap-x-4 gap-y-10 justify-items-center">

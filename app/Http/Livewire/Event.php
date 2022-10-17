@@ -10,6 +10,7 @@ use Livewire\Component;
 class Event extends Component {
 
 	//TODO: tambahkan pagination
+	public $filter = 'aktif';
 	public $departements;
 	public $events;
 
@@ -24,6 +25,7 @@ class Event extends Component {
 		$this->events = $this->eventService->showEvent();
 	}
 
+	//TODO: filter berdasarkan dropdown
 	public function showEvents(int $deptId = 0) {
 		if ($deptId == 0) {
 			$this->events = $this->eventService->showEvent();
