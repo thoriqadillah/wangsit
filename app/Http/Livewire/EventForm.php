@@ -2,13 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\EventForm;
 use App\Models\FormType;
 use App\Services\EventFormService;
 use App\Services\EventService;
 use Livewire\Component;
 
-class EventFormMaker extends Component {
+class EventForm extends Component {
 
 	public $forms = [];
 	public $formTypes;
@@ -29,7 +28,8 @@ class EventFormMaker extends Component {
 		$this->event = $this->eventService->showBy('slug', $slug);
 		if ($this->event->isEmpty()) return abort(404);
 		
-		$this->existedForm = $this->event[0]->form;
+		$this->event = $this->event[0];
+		$this->existedForm = $this->event->form;
 
 		if ($this->existedForm) {
 			$this->forms = $this->existedForm['format'];
@@ -97,10 +97,10 @@ class EventFormMaker extends Component {
 		$validatorRules = $this->createRule($this->forms);
 		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
 
-		$created = $this->eventFormService->createForm($this->forms, $this->event[0]->id);
+		$created = $this->eventFormService->createForm($this->forms, $this->event->id);
 		if ($created) {
-			return redirect()->to('/event/'.$this->event[0]->slug)
-				->with('status', 'Berhasil menambahkan form pada event '. $this->event[0]->nama);
+			return redirect()->to('/admin/event/'.$this->event->slug . '/form')
+				->with('status', 'Berhasil menambahkan form pada event '. $this->event->nama);
 		}
 	}
 
@@ -108,10 +108,10 @@ class EventFormMaker extends Component {
 		$validatorRules = $this->createRule($this->forms);
 		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
 
-		$updated = $this->eventFormService->updateForm($this->forms, $this->event[0]->id);
+		$updated = $this->eventFormService->updateForm($this->forms, $this->event->id);
 		if ($updated) {
-			return redirect()->to('/event/'.$this->event[0]->slug)
-				->with('status', 'Berhasil menambahkan form pada event '. $this->event[0]->nama);
+			return redirect()->to('/admin/event/'.$this->event->slug . '/form')
+				->with('status', 'Berhasil menambahkan form pada event '. $this->event->nama);
 		}
 	}
 
@@ -133,7 +133,7 @@ class EventFormMaker extends Component {
 	}
 
 	public function render() {
-		return view('livewire.event-form-maker')
+		return view('livewire.event-form')
 			->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error
 			->section('content');
 	}

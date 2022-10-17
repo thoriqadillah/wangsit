@@ -29,7 +29,6 @@ class AcademyControllerTest extends TestCase
         $nama = $faker->words(10, true);
         $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
-        $thumbnail = $faker->words(5, true);
 
         $input = [
             'academy_category_id' => $kategori,
@@ -43,6 +42,7 @@ class AcademyControllerTest extends TestCase
 
         $user->delete();
     }
+
     public function test_update_academy()
     {
         User::factory()->create();
@@ -66,10 +66,8 @@ class AcademyControllerTest extends TestCase
 
         $academyM = Academy::latest()->first();
 
-        // $this->post('/admin/academy', $input);
         $response = $this->put('/admin/academy/' . $academyM->id, $input);
         $response->assertRedirect(session()->previousUrl());
-
 
         $user->delete();
     }
@@ -81,11 +79,7 @@ class AcademyControllerTest extends TestCase
         $this->actingAs($user);
         $academyM = Academy::latest()->first();
 
-
         $response = $this->delete('/admin/academy/' . $academyM->id);
-
-
-        // $this->get('/event')->assertStatus(200);
         $response->assertRedirect(session()->previousUrl());
 
         $user->delete();

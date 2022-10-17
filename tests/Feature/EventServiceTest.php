@@ -11,7 +11,6 @@ use App\Services\EventService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Symfony\Component\EventDispatcher\DependencyInjection\ExtractingEventDispatcher;
 
 class EventServiceTest extends TestCase
 {
@@ -31,7 +30,6 @@ class EventServiceTest extends TestCase
         $slug = $faker->words(9, true);
         $thumbnail = $faker->words(9, true);
         $adanyaKelulusan = 1;
-        $deptId = 16;
 
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
@@ -66,7 +64,6 @@ class EventServiceTest extends TestCase
         $slug = $faker->words(9, true);
         $thumbnail = $faker->words(9, true);
         $adanyaKelulusan = 1;
-        $deptId = 16;
 
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
@@ -120,6 +117,7 @@ class EventServiceTest extends TestCase
         $show = $event->showBy('departement_id', 1);
 
         $this->assertJson($show);
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_show()
@@ -131,6 +129,7 @@ class EventServiceTest extends TestCase
         $show = $event->showEvent();
 
         $this->assertJson($show);
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_show_by_date()
@@ -142,6 +141,7 @@ class EventServiceTest extends TestCase
         $show = $event->showByDate('aktif');
 
         $this->assertJson($show);
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_detail_event()

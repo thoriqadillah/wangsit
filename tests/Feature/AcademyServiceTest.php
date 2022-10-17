@@ -2,17 +2,13 @@
 
 namespace Tests\Feature;
 
-use Carbon\Carbon;
 use Faker\Factory;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Academy;
 use App\Models\AcademyCategory;
 use App\Services\AcademyService;
-use Illuminate\Support\Facades\Auth;
-use Database\Seeders\AcademyCategorySeeder;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AcademyServiceTest extends TestCase
 {
@@ -33,7 +29,6 @@ class AcademyServiceTest extends TestCase
         $nama = $faker->words(10, true);
         $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
-        $thumbnail = $faker->words(5, true);
 
         $input = [
             'academy_category_id' => $kategori,
@@ -63,7 +58,6 @@ class AcademyServiceTest extends TestCase
         $nama = $faker->words(10, true) . 'update';
         $kategori = $kategoriM->id;
         $link = $faker->words(7, true);
-        $thumbnail = $faker->words(5, true);
 
         $input = [
             'academy_category_id' => $kategori,
