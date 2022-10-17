@@ -5,19 +5,25 @@ const modal = document.getElementById("modal");
 function mySidebar() {
     isOpen = !isOpen;
     if (isOpen) {
-        sidebar.style.left = "0px";
-        modal.style.display = "block";
+        sidebar.className =
+            "h-screen fixed z-10 w-60 top-0 bg-white transition translate-x-0 duration-700 px-5 py-20";
+        modal.className =
+            "fixed w-full h-full scale-100 transition duration-100 bg-[#000000e1] z-50";
     } else if (!isOpen) {
-        sidebar.style.left = "-240px";
-        modal.style.display = "none";
+        sidebar.className =
+            "h-screen fixed z-10 w-60 top-0 bg-white transition -translate-x-60 duration-700 px-5 py-20";
+        modal.className =
+            "fixed w-full h-full scale-0 transition duration-100 bg-[#000000e1] z-50";
     }
 }
 
 modal.addEventListener("click", (e) => {
     isOpen = false;
     if (!isOpen) {
-        sidebar.style.left = "-240px";
-        modal.style.display = "none";
+        sidebar.className =
+            "h-screen fixed z-10 w-60 top-0 bg-white transition -translate-x-60 duration-700 px-5 py-20";
+        modal.className =
+            "fixed w-full h-full scale-0 transition duration-100 bg-[#000000e1] z-50";
     }
 });
 
@@ -27,8 +33,10 @@ let isConfirm = false;
 function confirmDelete() {
     isConfirm = !isConfirm;
     if (isConfirm) {
-        modalConfirm.style.display = "block";
+        modalConfirm.className =
+            "fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] z-50 transition duration-100 scale-100";
     } else if (!isConfirm) {
-        modalConfirm.style.display = "none";
+        modalConfirm.classList =
+            "fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] z-50 transition duration-100 scale-0";
     }
 }

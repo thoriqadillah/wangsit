@@ -20,6 +20,21 @@
                     <input type="text" name="linkMateri" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                 </div>
             </div>
+            
+            <div class="flex gap-8 mt-6">
+                <div class="w-1/2">
+                    <label for="countries" class="block mb-2 text-gray-900">Kategori Materi</label>
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3 w-80">
+                        <option value="" selected>Basis Data</option>
+                        <option value="">Pemrograman</option>
+                        <option value="">Pengembangan Sistem Informasi</option>
+                        <option value="">Manajemen</option>
+                        <option value="">Antarmuka</option>
+                        <option value="">Lain-lain</option>
+
+                    </select>
+                </div>
+            </div>
 
             <div class="flex justify-end">
                 <input type="submit" value="Kirim" class="cursor-pointer rounded text-center w-28 py-1 mt-8 bg-mainColor text-white">
