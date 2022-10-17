@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-
 <div class="pt-20 px-10">
     <h1 class=" text-2xl font-medium"> Event Starship</h1>
 
