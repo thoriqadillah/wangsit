@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<div class="absolute w-full top-0 bottom-0 right-0 left-0 bg-[#1b1b1be1] hidden" id="modalConfirm">
+<div class="fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] z-50 transition duration-100 scale-0" id="modalConfirm">
     <div class="rounded bg-white p-10 w-[500px] mx-auto mt-40">
         <h1 class="text-lg font-medium text-center">Hapus Event Ini ?</h1>
         <div class="flex px-6 items-center justify-between gap-8 mt-8">

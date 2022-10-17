@@ -3,7 +3,7 @@
 
 use App\Http\Livewire\Event;
 use App\Http\Livewire\Academy;
-use App\Http\Livewire\EventFormMaker;
+use App\Http\Livewire\EventForm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -11,6 +11,7 @@ use App\Http\Livewire\EventRegistration;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\ExampleController;
+use App\Http\Livewire\AdminEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ use App\Http\Controllers\ExampleController;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index');
     Route::post('/logout', 'logout');
-    Route::post('/login', 'login')->middleware(['throttle:30,1']); //limit rate request 30/menit
+    Route::post('/login', 'login')->name('login')->middleware(['throttle:30,1']); //limit rate request 30/menit
 });
 
 Route::middleware('auth')->group(function () {
@@ -38,7 +39,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
-    Route::get('/admin/event/{slug}/form', EventFormMaker::class);
+    Route::get('/admin/event', AdminEvent::class);
+    Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
     Route::post('/admin/event', [EventController::class, 'addEvent']);
