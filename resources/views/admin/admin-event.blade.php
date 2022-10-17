@@ -20,8 +20,8 @@
             </select>
         </div>
         <div class="flex gap-4 items-center">
-            <img src="{{url('/asset/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-            <img src="{{url('/asset/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+            <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+            <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
         </div>
     </div>
 
