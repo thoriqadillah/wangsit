@@ -9,10 +9,17 @@
             @endforeach
         </div>
 
-        <select name="filterPengumuman" wire:model="filter" class="text-lg border-2 border-mainColor bg-white rounded-md py-2 px-4 outline-mainColor">
-            <option selected value="aktif">Pendaftaran</option>
-            <option value="pengumuman">Pengumuman</option>
-        </select>
+        <div class="flex justify-between items-center">
+            <select name="filterPengumuman" wire:model="filter" class="text-lg border-2  bg-white rounded-md py-2 px-4 outline-mainColor">
+                <option selected value="aktif">Pendaftaran</option>
+                <option value="pengumuman">Pengumuman</option>
+            </select>
+
+            <div class="flex gap-4 items-center">
+                <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+                <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+            </div>
+        </div>
     </div>
 
     <div class="grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-8 gap-x-4 gap-y-10 justify-items-center">
