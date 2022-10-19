@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="flex flex-col lg:flex-row gap-5 px-4 xl:px-20 py-20 lg:py-28">
+<div class="flex flex-col lg:flex-row gap-5 px-4 md:px-8 lg:px-12 xl:px-20 py-20 lg:py-28">
 
     <div class="flex flex-col gap-5 grow">
         <!-- Apps Section -->
@@ -29,9 +29,9 @@
         <!-- Event Section -->
         <div class="w-full">
             <h1 class="text-mainColor text-2xl text-center font-bold mt-10">Current KBMSI Events</h1>
-            <div class="grid grid-col-1 md:grid-cols-2 w-full mt-8 gap-8 justify-items-center">
+            <div class="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 w-full mt-8 gap-8 justify-items-center">
                 @foreach ($latestEvent as $event)
-                <div class="w-80 md:w-[340px] lg:w-72 xl:w-[340px] h-96 shadow">
+                <div class="w-80 md:w-[340px] lg:w-full h-96 shadow">
                     <div class="w-full h-52">
                         <img src="{{ $event->thumbnail }}" class="w-full h-full object-cover" />
                     </div>
