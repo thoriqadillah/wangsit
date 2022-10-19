@@ -43,7 +43,8 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
-    Route::post('/admin/event', [EventController::class, 'addEvent']);
+    Route::get('/admin/add/event', [EventController::class, 'addEventPage']);
+    Route::post('/admin/add/event', [EventController::class, 'addEvent']);
     Route::get('/admin/academy', [AcademyController::class, 'showAcademy']);
     Route::get('/admin/detail/academy/{slug}', [AcademyController::class, 'detailAcademy']);
     Route::post('/admin/add/academy', [AcademyController::class, 'addAcademy']);

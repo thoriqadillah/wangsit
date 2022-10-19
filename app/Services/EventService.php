@@ -80,20 +80,24 @@ class EventService
     //Buat admin
     public function addEvent(array $eventData)
     {
+        if ($eventData['adanya_kelulusan'] == true) {
+            $eventData['adanya_kelulusan'] = 1;
+        } else {
+            $eventData['adanya_kelulusan'] = 0;
+        }
         $hash = bin2hex(random_bytes(6));
-        $eventCreate = Event::create([
+        // dd($eventData['adanya_kelulusan']);
+        return Event::create([
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
-            'thumbnail' => $eventData['thumbnail'],
+            // 'thumbnail' => $eventData['thumbnail'],
             'adanya_kelulusan' => $eventData['adanya_kelulusan'],
             'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
             'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
             'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
             'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
         ]);
-
-        return $eventCreate;
     }
 
     public function updateEvent(array $eventData, int $id)

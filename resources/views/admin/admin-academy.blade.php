@@ -14,7 +14,16 @@
     <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
         @foreach ($academy as $acdmy)
         <div class="w-96 h-96 bg-white border rounded shadow relative p-5">
-            <img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4" onclick="location.href='/admin/academy/{{ $acdmy->id }}/delete'">
+            <form action="/admin/academy/{{ $acdmy->id }}/delete" method="POST">
+                @csrf
+                @method('DELETE')
+                <button><img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4" >
+                </button>
+                {{-- <a href="/admin/academy/{{ $acdmy->id }}/delete"><img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4" >
+                </a> --}}
+
+            </form>
+            
             <div class="w-full h-52">
                 <img src="{{url('/asset/icons/thumbnail2.png')}}" alt="" class="w-full h-full">
             </div>

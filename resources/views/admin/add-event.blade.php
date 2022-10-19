@@ -7,11 +7,12 @@
 
 <div class="pt-20 pl-72 pr-12">
     <div class="w-[700px] mx-auto rounded p-8 shadow border">
-        <form clas>
+        <form class method="POST" action="/admin/add/event">
+            @csrf
             <div class="flex gap-8 mt-10 items-center">
                 <div class="w-full">
                     <label>Nama Event</label>
-                    <input type="text" name="namaEvent" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                 </div>
                 <div class="w-full">
                     <label>Nama Departemen</label>
@@ -32,24 +33,24 @@
             <div class="flex gap-8 mt-10">
                 <div class="w-full">
                     <label>Tanggal Pendaftaran</label>
-                    <input type="date" name="tanggalPendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_buka_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                 </div>
 
                 <div class="w-full">
                     <label>Tanggal Tutup Pendaftaran</label>
-                    <input type="date" name="tanggalTutupPendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                 </div>
             </div>
 
             <div class="flex gap-8 mt-10">
                 <div class="w-full">
                     <label>Tanggal Pengumuman</label>
-                    <input type="date" name="tanggalPengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_buka_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                 </div>
 
                 <div class="w-full">
                     <label>Tanggal Akhir Pengumuman</label>
-                    <input type="date" name="tanggalAkhirPengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_tutup_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                 </div>
             </div>
 
@@ -63,11 +64,11 @@
       file:text-sm file:font-semibold
       file:bg-violet-50 file:text-mainColor
       hover:file:bg-violet-100
-    " />
+    " name="thumbnail"/>
             </label>
 
             <div class="flex items-center mt-8 gap-2">
-                <input id="checked-checkbox" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
+                <input name="adanya_kelulusan" id="checked-checkbox" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
                 <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Jadikan Event Tanpa Pengumuman</label>
             </div>
 
