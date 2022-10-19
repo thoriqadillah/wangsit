@@ -67,7 +67,7 @@
             </label>
 
             <div class="flex items-center mt-8 gap-2">
-                <input id="checked-checkbox" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
+                <input id="checked-checkbox" type="checkbox" value="false" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
                 <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Jadikan Event Tanpa Kelulusan</label>
             </div>
 
