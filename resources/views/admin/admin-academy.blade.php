@@ -6,9 +6,16 @@
 </div>
 
 <div class="pt-20 pl-60 pr-8">
-    <div class="flex justify-between items-center">
-        <h1 class=" text-2xl font-medium">List Academy</h1>
+    <h1 class=" text-2xl font-medium">List Academy</h1>
+
+    <div class="flex justify-between items-center mt-8">
+
         <a href="" class="py-2 rounded-full bg-mainColor text-white block w-40 text-center">Add Academy</a>
+
+        <div class="flex gap-4 items-center">
+            <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+            <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+        </div>
     </div>
 {{-- @method('DELETE') --}}
     <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
