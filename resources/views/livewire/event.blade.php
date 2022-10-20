@@ -36,7 +36,7 @@
             </div>
             <div class="px-4">
                 <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
-                <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-3">DAFTAR</button>
+                <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</a>
             </div>
         </div>
         @endforeach
