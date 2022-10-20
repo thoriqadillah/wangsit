@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use App\Models\Event;
-use App\Services\EventService;
+use App\Models\Departement;
 use Illuminate\Http\Request;
+use App\Services\EventService;
+use Illuminate\Validation\Rules\File;
 
 class EventController extends Controller
 {
@@ -25,16 +26,11 @@ class EventController extends Controller
 
     public function addEvent(Request $request)
     {
-
-        // if (isset($request->has['adanya_kelulusan'])) {
-        //     $request->input['adanya_kelulusan'] = 1;
-        // } else {
-        //     $request->input['adanya_kelulusan'] = 0;
-        // }
-
+        // $request->thumbnail->store
+        // dd($request->thumbnail->getClientOriginalName);
         $validated = $request->validate([
             'nama' => 'required',
-            // 'thumbnail' => 'required',
+            // 'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000',
             'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
@@ -48,13 +44,19 @@ class EventController extends Controller
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
 
+        // dd($validated);
+
+        // $path = $request->file('foto')->store("tes");
+
+        // if ($path) {
+        //     dd($path);
+        // } else echo "gagal";
 
         $event = $this->event->addEvent($validated);
         if ($event) {
             return redirect('/event')->with('status', 'Event berhasil ditambah');
         }
-
-        return redirect()->refresh()->withErrors(['status' => 'Event gagal ditambah']);
+        return redirect()->refresh()->withInput()->withErrors(['status' => 'Event gagal ditambah']);
     }
 
     public function updateEvent(Request $request, int $id)

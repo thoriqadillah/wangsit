@@ -80,6 +80,8 @@ class EventService
     //Buat admin
     public function addEvent(array $eventData)
     {
+        $path = $eventData['thumbnail']->store('tes');
+
         if ($eventData['adanya_kelulusan'] == true) {
             $eventData['adanya_kelulusan'] = 1;
         } else {
@@ -91,7 +93,7 @@ class EventService
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
-            // 'thumbnail' => $eventData['thumbnail'],
+            // 'thumbnail' => $path,
             'adanya_kelulusan' => $eventData['adanya_kelulusan'],
             'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
             'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],

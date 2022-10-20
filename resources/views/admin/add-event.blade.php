@@ -7,7 +7,7 @@
 
 <div class="pt-20 pl-72 pr-12">
     <div class="w-[700px] mx-auto rounded p-8 shadow border">
-        <form class method="POST" action="/admin/add/event">
+        <form class method="POST" action="/admin/add/event" enctype="multipart/form-data">
             @csrf
             <div class="flex gap-8 mt-10 items-center">
                 <div class="w-full">
@@ -68,7 +68,7 @@
             </label>
 
             <div class="flex items-center mt-8 gap-2">
-                <input id="checked-checkbox" type="checkbox" value="false" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500">
+                <input id="checked-checkbox" type="checkbox" value="false" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" name="thumbnail">
                 <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Jadikan Event Tanpa Kelulusan</label>
             </div>
 
