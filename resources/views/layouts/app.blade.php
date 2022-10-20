@@ -36,8 +36,8 @@
                     </div>
             </a>
             @if (auth()->check() && auth()->user()->admin_id != null)
-            <a href="/admin">
-                <div class="{{ (request()->is('admin')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">
+            <a href="/admin/event">
+                <div class="{{ (request()->is('admin/event')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">
                     Admin
                 </div>
             </a>
@@ -82,7 +82,7 @@
     </div>
     <!-- sidebar -->
     @endauth
-
+    
     @yield('content')
     <!-- background modal -->
     <div id="modal" class="fixed w-full h-full scale-0 transition duration-500 bg-[#000000e1] z-50"></div>

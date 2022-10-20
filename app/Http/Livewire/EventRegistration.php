@@ -10,6 +10,8 @@ class EventRegistration extends Component {
 
 	public $formResponse = [];
 	public $eventForm;
+	public $event;
+	public $aggrement;
 
 	protected EventFormService $eventFormService;
 	protected EventFormResponseService $formResponseService;
@@ -23,33 +25,37 @@ class EventRegistration extends Component {
 		$this->eventForm = $this->eventFormService->getEventForm($slug);
 		if (!$this->eventForm) return abort(404);
 
-		$event = $this->eventForm->event;
-		$hasRegistered = $this->formResponseService->checkUserResponse($this->eventForm->event->id);
+		$this->event = $this->eventForm->event;
+		$hasRegistered = $this->formResponseService->checkUserResponse($this->event->id);
 		if ($hasRegistered) {
-			return redirect()->to("/event/$event->slug/berhasil");
+			$slug = $this->event->slug;
+			return redirect()->to("/event/$slug/daftar/berhasil");
 		}
 
 		foreach ($this->eventForm->format as $index => $form) {
 			$this->formResponse[$index] = [
 				'judul' => $form['judul'],
-				'required' => $form['required']
+				'required' => $form['required'],
+				'response' => $form['form_type'] == 'Checkbox' ? [] : ''
 			];
 		}
 	}
 
 	public function saveResponse() {
-		$event = $this->eventForm->event;
 		$validatorRules = $this->createRule($this->formResponse);
 		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
-
-		$created = $this->formResponseService->saveResponse($event->id, $this->formResponse);
+		
+		$created = $this->formResponseService->saveResponse($this->event->id, $this->formResponse);
 		if ($created) {
-			return redirect()->to("/event/$event->slug/berhasil");
+			$slug = $this->event->slug;
+			return redirect()->to("/event/$slug/daftar/berhasil");
 		}
 	}
 
 	public function createRule($formResponse) {
 		$validatorRules = [];
+		$validatorRules['aggrement'] = ['required'];
+
 		foreach ($formResponse as $i => $form) {
 			if ($form['required']) {
 				$validatorRules["formResponse.$i.response"] = ['required'];
