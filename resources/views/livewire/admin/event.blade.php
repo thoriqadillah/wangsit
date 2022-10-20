@@ -1,20 +1,22 @@
-@extends('layouts.app')
-@section('content')
+<!-- TODO: integrasi dengan livewire -->
 <div class="w-52 py-20 text-white px-8 bg-mainColor h-screen fixed">
-    <a href="" class="text-white text-xl block">Event</a>
-    <a href="" class="text-white text-xl mt-8 block ">Academy</a>
+    <a href="/admin/event" class="text-white text-xl block">Event</a>
+    <a href="/admin/academy" class="text-white text-xl mt-8 block ">Academy</a>
 </div>
 
 <div class="pt-20 pl-60 pr-8">
-    <h1 class=" text-2xl font-medium"> Event KBMSI Departemen Media Komunikasi Informasi</h1>
-    <a href="" class="py-2 rounded-full bg-mainColor text-white mt-8 block w-40 text-center">Add Academy</a>
+    <div class="flex flex-wrap flex-row-reverse justify-between items-end">
+        <span class="px-8 text-center py-2 border rounded-full border-mainColor" title="Departement {{ $userDept->nama }}">{{ $userDept->nama }}</span>
+        <a href="" class="py-2 rounded-full bg-mainColor text-white mt-8 block w-40 text-center">Tambah Event</a>
+    </div>
     <div class="flex justify-between items-center mt-8">
         <div class="flex gap-8 items-center">
             <label for="countries" class="block mb-2 text-gray-900">Filter By</label>
             <select class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3">
                 <option selected>Semua Event</option>
-                <option value="waiting">Waiting</option>
-                <option value="open register">Open Registrasi</option>
+                <option value="aktif">Aktif</option>
+                <option value="waiting">Menunggu</option>
+                <option value="open-register">Buka Pendaftaran</option>
                 <option value="pengumuman">Pengumuman</option>
                 <option value="tutup">Tutup</option>
             </select>
@@ -55,4 +57,3 @@
         </div>
     </div>
 </div>
-@stop

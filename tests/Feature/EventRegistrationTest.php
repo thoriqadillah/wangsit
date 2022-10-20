@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -30,10 +31,10 @@ class EventRegistrationTest extends TestCase
 
     public function test_should_redirected_if_already_registered()
     {
-        $this->actingAs(User::first());
+        $this->actingAs(User::find(3));
         $event = Event::first(); 
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
-        $component->assertRedirect("/event/$event->slug/berhasil");
+        $component->assertRedirect("/event/$event->slug/daftar/berhasil");
     }
 
     public function test_should_redirected_after_sucessfully_registered()
@@ -54,10 +55,12 @@ class EventRegistrationTest extends TestCase
             ];
         }
 
-        Livewire::test(EventRegistration::class, ['slug' => $event->slug])
+        $slug = $event->slug;
+        Livewire::test(EventRegistration::class, ['slug' => $slug])
             ->set('formResponse', $response)
+            ->set('aggrement', true)
             ->call('saveResponse')
-            ->assertRedirect("/event/$event->slug/berhasil");
+            ->assertRedirect("/event/$slug/daftar/berhasil");
 
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
