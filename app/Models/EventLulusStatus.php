@@ -9,5 +9,9 @@ class EventLulusStatus extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['event_id', 'user_id'];
+    protected $fillable = ['event_id', 'user_id', 'status_lulus'];
+
+    protected $casts = [
+        'status_lulus' => 'boolean'
+    ];
 }

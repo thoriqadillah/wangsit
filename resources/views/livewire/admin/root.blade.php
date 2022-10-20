@@ -1,6 +1,4 @@
-@extends('layouts.app')
-@section('content')
-
+<!-- TODO: integrasikan ke livewire -->
 <div class="pt-20 px-20">
     <div class="flex justify-between items-center mt-8">
         <div class="">
@@ -58,4 +56,3 @@
     </div>
 
 </div>
-@stop

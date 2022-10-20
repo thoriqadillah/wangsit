@@ -53,7 +53,7 @@ class EventFormResponseTest extends TestCase
     public function test_user_response_should_be_saved()
     {
         User::factory()->create();
-        $user = User::first();
+        $user = User::latest()->first();
         $this->actingAs($user);
         $event = Event::first();
         

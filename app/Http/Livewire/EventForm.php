@@ -133,7 +133,7 @@ class EventForm extends Component {
 	}
 
 	public function render() {
-		return view('livewire.event-form')
+		return view('livewire.admin.event-form')
 			->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error
 			->section('content');
 	}
