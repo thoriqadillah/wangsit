@@ -6,7 +6,7 @@
             <button wire:click="showEvents()" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">Active</button>
             <button wire:click="showEvents()" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">All</button>
             @foreach ($departements as $departement)
-                <button wire:click="showEvents({{ $departement->id }})" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">{{ $departement->nama }}</button>
+            <button wire:click="showEvents({{ $departement->id }})" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">{{ $departement->nama }}</button>
             @endforeach
         </div>
 
@@ -31,11 +31,11 @@
                 <img src="{{ $event->thumbnail }}" class="w-full h-full object-cover" />
             </div>
 
-            <div class="p-4 h-40 flex flex-col justify-between">
-                <div>
-                    <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
-                    <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
-                </div>
+            <div class="h-20 px-4 overflow-hidden">
+                <h1 class="text-lg font-medium text-mainColor">{{ $event->nama }} </h1>
+            </div>
+            <div class="px-4">
+                <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
                 <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</a>
             </div>
         </div>
