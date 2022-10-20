@@ -53,4 +53,5 @@ Route::middleware('admin')->group(function () {
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/debug', function () {
     // Debug here
+    return view("errors/404");
 });
