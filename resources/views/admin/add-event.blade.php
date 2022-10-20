@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="w-52 py-20 text-white px-8 bg-mainColor h-screen fixed">
-    <a href="" class="text-white text-xl block">Event</a>
-    <a href="" class="text-white text-xl mt-8 block ">Academy</a>
+    <a href="/admin/event" class="text-white text-xl block">Event</a>
+    <a href="/admin/academy" class="text-white text-xl mt-8 block ">Academy</a>
 </div>
 
 <div class="pt-20 pl-72 pr-12">

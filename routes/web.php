@@ -7,11 +7,14 @@ use App\Http\Livewire\EventForm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\EventRegistration;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ExampleController;
+use App\Http\Controllers\SuccessfulRegistrationController;
 use App\Http\Livewire\AdminEvent;
+use App\Http\Livewire\EventRegistration;
+use App\Http\Livewire\Root;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,11 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/event', Event::class);
     Route::get('/academy', Academy::class);
     Route::get('/event/{slug}/daftar', EventRegistration::class);
-    Route::get('/event/{slug}/daftar/berhasil', EventRegistration::class);
+    Route::get('/event/{slug}/daftar/berhasil', [SuccessfulRegistrationController::class, 'index']);
+    Route::get('/event/{slug}/daftar/pengumuman', [AnnouncementController::class, 'index']);
 });
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin/event', AdminEvent::class);
+    // Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
+    Route::get('/admin/root', Root::class);
     Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
@@ -53,4 +59,5 @@ Route::middleware('admin')->group(function () {
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/debug', function () {
     // Debug here
+    
 });

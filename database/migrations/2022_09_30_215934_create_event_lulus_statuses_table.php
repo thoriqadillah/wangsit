@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('user_id');
+            $table->boolean('status_lulus');
             $table->timestamps();
             $table->softDeletes();
         });

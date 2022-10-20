@@ -1,4 +1,5 @@
-<div class="pt-20 pl-72 pr-12">
+<!-- TODO: improvement -> buat responsif -->
+<div class="pt-20 mx-auto">
     <div class="w-[800px] mx-auto">
         <h1 class=" text-2xl font-medium">Form {{ $event->nama }}</h1>
 
@@ -20,7 +21,7 @@
                     <label>Judul</label>
                     <input type="text"  wire:model.defer="forms.{{$i}}.judul"  class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                     @error("forms.$i.judul")
-                        <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+                        <span class="text-newRed mt-1">{{ $message }}</span> <!-- buat nampilin error -->
                     @enderror
                 </div>
 
@@ -29,7 +30,7 @@
                     <label>Placeholder</label>
                     <input type="text" wire:model.defer="forms.{{$i}}.placeholder" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                     @error("forms.$i.placeholder")
-                        <span class="alert alert-danger">{{ $message }}</span> <!-- buat nampilin error -->
+                        <span class="text-newRed mt-1">{{ $message }}</span> <!-- buat nampilin error -->
                     @enderror
                 </div>
                 @endif
@@ -70,17 +71,20 @@
             <!-- checkbox required -->
             <div class="flex items-center mt-6 gap-2">
                 <input id="checked-checkbox" wire:click="setRequired({{ $i }})" type="checkbox" value="true" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" @if ($forms[$i]["required"]) checked @endif>
-                <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Is Required</label>
+                <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Wajib diisi</label>
             </div>
             <!-- checkbox required -->
 
-            <!-- tolbol tambah dan hapus input -->
+            <!-- tombol tambah dan hapus input -->
             <div class="flex gap-4 mt-6 w-80">
                 <button wire:click="addInput({{ $i+1 }})" class="border border-mainColor text-mainColor rounded bg-white grow py-2">Tambah Input</button>
                 <button wire:click="deleteInput({{ $i }})" class="border border-newRed text-newRed rounded bg-white grow py-2">Hapus Input</button>
             </div>
-            <!-- tolbol tambah dan hapus input -->
+            <!-- tombol tambah dan hapus input -->
         </div>
         @endforeach
+        <div class="flex gap-4 mt-6 w-80">
+            <button wire:click="{{ $isUpdate ? 'updateForm()' : 'createForm()' }}" class="border text-white rounded bg-mainColor grow py-2 mb-2">Simpan</button>
+        </div>
     </div>
 </div>
