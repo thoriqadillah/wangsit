@@ -30,11 +30,6 @@
                         @foreach ($materi as $m) 
                         <option value="{{ $m->id }}">{{ $m->nama }}</option>
                         @endforeach
-                        {{-- <option value="">Pemrograman</option>
-                        <option value="">Pengembangan Sistem Informasi</option>
-                        <option value="">Manajemen</option>
-                        <option value="">Antarmuka</option>
-                        <option value="">Lain-lain</option> --}}
 
                     </select>
                 </div>

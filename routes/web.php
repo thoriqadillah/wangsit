@@ -47,6 +47,7 @@ Route::middleware('admin')->group(function () {
     // Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
     Route::get('/admin/root', Root::class);
     Route::get('/admin/event/{slug}/form', EventForm::class);
+    Route::get('/admin/detail/event/{slug}', [EventController::class, 'detailEvent']);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
     Route::get('/admin/add/event', [EventController::class, 'addEventPage']);
@@ -55,7 +56,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/detail/academy/{slug}', [AcademyController::class, 'detailAcademy']);
     Route::post('/admin/add/academy', [AcademyController::class, 'addAcademy']);
     Route::get('/admin/add/academy', [AcademyController::class, 'addAcademyPage']);
-    Route::delete('/admin/event/{id}', [EventController::class, 'deleteEvent']);
+    // Route::delete('/admin/event/{id}/delete', [EventController::class, 'deleteEvent']);
     Route::delete('/admin/academy/{id}/delete', [AcademyController::class, 'deleteAcademy']);
 });
 
@@ -63,5 +64,5 @@ Route::middleware('admin')->group(function () {
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/debug', function () {
     // Debug here
-    
+
 });

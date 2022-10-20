@@ -80,7 +80,10 @@ class EventService
     //Buat admin
     public function addEvent(array $eventData)
     {
-        $path = $eventData['thumbnail']->store('tes');
+        $year = Carbon::now()->format('Y');
+
+        $path = $eventData['thumbnail']->store($year);
+        $eventData['thumbnail'] = $path;
 
         if ($eventData['adanya_kelulusan'] == true) {
             $eventData['adanya_kelulusan'] = 1;
@@ -88,12 +91,11 @@ class EventService
             $eventData['adanya_kelulusan'] = 0;
         }
         $hash = bin2hex(random_bytes(6));
-        // dd($eventData['adanya_kelulusan']);
         return Event::create([
-            'departement_id' => Auth::user()->admin->departement_id,
+            'departement_id' => $eventData['departement_id'],
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
-            // 'thumbnail' => $path,
+            'thumbnail' => $path,
             'adanya_kelulusan' => $eventData['adanya_kelulusan'],
             'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
             'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],

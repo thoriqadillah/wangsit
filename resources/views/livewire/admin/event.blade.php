@@ -39,8 +39,8 @@
                     <h1 class="font-medium text-gray-300 text-sm">20/12/2022</h1>
                 </div>
                 <div class="flex gap-4">
-                    <a class="border border-mainColor rounded cursor-pointer grow block text-center text-mainColor py-2 bg-white">Form</a>
-                    <a class="border border-white rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor">Detail</a>
+                    <a class="border border-mainColor rounded cursor-pointer grow block text-center text-mainColor py-2 bg-white" href="/admin/event/{{ $event->slug }}/form">Form</a>
+                    <a class="border border-white rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/detail/event/{{ $event->slug }}">Detail</a>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
         <h1 class="text-lg font-medium text-center">Hapus Event Ini ?</h1>
         <div class="flex px-6 items-center justify-between gap-8 mt-8">
             <button class="border rounded text-newRed bg-white border-newRed py-1 grow text-center" onclick="confirmDelete()">Cancel</button>
-            <a href="" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</a>
+            <a href="/admin/event/{{ $event->id }}/delete" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</a>
         </div>
     </div>
 </div>

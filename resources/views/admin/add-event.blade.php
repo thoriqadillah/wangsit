@@ -12,18 +12,14 @@
             <div class="flex gap-8 mt-10 items-center">
                 <div class="w-full">
                     <label>Nama Event</label>
-                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->nama) ? $detail->nama : "" }}">
                 </div>
                 <div class="w-full">
                     <label>Nama Departemen</label>
-                    <select class="border rounded py-2 px-3 mt-3 w-full" name="namaDepartemen" id="">
-                        <option selected value="1">NONDEPT</option>
-                        <option selected value="2">MEDKOMINFO</option>
-                        <option selected value="3">ADVOKESMA</option>
-                        <option selected value="4">PSDM</option>
-                        <option selected value="5">P2S</option>
-                        <option selected value="6">KWU</option>
-                        <option selected value="7">SOSMA</option>
+                    <select class="border rounded py-2 px-3 mt-3 w-full" name="departement_id" id="">
+                    @foreach ($departement as $dept)
+                        <option selected value="{{ $dept->id }}">{{ $dept->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -33,24 +29,24 @@
             <div class="flex gap-8 mt-10">
                 <div class="w-full">
                     <label>Tanggal Pendaftaran</label>
-                    <input type="date" name="tgl_buka_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_buka_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_buka_pendaftaran) ? $detail->tgl_buka_pendaftaran : "" }}">
                 </div>
 
                 <div class="w-full">
                     <label>Tanggal Tutup Pendaftaran</label>
-                    <input type="date" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_tutup_pendaftaran) ? $detail->tgl_tutup_pendaftaran : "" }}">
                 </div>
             </div>
 
             <div class="flex gap-8 mt-10">
                 <div class="w-full">
                     <label>Tanggal Pengumuman</label>
-                    <input type="date" name="tgl_buka_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_buka_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_buka_pengumuman) ? $detail->tgl_buka_pengumuman : "" }}">
                 </div>
 
                 <div class="w-full">
                     <label>Tanggal Akhir Pengumuman</label>
-                    <input type="date" name="tgl_tutup_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                    <input type="date" name="tgl_tutup_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_tutup_pengumuman) ? $detail->tgl_tutup_pengumuman : "" }}">
                 </div>
             </div>
 
@@ -68,7 +64,8 @@
             </label>
 
             <div class="flex items-center mt-8 gap-2">
-                <input id="checked-checkbox" type="checkbox" value="false" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" name="thumbnail">
+                <input type="hidden" name="adanya_kelulusan" value="true">
+                <input id="checked-checkbox" type="checkbox" value="false" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" name="adanya_kelulusan" {{ isset($detail->adanya_kelulusan) ? (($detail->adanya_kelulusan = 1) ? "" : "checked" ): "" }}>
                 <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Jadikan Event Tanpa Kelulusan</label>
             </div>
 
