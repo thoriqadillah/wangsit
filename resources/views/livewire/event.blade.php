@@ -30,12 +30,12 @@
                 <img src="{{ $event->thumbnail }}" class="w-full h-full object-cover" />
             </div>
 
-            <div class="p-4 h-40 flex flex-col justify-between">
-                <div>
-                    <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
-                    <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
-                </div>
-                <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</button>
+            <div class="h-20 px-4 overflow-hidden">
+                <h1 class="text-lg font-medium text-mainColor">{{ $event->nama }} </h1>
+            </div>
+            <div class="px-4">
+                <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
+                <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-3">DAFTAR</button>
             </div>
         </div>
         @endforeach

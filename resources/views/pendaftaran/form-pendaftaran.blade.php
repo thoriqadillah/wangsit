@@ -2,20 +2,20 @@
 @section('content')
 
 <div class="w-full px-6 sm:px-16 md:px-32 lg:px-52 xl:px-80 py-20">
-    <div class="bg-white border mt-8 lg:mt-10 shadow rounded p-6 lg:p-10">
+    <div class="mt-8 lg:mt-10">
         <h1 class="text-lg md:text-2xl font-medium text-mainColor mb-12">Form Pendaftaran Kepanitian Starship 2022</h1>
-        <form class="flex flex-col gap-8 lg:gap-12">
-            <div>
+        <form class="flex flex-col gap-4 lg:gap-8">
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <label class="block mb-2 lg:text-lg font-medium text-gray-600">Nama Lengkap</label>
                 <input type="text" class="w-full border px-3 py-1 lg:py-2 bg-gray-50 rounded border-gray-300 outline-none">
             </div>
 
-            <div>
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <label class="block mb-2 lg:text-lg font-medium text-gray-600">NIM</label>
                 <input type="text" class="w-full border px-3 py-1 lg:py-2 bg-gray-50 rounded border-gray-300 outline-none">
             </div>
 
-            <div>
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <label class="block mb-4 lg:text-lg font-medium text-gray-600">Jenis Kelamin</label>
 
                 <div class="flex items-center mb-2">
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <label class="block mb-2 lg:text-lg font-medium text-gray-600">Jenis Kelamin</label>
                 <select class="w-full border px-3 py-1 lg:py-2 rounded border-gray-300 outline-none" name="" id="">
                     <option selected value="1">NONDEPT</option>
@@ -42,17 +42,17 @@
                 </select>
             </div>
 
-            <div>
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <label class="block mb-2 lg:text-lg font-medium text-gray-600">Deskripsikan Diri Anda</label>
                 <textarea class="block p-2 lg:p-4 h-24 w-full outline-none bg-gray-50 rounded lg:rounded-lg border border-gray-300 resize-none"></textarea>
             </div>
 
-            <div>
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <label class="block mb-2 lg:text-lg font-medium text-gray-600">Link Drive Biodata</label>
                 <input type="text" class="w-full border px-3 py-1 lg:py-2 bg-gray-50 rounded border-gray-300 outline-none">
             </div>
 
-            <div>
+            <div class="bg-white border shadow rounded p-6 lg:p-10">
                 <div class="flex items-center gap-4">
                     <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300">Dengan ini saya menyetujui seluruh prasyarat yang ada</label>
                 </div>
