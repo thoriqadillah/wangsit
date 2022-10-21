@@ -42,7 +42,7 @@ class EventControllerTest extends TestCase
             'tgl_tutup_pengumuman' => Carbon::now()->addDays(12),
         ];
 
-        $response = $this->post('/admin/event', $input);
+        $response = $this->post('/admin/event/tambah', $input);
         $response->assertRedirect('/event');
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
@@ -76,18 +76,5 @@ class EventControllerTest extends TestCase
         $response->assertRedirect(session()->previousUrl());
 
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
-    }
-
-    public function test_delete_event()
-    {
-        User::factory()->create();
-        $user = User::latest()->first();
-        $this->actingAs($user);
-        $eventM = Event::latest()->first();
-
-        $response = $this->delete('/admin/event/' . $eventM->id);
-        $response->assertRedirect(session()->previousUrl());
-
-        $user->delete();
     }
 }

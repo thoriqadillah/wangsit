@@ -29,9 +29,10 @@ class EventRegistrationTest extends TestCase
         $event->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
+    //FIXME
     public function test_should_redirected_if_already_registered()
     {
-        $this->actingAs(User::find(3));
+        $this->actingAs(User::first());
         $event = Event::first(); 
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
         $component->assertRedirect("/event/$event->slug/daftar/berhasil");

@@ -3,9 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Departement;
-use App\Models\Event as ModelsEvent;
 use App\Services\EventService;
-use Carbon\Carbon;
 use Livewire\Component;
 
 class Event extends Component {

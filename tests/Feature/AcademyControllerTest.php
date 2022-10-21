@@ -36,9 +36,8 @@ class AcademyControllerTest extends TestCase
             'link' => $link,
         ];
 
-        // $this->post('/admin/academy', $input);
-        $response = $this->post('/admin/academy', $input);
-        $response->assertRedirect('/academy');
+        $response = $this->post('/admin/academy/tambah', $input);
+        $response->assertRedirect('/admin/academy');
 
         $user->delete();
     }
@@ -79,7 +78,7 @@ class AcademyControllerTest extends TestCase
         $this->actingAs($user);
         $academyM = Academy::latest()->first();
 
-        $response = $this->delete('/admin/academy/' . $academyM->id);
+        $response = $this->delete('/admin/academy/' . $academyM->id . '/delete');
         $response->assertRedirect(session()->previousUrl());
 
         $user->delete();

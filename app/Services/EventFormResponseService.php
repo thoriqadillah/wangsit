@@ -2,16 +2,24 @@
 
 namespace App\Services;
 
+use App\Models\Event;
 use App\Models\EventFormResponse;
+use App\Models\EventLulusStatus;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class EventFormResponseService {
 
-  /**
-   * Untuk mencegah user mendaftarkan diri pada event 2x
-   */
   public function saveResponse(int $eventId, array $responseData) {
+    //jika ada kelulusan pada suatu event, buat data default tidak diterima pada setiap pendaftar
+    $event = Event::find($eventId);
+    if ($event->adanya_kelulusan) {
+      EventLulusStatus::firstOrCreate([ 'event_id' => $eventId, 'user_id' => Auth::id() ], [
+        'status_lulus' => false
+      ]);
+    }
+    
+    // Untuk mencegah user mendaftarkan diri pada event 2x
     return EventFormResponse::firstOrCreate([ 'event_id' => $eventId, 'user_id' => Auth::id() ], [
       'response' => $responseData
     ]);
