@@ -4,24 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\AcademyCategory;
 use App\Services\AcademyService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class AcademyController extends Controller
 {
     //
     protected AcademyService $academy;
+    protected UserService $userService;
 
-    public function __construct(AcademyService $academyService)
+    public function __construct(AcademyService $academyService, UserService $userService)
     {
         $this->academy = $academyService;
+        $this->userService = $userService;
     }
 
     public function showAcademy()
     {
         $academy =  $this->academy->showAcademy();
+        $userDept = $this->userService->getUserDept();
+
 
         $data = [
-            'academy' => $academy
+            'academy' => $academy,
+            'userDept' => $userDept
         ];
 
         return view('admin/admin-academy', $data);
@@ -37,7 +43,7 @@ class AcademyController extends Controller
 
         ];
 
-        return view('admin/add-academy', $data);
+        return view('admin/form-academy', $data);
     }
 
     public function addAcademyPage()
@@ -48,7 +54,7 @@ class AcademyController extends Controller
             'materi' => $kategoriMateri
         ];
 
-        return view('admin/add-academy', $data);
+        return view('admin/form-academy', $data);
     }
 
     public function addAcademy(Request $request)

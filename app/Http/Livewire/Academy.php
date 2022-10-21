@@ -2,27 +2,25 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Academy as ModelsAcademy;
+use App\Services\AcademyService;
 use Livewire\Component;
 
 class Academy extends Component {
 	public $academies;
 	public $search;
 
-	// protected AcademyService $academyService;
+	protected AcademyService $academyService;
 
-	// public function boot(AcademyService $academyService) {
-	//     $this->academyService = $academyService;
-	// }
-
-	//TODO: gunakan academyService
-	public function mount() {
-		$this->academies = ModelsAcademy::all();
+	public function boot(AcademyService $academyService) {
+	    $this->academyService = $academyService;
 	}
 
-	//TODO: gunakan academyService
+	public function mount() {
+		$this->academies = $this->academyService->showAcademy();
+	}
+
 	public function updatedSearch() {
-		$this->academies = ModelsAcademy::where('nama', 'like', "%$this->search%")->get();
+		$this->academies = $this->academyService->search($this->search);
 	}
 
 	public function render() {

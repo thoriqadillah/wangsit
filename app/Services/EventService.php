@@ -29,14 +29,7 @@ class EventService
 
     public function showEvent()
     {
-        $events = Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
-
-        $now = Carbon::now();
-        foreach ($events as $i => $event) {
-            $events[$i]->countdown = $now->diffInDays($event->tgl_tutup_pendaftaran);
-        }
-
-        return $events;
+        return Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
     }
 
     public function detailEvent($slug)
@@ -44,40 +37,60 @@ class EventService
         return Event::where('slug', $slug)->first();
     }
 
-    public function showBy(string $column, $value, bool $forAdmin = false)
+    public function showBy(string $column, $value)
     {
-        if ($forAdmin) {
-            return Event::where($column, $value)->get();
-        }
-
         return Event::where($column, $value)
             ->where('tgl_tutup_pendaftaran', ">", Carbon::now())
             ->get();
     }
 
-    public function showByDate($status, int $deptId = 0): Collection
-    {
-        if ($status === 'aktif') {
+    public function showAktif(int $deptId) {
+        if ($deptId != 0) {
             return Event::where('departement_id', $deptId)
-                ->where('tgl_buka_pendaftaran', '<=', Carbon::now())->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
+                ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
+                ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
                 ->get();
-        } else if ($status === 'pengumuman') {
+            }
+        return Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
+            ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
+            ->get();
+    }
+
+    public function showPengumuman(int $deptId) {
+        if ($deptId !== 0) {
             return Event::where('departement_id', $deptId)
-                ->where('tgl_buka_pengumuman', '>=', Carbon::now())->where('tgl_tutup_pengumuman', '>=', Carbon::now())
+                ->where('tgl_buka_pengumuman', '<=', Carbon::now())
+                ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
                 ->get();
-        } else if ($status === 'waiting') {
+            }
+
+        return Event::where('tgl_buka_pengumuman', '<=', Carbon::now())
+            ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
+            ->get();
+    }
+
+    public function showWaiting(int $deptId) {
+        if ($deptId !== 0) {
             return Event::where('departement_id', $deptId)
-                ->where('tgl_buka_pendaftaran', '<', Carbon::now())
+                ->where('tgl_buka_pendaftaran', '>', Carbon::now())
                 ->get();
-        } else if ($status === 'tutup') {
+        }
+
+        return Event::where('tgl_buka_pendaftaran', '<', Carbon::now())
+        ->get();
+    }
+    
+    public function showTutup(int $deptId) {
+        if ($deptId !== 0) {
             return Event::where('departement_id', $deptId)
                 ->where('tgl_tutup_pengumuman', '<', Carbon::now())
                 ->get();
-        } else
-            return Event::where('departement_id', $deptId)->get();
+            }
+
+        return Event::where('tgl_tutup_pengumuman', '<', Carbon::now())
+            ->get();
     }
 
-    //Buat admin
     public function addEvent(array $eventData)
     {
         $year = Carbon::now()->format('Y');

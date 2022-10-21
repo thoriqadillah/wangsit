@@ -26,10 +26,10 @@ class EventController extends Controller
 
         $data = [
             'detail' => $detail,
-            'deaprtement' => $department
+            'departement' => $department
         ];
 
-        return view('admin/add-academy', $data);
+        return view('admin/form-event', $data);
     }
 
 
@@ -86,16 +86,6 @@ class EventController extends Controller
         return redirect()->refresh()->withErrors(['status' => 'Event gagal diupdate']);
     }
 
-    // public function deleteEvent(int $id)
-    // {
-    //     $deleted = $this->event->deleteEvent($id);
-    //     if ($deleted) {
-    //         return redirect()->back()->with('status', 'Event berhasil dihapus');
-    //     }
-
-    //     return redirect()->refresh()->withErrors(['status' => 'Event gagal dihapus']);
-    // }
-
     public function addEventPage()
     {
         $department = Departement::all();
@@ -103,6 +93,6 @@ class EventController extends Controller
         $data = [
             'departement' => $department
         ];
-        return view('/admin/add-event', $data);
+        return view('/admin/form-event', $data);
     }
 }
