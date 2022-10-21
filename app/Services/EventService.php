@@ -39,6 +39,11 @@ class EventService
         return $events;
     }
 
+    public function detailEvent($slug)
+    {
+        return Event::where('slug', $slug)->first();
+    }
+
     public function showBy(string $column, $value, bool $forAdmin = false)
     {
         if ($forAdmin) {
@@ -50,12 +55,11 @@ class EventService
             ->get();
     }
 
-    public function showByDate($status): Collection
+    public function showByDate($status, int $deptId = 0): Collection
     {
-        $deptId = Auth::user()->admin->departement_id;
         if ($status === 'aktif') {
             return Event::where('departement_id', $deptId)
-                ->where('tgl_buka_pendaftaran', '>=', Carbon::now())->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
+                ->where('tgl_buka_pendaftaran', '<=', Carbon::now())->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
                 ->get();
         } else if ($status === 'pengumuman') {
             return Event::where('departement_id', $deptId)
@@ -76,27 +80,34 @@ class EventService
     //Buat admin
     public function addEvent(array $eventData)
     {
+        $year = Carbon::now()->format('Y');
+
+        $path = $eventData['thumbnail']->store($year);
+        $eventData['thumbnail'] = $path;
+
+        if ($eventData['adanya_kelulusan'] == true) {
+            $eventData['adanya_kelulusan'] = 1;
+        } else {
+            $eventData['adanya_kelulusan'] = 0;
+        }
         $hash = bin2hex(random_bytes(6));
-        $eventCreate = Event::create([
-            'departement_id' => Auth::user()->admin->departement_id,
+        return Event::create([
+            'departement_id' => $eventData['departement_id'],
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
-            'thumbnail' => $eventData['thumbnail'],
+            'thumbnail' => $path,
             'adanya_kelulusan' => $eventData['adanya_kelulusan'],
             'tgl_buka_pendaftaran' => $eventData['tgl_buka_pendaftaran'],
             'tgl_tutup_pendaftaran' => $eventData['tgl_tutup_pendaftaran'],
             'tgl_buka_pengumuman' => $eventData['tgl_buka_pengumuman'],
             'tgl_tutup_pengumuman' => $eventData['tgl_tutup_pengumuman'],
         ]);
-
-        return $eventCreate;
     }
 
     public function updateEvent(array $eventData, int $id)
     {
         $hash = bin2hex(random_bytes(6));
 
-        // return $eventUpdate;
         return Event::where('id', $id)->update([
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],

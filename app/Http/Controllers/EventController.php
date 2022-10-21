@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use App\Models\Event;
-use App\Services\EventService;
+use App\Models\Departement;
 use Illuminate\Http\Request;
+use App\Services\EventService;
+use Illuminate\Validation\Rules\File;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class EventController extends Controller
 {
@@ -17,18 +19,31 @@ class EventController extends Controller
         $this->event = $eventService;
     }
 
+    public function detailEvent($slug)
+    {
+        $detail = $this->event->detailEvent($slug);
+        $department = Departement::all();
+
+        $data = [
+            'detail' => $detail,
+            'deaprtement' => $department
+        ];
+
+        return view('admin/add-academy', $data);
+    }
+
 
     public function addEvent(Request $request)
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'slug' => 'required',
-            'thumbnail' => 'required',
-            'adanya_kelulusan' => 'required',
+            'departement_id' => 'required',
+            'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
             'tgl_tutup_pengumuman' => 'required',
+            'adanya_kelulusan' => 'required'
         ], [
             'required' => ':attribute wajib diisi',
             'tgl_buka_pendaftaran.required' => 'waktu mulai wajib diisi',
@@ -41,8 +56,7 @@ class EventController extends Controller
         if ($event) {
             return redirect('/event')->with('status', 'Event berhasil ditambah');
         }
-
-        return redirect()->refresh()->withErrors(['status' => 'Event gagal ditambah']);
+        return redirect()->refresh()->withInput()->withErrors(['status' => 'Event gagal ditambah']);
     }
 
     public function updateEvent(Request $request, int $id)
@@ -50,7 +64,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'nama' => 'required',
             'slug' => 'required',
-            'thumbnail' => 'required',
+            'thumbnail' => 'mimes:jpeg,png,jpg|image|max:2000',
             'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
@@ -72,13 +86,23 @@ class EventController extends Controller
         return redirect()->refresh()->withErrors(['status' => 'Event gagal diupdate']);
     }
 
-    public function deleteEvent(int $id)
-    {
-        $deleted = $this->event->deleteEvent($id);
-        if ($deleted) {
-            return redirect()->back()->with('status', 'Event berhasil dihapus');
-        }
+    // public function deleteEvent(int $id)
+    // {
+    //     $deleted = $this->event->deleteEvent($id);
+    //     if ($deleted) {
+    //         return redirect()->back()->with('status', 'Event berhasil dihapus');
+    //     }
 
-        return redirect()->refresh()->withErrors(['status' => 'Event gagal dihapus']);
+    //     return redirect()->refresh()->withErrors(['status' => 'Event gagal dihapus']);
+    // }
+
+    public function addEventPage()
+    {
+        $department = Departement::all();
+
+        $data = [
+            'departement' => $department
+        ];
+        return view('/admin/add-event', $data);
     }
 }

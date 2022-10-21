@@ -10,5 +10,5 @@ class Academy extends Model
     use HasFactory;
 
 
-    protected $fillable = ['nama', 'academy_category_id', 'link', 'thumbnail'];
+    protected $fillable = ['nama', 'academy_category_id', 'link', 'thumbnail', 'slug'];
 }

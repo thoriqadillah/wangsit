@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('academy_category_id');
             $table->string('nama', 100);
+            $table->string('slug');
             $table->string('link');
             $table->timestamps();
             $table->softDeletes();
