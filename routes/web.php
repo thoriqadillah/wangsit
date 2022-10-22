@@ -47,6 +47,7 @@ Route::middleware('admin')->group(function () {
     // Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
     Route::get('/admin/root', Root::class);
     Route::get('/admin/event/{slug}/form', EventForm::class);
+    Route::get('/admin/event/{slug}/form/response', [EventController::class, 'responseEvent']);
     Route::get('/admin/event/{slug}', [EventController::class, 'detailEvent']);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
