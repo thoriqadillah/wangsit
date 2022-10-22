@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-<div class="w-52 py-20 text-white px-8 bg-mainColor h-screen fixed">
+<!-- <div class="w-52 py-20 text-white px-8 bg-mainColor h-screen fixed">
     <a href="/admin/event" class="text-white text-xl block">Event</a>
     <a href="/admin/academy" class="text-white text-xl mt-8 block ">Academy</a>
-</div>
+</div> -->
 
-<div class="pt-20 pl-60 pr-8">
+<div class="pt-20 px-20">
     <h1 class=" text-2xl font-medium">List Academy</h1>
 
     <div class="flex flex-wrap flex-row-reverse justify-between items-end">
@@ -19,9 +19,9 @@
             <form action="/admin/academy/{{ $acdmy->id }}/delete" method="POST">
                 @csrf
                 @method('DELETE')
-                <button><img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4" >
+                <button><img src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
             </form>
-            
+
             <div class="w-full h-52">
                 <img src="{{url('/asset/icons/thumbnail2.png')}}" alt="" class="w-full h-full">
             </div>
