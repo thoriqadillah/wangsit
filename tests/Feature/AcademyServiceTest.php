@@ -104,14 +104,11 @@ class AcademyServiceTest extends TestCase
 
     public function test_detail_academy()
     {
-        User::factory()->create();
-        $user = User::latest()->first();
-        $this->actingAs($user);
-        $academyM = Academy::latest()->first();
+        $academyM = Academy::first();
 
         $academy = new AcademyService();
         $show = $academy->detailAcademy($academyM->id);
 
-        $this->assertJson($show);
+        $this->assertNotNull($show);
     }
 }

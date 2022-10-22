@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Departement;
 use App\Services\EventService;
-use Carbon\Carbon;
 use Livewire\Component;
 
 class Event extends Component {
@@ -12,6 +11,7 @@ class Event extends Component {
 	//TODO: tambahkan pagination
 	public $filter = 'aktif';
 	public $departements;
+	public $deptId = 0;
 	public $events;
 
 	protected EventService $eventService;
@@ -22,16 +22,21 @@ class Event extends Component {
 
 	public function mount() {
 		$this->departements = Departement::all();
-		$this->events = $this->eventService->showEvent();
+		$this->events = $this->eventService->showAktif($this->deptId);
 	}
 
-	//TODO: filter berdasarkan dropdown
-	public function showEvents(int $deptId = 0) {
-		if ($deptId == 0) {
-			$this->events = $this->eventService->showEvent();
-		} else {
-			$this->events = $this->eventService->showBy('departement_id', $deptId);
-		}
+	public function setDept(int $deptId = 0) {
+		$this->deptId = $deptId;
+
+		$this->events = $this->filter == 'aktif' 
+			? $this->eventService->showAktif($this->deptId)
+			: $this->eventService->showPengumuman($this->deptId);
+	}
+
+	public function updatedFilter() {
+		$this->events = $this->filter == 'aktif' 
+			? $this->eventService->showAktif($this->deptId)
+			: $this->eventService->showPengumuman($this->deptId);
 	}
 
 	public function render() {

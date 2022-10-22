@@ -35,7 +35,7 @@ class EventFormResponseTest extends TestCase
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
-        $event = Event::first();
+        $event = Event::latest()->first();
         
         $service = new EventFormResponseService();
         $service->saveResponse($event->id, $this->makeResponse());
@@ -55,7 +55,7 @@ class EventFormResponseTest extends TestCase
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
-        $event = Event::first();
+        $event = Event::latest()->first();
         
         $service = new EventFormResponseService();
         $service->saveResponse($event->id, $this->makeResponse());

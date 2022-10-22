@@ -21,6 +21,9 @@ class AcademyService
         return Academy::where('slug', $slug)->join('academy_categories', 'academy_categories.id', '=', 'academy_category_id')->select('academies.*', 'academy_categories.nama as namaK')->first();
     }
 
+    public function search(string $query) {
+        return Academy::where('nama', 'like', "%$this->search%")->get();
+    }
 
     public function addAcademy(array $academyData)
     {
