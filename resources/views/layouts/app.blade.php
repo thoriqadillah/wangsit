@@ -36,11 +36,19 @@
                     </div>
             </a>
             @if (auth()->check() && auth()->user()->admin_id != null)
-            <a href="/admin/event">
-                <div class="{{ (request()->is('admin/event')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">
+            <div class="relative cursor-default group">
+                <div>
                     Admin
                 </div>
-            </a>
+
+                <div class="absolute hidden -left-6 group-hover:block p-3 w-60">
+                    <div class="flex flex-col gap-5 bg-white shadow-lg border p-5">
+                        <a href="/admin/event" class="{{ (request()->is('admin/event')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">event</a>
+
+                        <a href="/admin/academy" class="{{ (request()->is('admin/academy')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">academy</a>
+                    </div>
+                </div>
+            </div>
             @endif
             <form action="/logout" method="POST">
                 @csrf
@@ -53,9 +61,9 @@
     </nav>
 
     <!-- sidebar -->
-    <div id="sidebar" class="h-screen fixed z-10 w-60 top-0 bg-white transition -translate-x-60 duration-700 px-5 py-20">
+    <div id="sidebar" class="h-screen fixed w-60 top-0 bg-white transition -translate-x-60 duration-700 px-5 z-[900] py-20">
         <div class="flex flex-col gap-8 text-xl font-medium text-mainColor">
-            <a href="/home" class="flex items-center gap-2">
+            <a href="/" class="flex items-center gap-2">
                 <img src="{{url('/asset/icons/home.svg')}}" class="w-4" />
                 <h1>Home</h1>
             </a>
@@ -70,6 +78,23 @@
                 <h1>Academy</h1>
             </a>
 
+            @if (auth()->check() && auth()->user()->admin_id != null)
+            <div class="relative cursor-default group">
+                <div class="flex items-center gap-2">
+                    <img src="{{url('/asset/icons/user.svg')}}" class="w-4" />
+                    <h1>Admin</h1>
+                </div>
+
+                <div class="absolute hidden -left-6 group-hover:block p-3 w-60">
+                    <div class="flex flex-col gap-5 bg-white shadow-lg border p-5">
+                        <a href="/admin/event" class="{{ (request()->is('admin/event')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">event</a>
+
+                        <a href="/admin/academy" class="{{ (request()->is('admin/academy')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">academy</a>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <form action="/logout" method="POST">
                 @csrf
                 <button type="submit" class="flex items-center gap-2">
@@ -82,10 +107,10 @@
     </div>
     <!-- sidebar -->
     @endauth
-    
+
     @yield('content')
     <!-- background modal -->
-    <div id="modal" class="fixed w-full h-full scale-0 transition duration-500 bg-[#000000e1] z-50"></div>
+    <div id="modal" class="fixed w-full top-0 bottom-0 right-0 left-0 scale-0 transition duration-500 bg-[#000000e1] z-[800]"></div>
     <!-- background modal -->
 
     <script src="{{url('/script/script.js')}}"></script>
