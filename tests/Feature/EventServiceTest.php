@@ -95,6 +95,7 @@ class EventServiceTest extends TestCase
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
+        Event::factory()->create();
         $eventM = Event::latest()->first();
 
         $event = new EventService();

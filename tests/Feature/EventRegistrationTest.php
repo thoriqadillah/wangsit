@@ -32,7 +32,7 @@ class EventRegistrationTest extends TestCase
     //FIXME
     public function test_should_redirected_if_already_registered()
     {
-        $this->actingAs(User::first());
+        $this->actingAs(User::find(3));
         $event = Event::first(); 
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
         $component->assertRedirect("/event/$event->slug/daftar/berhasil");
