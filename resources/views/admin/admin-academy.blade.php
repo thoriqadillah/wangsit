@@ -13,8 +13,8 @@
         <a href="/admin/academy/tambah" class="py-2 px-2 rounded-full bg-mainColor text-white mt-8 block w-60 text-center">Tambah Academy</a>
     </div>
 
-    @foreach ($academy as $acdmy)
     <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
+        @foreach ($academy as $acdmy)
         <div class="w-96 h-96 bg-white border rounded shadow relative p-5">
             <form action="/admin/academy/{{ $acdmy->id }}/delete" method="POST">
                 @csrf
@@ -34,8 +34,8 @@
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
-    @endforeach
 
     <div class="flex justify-center items-center my-8">
         <div class="flex gap-4 items-center">

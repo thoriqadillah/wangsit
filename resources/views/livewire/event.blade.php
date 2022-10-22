@@ -26,7 +26,7 @@
         @foreach ($events as $event)
         <div class="w-80 h-96 sm:w-full md:w-[360px] lg:w-full shadow">
             <div class="w-full h-52">
-                <img src="{{ Storage::get($event->thumbnail) }}" class="w-full h-full object-cover" />
+                <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
             </div>
 
             <div class="h-20 px-4 overflow-hidden">

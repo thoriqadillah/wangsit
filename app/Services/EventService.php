@@ -7,6 +7,7 @@ use App\Models\Event;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
@@ -95,7 +96,7 @@ class EventService
     {
         $year = Carbon::now()->format('Y');
 
-        $path = $eventData['thumbnail']->store($year);
+        $path = $eventData['thumbnail']->store("/public/$year");
         $eventData['thumbnail'] = $path;
 
         if ($eventData['adanya_kelulusan'] == true) {
