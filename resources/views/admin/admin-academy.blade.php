@@ -1,21 +1,16 @@
 @extends('layouts.app')
 @section('content')
-<!-- <div class="w-52 py-20 text-white px-8 bg-mainColor h-screen fixed">
-    <a href="/admin/event" class="text-white text-xl block">Event</a>
-    <a href="/admin/academy" class="text-white text-xl mt-8 block ">Academy</a>
-</div> -->
-
-<div class="pt-20 px-20">
+<div class="pt-24 px-6 lg:px-12">
     <h1 class=" text-2xl font-medium">List Academy</h1>
 
-    <div class="flex flex-wrap flex-row-reverse justify-between items-end">
-        <span class="px-8 text-center py-2 border rounded-full border-grey-800" title="Departement {{ $userDept->nama }}">{{ $userDept->nama }}</span>
-        <a href="/admin/academy/tambah" class="py-2 px-2 rounded-full bg-mainColor text-white mt-8 block w-60 text-center">Tambah Academy</a>
+    <div class="flex justify-between items-center w-full mt-8">
+        <a href="/admin/academy/tambah" class="py-2 rounded-full bg-mainColor text-white text-sm block w-40 text-center">Tambah Academy</a>
+        <div class="px-8 text-center py-2 border rounded-full border-grey-800 text-sm" title="Departement {{ $userDept->nama }}">{{ $userDept->nama }}</div>
     </div>
 
-    <div class="mt-8 grid grid-cols-3 gap-8 mb-12">
+    <div class="gap-x-8 gap-y-10 justify-items-center grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-10">
         @foreach ($academy as $acdmy)
-        <div class="w-96 h-96 bg-white border rounded shadow relative p-5">
+        <div class="w-80 sm:w-full md:w-[360px] lg:w-full h-96 flex flex-col items-center bg-white border rounded shadow relative p-3">
             <form action="/admin/academy/{{ $acdmy->id }}/delete" method="POST">
                 @csrf
                 @method('DELETE')
@@ -25,8 +20,9 @@
             <div class="w-full h-52">
                 <img src="{{url('/asset/icons/thumbnail2.png')}}" alt="" class="w-full h-full">
             </div>
+
             <div class="mt-5 flex flex-col h-28 justify-between">
-                <div>
+                <div class="overflow-hidden">
                     <h1 class="font-medium uppercase text-center">{{ $acdmy->nama }}</h1>
                 </div>
                 <div class="flex gap-4">
