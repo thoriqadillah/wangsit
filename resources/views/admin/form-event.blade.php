@@ -1,11 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="w-52 py-20 text-white px-8 bg-mainColor h-screen fixed">
-    <a href="/admin/event" class="text-white text-xl block">Event</a>
-    <a href="/admin/academy" class="text-white text-xl mt-8 block ">Academy</a>
-</div>
 
-<div class="pt-20 pl-72 pr-12">
+<div class="pt-20">
     <div class="w-[700px] mx-auto rounded p-8 shadow border">
         <form class method="POST" action="/admin/event/tambah" enctype="multipart/form-data">
             @if (isset($detail))
@@ -20,9 +16,9 @@
                 <div class="w-full">
                     <label>Nama Departemen</label>
                     <select class="border rounded py-2 px-3 mt-3 w-full" name="departement_id" id="">
-                    @foreach ($departement as $dept)
+                        @foreach ($departement as $dept)
                         <option selected value="{{ $dept->id }}">{{ $dept->nama }}</option>
-                    @endforeach
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -54,7 +50,7 @@
             <label class="block mb-3 mt-8">Gambar Event</label>
             <label class="block ">
                 <span class="sr-only">Choose Thumbnail Event</span>
-                <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100" name="thumbnail"/>
+                <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100" name="thumbnail" />
             </label>
 
             <div class="flex items-center mt-8 gap-2">
@@ -67,7 +63,7 @@
                 <input type="submit" value="Simpan" class="cursor-pointer rounded text-center w-28 py-1 mt-8 bg-mainColor text-white">
             </div>
             @error('status')
-                <h1>{{$message}}</h1>
+            <h1>{{$message}}</h1>
             @enderror
         </form>
     </div>
