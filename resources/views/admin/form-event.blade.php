@@ -31,7 +31,7 @@
 
                 <div class="w-full">
                     <label>Tanggal Tutup Pendaftaran</label>
-                    <input type="date" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ $detail->tgl_tutup_pendaftaran ?? '' }}">
+                    <input type="date" value="2002-11-11" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ $detail->tgl_tutup_pendaftaran ?? '' }}">
                 </div>
             </div>
 
