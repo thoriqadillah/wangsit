@@ -14,17 +14,6 @@
                     <label>Nama Event</label>
                     <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ $detail->nama ?? '' }}">
                 </div>
-<<<<<<< HEAD
-=======
-                <div class="w-full">
-                    <label>Nama Departemen</label>
-                    <select class="border rounded py-2 px-3 mt-3 w-full" name="departement_id" id="">
-                        @foreach ($departement as $dept)
-                        <option selected value="{{ $dept->id }}">{{ $dept->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
->>>>>>> 98f111a8d7068d728850e26284003b2a9858388e
             </div>
 
             <div class="flex gap-8 mt-10">
@@ -54,11 +43,7 @@
             <label class="block mb-3 mt-8">{{ isset($detail->thumbnail) ?$detail->thumbnail: 'Gambar Event' }}</label>
             <label class="block ">
                 <span class="sr-only">Choose Thumbnail Event</span>
-<<<<<<< HEAD
-                <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100" name="thumbnail" value="ddd"/>
-=======
                 <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100" name="thumbnail" />
->>>>>>> 98f111a8d7068d728850e26284003b2a9858388e
             </label>
 
             <div class="flex items-center mt-8 gap-2">
