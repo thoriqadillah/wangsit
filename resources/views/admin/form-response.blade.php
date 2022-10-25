@@ -22,9 +22,10 @@
         <table class="w-full text-sm text-left text-gray-500 border-collapse">
             <thead class="text-xs text-black uppercase bg-blue-100 text-center">
                 <tr>
-                    @for($j=0;$j<count($response[0]->response);$j++)
+                    @for($j=0;$j<count($head->format);$j++)
                     <th scope="col" class="py-3 px-6">
-                        {{ $response[0]->response[$j]['judul'] }}
+                        {{-- {{ $response[0]->response[$j]['judul'] }} --}}
+                        {{ $head->format[$j]['judul'] }}
                     </th>
                     @endfor
                 </tr>
