@@ -111,7 +111,7 @@ class EventForm extends Component {
 		$updated = $this->eventFormService->updateForm($this->forms, $this->event->id);
 		if ($updated) {
 			return redirect()->to('/admin/event/'.$this->event->slug . '/form')
-				->with('status', 'Form berhasil diupdate');
+				->with('success', 'Form berhasil diupdate');
 		}
 	}
 

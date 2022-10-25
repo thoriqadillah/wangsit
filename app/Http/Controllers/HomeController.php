@@ -18,7 +18,7 @@ class HomeController extends Controller {
     }
 
     public function index() {
-        $user = $this->userService->getUser();
+        $user = $this->userService->getCurrentUser();
         $birthdayUsers = $this->userService->getBirthdayUsers();
         $latestEvent = $this->eventService->getLatestEvent();
 

@@ -1,24 +1,28 @@
-<!-- TODO: integrasikan ke livewire -->
 <div class="pt-20 px-20">
+    @include('layouts.flash-message')
     <div class="flex justify-between items-center mt-8">
-        <div class="">
-            <label for="countries" class="block mb-2 text-gray-900">Search By NIM</label>
+        @if ($toAdd)
+        <div>
             <div class="flex gap-4">
-                <input type="text" name="searchByNim" class="w-80 border px-2 py-1 rounded-full shadow">
-                <input type="submit" value="Search" class="px-3 py-1 rounded bg-mainColor cursor-pointer text-white">
+                <input wire:model.debounce.500ms="search" type="text" placeholder="NIM atau Nama" class="w-80 border px-3 py-2 rounded-full shadow">
+                <input type="submit" value="Search" class="px-3 py-1 rounded-full bg-mainColor cursor-pointer text-white">
             </div>
         </div>
-        <div class="">
-            <button class="border border-mainColor rounded bg-white w-40 py-1 text-mainColor">Default</button>
+        @else
+        <div>
+            <button wire:click="isAdding()" class="border border-mainColor rounded bg-mainColor w-40 py-2 text-white">Tambah Admin</button>
         </div>
+        @endif
     </div>
 
 
     <div class="overflow-x-auto relative pt-8">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-gray-700 uppercase bg-gray-50">
                 <tr>
-
+                    <th scope="col" class="py-3 px-6">
+                        No
+                    </th>
                     <th scope="col" class="py-3 px-6">
                         Nama Mahasiswa
                     </th>
@@ -28,31 +32,77 @@
                     <th scope="col" class="py-3 px-6 text-center">
                         Level
                     </th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Aksi
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b">
+                @if ($toAdd && $search != '')
+                <tr class="bg-blue-50 border-b">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                        Abdurrizqo Arrahman
+                        
+                    </th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {{ $searchedUser->nama ?? ' ' }}
                     </th>
                     <td class="py-4 px-6">
-                        195150401111026
+                        {{ $searchedUser->nim ?? ' ' }}
                     </td>
                     <td class="py-4">
-                        <select id="countries" class="bg-gray-50 blox mx-auto border border-gray-300 w-60 py-4 px-3 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block">
-                            <option selected>Mahasiswa</option>
-                            <option value="Non-Dept">Admin Non-Dept</option>
-                            <option value="Advokesma">Admin Advokesma</option>
-                            <option value="KWU">Admin KWU</option>
-                            <option value="Mekominfo">Admin Mekominfo</option>
-                            <option value="P2S">Admin P2S</option>
-                            <option value="PSDM">Admin PSDM</option>
-                            <option value="SOSMA">ADMIN SOSMA</option>
+                        <select wire:model="selectedDept" class="bg-gray-50 blox mx-auto border border-gray-300 w-60 py-4 px-3 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block">
+                            @if ($searchedUser)
+                            @foreach ($departements as $dept)
+                            <option value="{{ $dept->id }}">{{ $dept->nama }}</option>
+                            @endforeach 
+                            @endif
                         </select>
                     </td>
+                    <td class="py-4">
+                        @if ($searchedUser)
+                        <button wire:click="setAdmin()" class="rounded-full bg-mainColor text-white px-4 py-2 mx-auto block">Simpan</button>
+                        @endif
+                    </td>
                 </tr>
+                @endif
+
+                @foreach ($admins as $i => $user)
+                <tr class="bg-white border-b">
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {{ $i+1 }}
+                    </th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        {{ $user->nama }}
+                    </th>
+                    <td class="py-4 px-6">
+                        {{ $user->nim }}
+                    </td>
+                    <td class="py-4">
+                        @if ($user->admin_id == 1)
+                        <h1 class="blox mx-auto w-60 py-4 px-3 text-gray-900 text-sm block">KEMSI</h1>
+                        @else
+                        <select class="bg-gray-50 blox mx-auto border border-gray-300 w-60 py-4 px-3 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block">
+                            @foreach ($departements as $dept)
+                            <option {{ $dept->id == $user->admin->departement_id ? 'selected' : '' }} value="{{ $dept->id }}">{{ $dept->nama }}</option>
+                            @endforeach 
+                        </select>
+                        @endif
+                    </td>
+                    <td class="py-4">
+                    {{-- <!--TODO: implement update departemen--> --}}
+                        @if ($user->admin->departement_id != null)
+                        <button title="Hapus admin" wire:click="deleteAdmin({{ $user->id }})" class="rounded-full border border-red-500 bg-red-500 text-white px-4 py-2 mx-auto block">X</button>
+                        @endif
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
+    @if ($toAdd)
+    <div>
+        <button wire:click="save()" class="border border-mainColor rounded bg-mainColor w-40 py-2 my-4 text-white">Simpan</button>
+    </div>
+    @endif
 
 </div>

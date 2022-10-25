@@ -45,6 +45,7 @@ class AdminEvent extends Component {
 
     public function deleteEvent(int $id) {
         $this->eventService->deleteEvent($id);
+        redirect()->to('/admin/event')->with('success', 'Event berhasil dihapus');
     }
 
     public function render() {

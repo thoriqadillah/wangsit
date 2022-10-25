@@ -82,7 +82,7 @@
     </div>
     <!-- sidebar -->
     @endauth
-    
+
     @yield('content')
     <!-- background modal -->
     <div id="modal" class="fixed w-full h-full scale-0 transition duration-500 bg-[#000000e1] z-50"></div>

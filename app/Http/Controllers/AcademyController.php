@@ -36,6 +36,8 @@ class AcademyController extends Controller
     public function detailAcademy($slug)
     {
         $detail = $this->academy->detailAcademy($slug);
+        if (!$detail) return abort(404);
+        
         $kategoriMateri = AcademyCategory::all();
         $data = [
             'detail' => $detail,
@@ -69,10 +71,10 @@ class AcademyController extends Controller
 
         $academy = $this->academy->addAcademy($validated);
         if ($academy) {
-            return redirect('/admin/academy')->with('status', 'Academy berhasil ditambah');
+            return redirect('/admin/academy')->with('success', 'Academy berhasil ditambah');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Academy gagal ditambah']);
+        return redirect()->refresh()->withErrors(['error' => 'Academy gagal ditambah']);
     }
 
     public function updateAcademy(Request $request, int $id)
@@ -87,19 +89,19 @@ class AcademyController extends Controller
 
         $academy = $this->academy->updateAcademy($validated, $id);
         if ($academy) {
-            return redirect('/admin/academy')->with('status', 'Academy berhasil diupdate');
+            return redirect('/admin/academy')->with('success', 'Academy berhasil diupdate');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Academy gagal diupdate']);
+        return redirect()->refresh()->withErrors(['error' => 'Academy gagal diupdate']);
     }
 
     public function deleteAcademy(int $id)
     {
         $deleted = $this->academy->deleteAcademy($id);
         if ($deleted) {
-            return redirect()->back()->with('status', 'Academy berhasil dihapus');
+            return redirect()->back()->with('success', 'Academy berhasil dihapus');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Academy gagal dihapus']);
+        return redirect()->refresh()->withErrors(['error' => 'Academy gagal dihapus']);
     }
 }

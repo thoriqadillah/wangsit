@@ -1,8 +1,6 @@
 <div class="pt-20 mx-auto">
     <div class="w-[800px] mx-auto">
-        @if (Session::has('status'))
-        <div class="border border-blue-500 text-blue-500 transparent rounded bg-white grow py-2 text-center my-2">{{ Session::get('status') }}</div>
-        @endif
+        @include('layouts.flash-message')
         <h1 class=" text-2xl font-medium">Form {{ $event->nama }}</h1>
 
         <!-- add form text -->

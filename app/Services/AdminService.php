@@ -9,31 +9,33 @@ use GuzzleHttp\Promise\Create;
 class AdminService
 {
 
-    public function getAdmin()
-    {
-        return User::whereNotNull('admin_id')->get();
+    public function getAdmin() {
+        return User::with('admin')
+            ->whereNotNull('admin_id')
+            ->get();
     }
 
-    public function deleteAdmin(int $id)
-    {
-        $admin = User::whereNotNull('admin_id')->get();
-        return $admin->delete();
+    public function searchUser($query) {
+        return User::where(function($q) use ($query) {
+            $q->where('nama', 'like', "%$query%");
+            $q->orWhere('nim', 'like', "%$query%");
+        })->whereNull('admin_id')->first();
     }
 
-    public function assignAdmin(array $adminData)
+    public function unassignAdmin(int $id)
     {
+        return User::where('id', $id)->update([
+            'admin_id' => null
+        ]);
+    }
 
-        $idUser = $adminData['id'];
-        $idDept = $adminData['idDept'];
+    public function assignAdmin(int $id, int $deptId)
+    {
+        $admin = Admin::where('departement_id', $deptId)->first();
 
-        // $idAdmin = [];
-        foreach ($idDept as $id) {
-            $admin = Admin::where('departement_id', $id)->first();
-            $idAdmin = $admin->id;
-
-            User::where('id', $idUser)->update([
-                'admin_id' => $idAdmin
-            ]);
-        }
+        return User::where('id', $id)->update([
+            'admin_id' => $admin->id
+        ]);
+        
     }
 }

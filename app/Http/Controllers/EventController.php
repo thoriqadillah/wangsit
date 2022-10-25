@@ -22,6 +22,8 @@ class EventController extends Controller
     public function detailEvent($slug)
     {
         $detail = $this->event->detailEvent($slug);
+        if (!$detail) return abort(404);
+        
         $department = Departement::all();
 
         $data = [
@@ -54,9 +56,9 @@ class EventController extends Controller
 
         $event = $this->event->addEvent($validated);
         if ($event) {
-            return redirect('/event')->with('status', 'Event berhasil ditambah');
+            return redirect('/event')->with('success', 'Event berhasil ditambah');
         }
-        return redirect()->refresh()->withInput()->withErrors(['status' => 'Event gagal ditambah']);
+        return redirect()->refresh()->withInput()->withErrors(['error' => 'Event gagal ditambah']);
     }
 
     public function updateEvent(Request $request, int $id)
@@ -80,10 +82,10 @@ class EventController extends Controller
 
         $updEvent = $this->event->updateEvent($validated, $id);
         if ($updEvent) {
-            return redirect()->back()->with('status', 'Event berhasil diupdate');
+            return redirect()->back()->with('success', 'Event berhasil diupdate');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Event gagal diupdate']);
+        return redirect()->refresh()->withErrors(['error' => 'Event gagal diupdate']);
     }
 
     public function addEventPage()
