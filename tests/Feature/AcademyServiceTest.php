@@ -107,7 +107,7 @@ class AcademyServiceTest extends TestCase
         $academyM = Academy::first();
 
         $academy = new AcademyService();
-        $show = $academy->detailAcademy($academyM->id);
+        $show = $academy->detailAcademy($academyM->slug);
 
         $this->assertNotNull($show);
     }
