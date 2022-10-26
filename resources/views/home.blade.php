@@ -9,17 +9,17 @@
                 Apps
             </div>
 
-            <div class="flex flex-col sm:flex-row lg:justify-evenly ">
-                <a href="https://ecomplaint.kbmsi.or.id/" class="shadow-md w-80 h-36 mx-3 rounded">
-                    <img src="{{url('/asset/icons/e-complaint.png')}}" class="block rounded mx-auto w-full h-full object-cover" />
+            <div class="grid grid-cols-1 sm:grid-cols-3 mx-4 gap-5 justify-items-center">
+                <a href="https://ecomplaint.kbmsi.or.id/" class="shadow-md w-60 sm:w-full border rounded lg:w-48 xl:w-60">
+                    <img src="{{url('/asset/icons/e-complaint.png')}}" class="rounded w-full h-full object-cover" />
                 </a>
 
-                <a href="http://kbmsi.filkom.ub.ac.id/" class="w-80 h-36 shadow-md mx-3 rounded">
-                    <img src="{{url('/asset/icons/website-kbmsi.png')}}" class="block rounded mx-auto w-full h-full object-cover" />
+                <a href="http://kbmsi.filkom.ub.ac.id/" class="shadow-md w-60 sm:w-full rounded lg:w-48 xl:w-60">
+                    <img src="{{url('/asset/icons/website-kbmsi.png')}}" class="rounded w-full h-full object-cover" />
                 </a>
 
-                <a href="https://wowsi.kbmsi.or.id/" class="w-80 h-36 shadow-md mx-3 rounded">
-                    <img src="{{url('/asset/icons/wowsi.png')}}" class="block mx-auto rounded w-full h-full object-cover" />
+                <a href="https://wowsi.kbmsi.or.id/" class="shadow-md w-60 sm:w-full rounded lg:w-48 xl:w-60">
+                    <img src="{{url('/asset/icons/wowsi.png')}}" class="rounded w-full h-full object-cover" />
                 </a>
             </div>
         </div>

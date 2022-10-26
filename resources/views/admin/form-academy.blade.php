@@ -9,19 +9,34 @@
             @csrf
             <div class="flex gap-8 mt-10">
                 <div class="w-full">
-                    <label>Nama Materi</label>
+                    <label>
+                        Nama Materi
+                        @error('nama')
+                        <span class="text-newRed text-sm">*{{$message}}</span>
+                        @enderror
+                    </label>
                     <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->nama) ? $detail->nama : '' }}">
                 </div>
 
                 <div class="w-full">
-                    <label>Link Materi</label>
+                    <label>
+                        Link Materi
+                        @error('link')
+                        <span class="text-newRed text-sm">*{{$message}}</span>
+                        @enderror
+                    </label>
                     <input type="text" name="link" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{isset ($detail->link) ? $detail->link : '' }}">
                 </div>
             </div>
 
             <div class="flex gap-8 mt-6">
                 <div class="w-1/2">
-                    <label for="countries" class="block mb-2 text-gray-900">Kategori Materi</label>
+                    <label class="block mb-2 text-gray-900">
+                        Kategori Materi
+                        @error('academy_category_id')
+                        <span class="text-newRed text-sm">*{{$message}}</span>
+                        @enderror
+                    </label>
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3 w-80" name="academy_category_id">
                         <option value="{{isset ($detail->academy_category_id) ? $detail->academy_category_id : '' }}" selected>{{ isset ($detail->namaK) ? $detail->namaK : '' }}</option>
                         @foreach ($materi as $m)
