@@ -39,7 +39,7 @@
             <div class="rounded bg-white p-10 w-[500px] mx-auto mt-40">
                 <h1 class="text-lg font-medium text-center">Hapus Event Ini ?</h1>
                 <div class="flex px-6 items-center justify-between gap-8 mt-8">
-                    <button class="border rounded text-newRed bg-white border-newRed py-1 grow text-center" onclick="confirmDelete()">Cancel</button>
+                    <button class="border rounded text-newRed bg-white border-newRed py-1 grow text-center" onclick="location.reload();">Cancel</button>
                     <a href="/admin/event" wire:click="deleteEvent({{ $event->id }})" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</a>
                 </div>
             </div>

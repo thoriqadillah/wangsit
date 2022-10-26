@@ -37,8 +37,9 @@
             </a>
             @if (auth()->check() && auth()->user()->admin_id != null)
             <div class="relative cursor-default group">
-                <div>
-                    Admin
+                <div class="flex items-center gap-2">
+                    <h1>Admin</h1>
+                    <img src="{{url('/asset/icons/drop.svg')}}" class="w-3" />
                 </div>
 
                 <div class="absolute hidden -left-6 group-hover:block p-3 w-60">
@@ -82,7 +83,10 @@
             <div class="relative cursor-default group">
                 <div class="flex items-center gap-2">
                     <img src="{{url('/asset/icons/user.svg')}}" class="w-4" />
-                    <h1>Admin</h1>
+                    <div class="flex items-center gap-2">
+                        <h1>Admin</h1>
+                        <img src="{{url('/asset/icons/drop.svg')}}" class="w-3" />
+                    </div>
                 </div>
 
                 <div class="absolute hidden -left-6 group-hover:block p-3 w-60">
