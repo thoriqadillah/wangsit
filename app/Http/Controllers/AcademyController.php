@@ -64,7 +64,8 @@ class AcademyController extends Controller
             'nama' => 'required',
             'link' => 'required',
         ], [
-            'required' => ':attribute wajib diisi'
+            'required' => ':attribute wajib diisi',
+            'academy_category_id.required' => 'kategori wajib diisi'
         ]);
 
         $academy = $this->academy->addAcademy($validated);
@@ -83,6 +84,7 @@ class AcademyController extends Controller
             'link' => 'required',
         ], [
             'required' => ':attribute wajib diisi',
+            'academy_category_id.required' => 'kategori wajib diisi'
         ]);
 
         $academy = $this->academy->updateAcademy($validated, $id);
