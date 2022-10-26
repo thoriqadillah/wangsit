@@ -17,110 +17,48 @@
         </div>
     </div>
 
+    <form>
+        <div class="w-full relative border overflow-y-auto mt-12 mb-20 customScroll">
+            <table class="w-full text-sm text-left text-gray-500 border-collapse">
+                <thead class="text-xs text-black uppercase bg-blue-100 text-center">
+                    <tr>
+                        <th scope="col" class="py-3 px-6">
+                            <div class="flex items-center mb-4">
+                                <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus Semua</label>
+                            </div>
+                        </th>
+                        @for($j=0;$j<count($head->format);$j++)
+                            <th scope="col" class="py-3 px-6">
+                                {{-- {{ $response[0]->response[$j]['judul'] }} --}}
+                                {{ $head->format[$j]['judul'] }}
+                            </th>
+                            @endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($response as $resp)
+                    <tr class="border-b align-top">
+                        <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
+                            <div class="flex items-center mb-4">
+                                <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 ">Lulus</label>
+                            </div>
+                        </td>
+                        @for($j=0;$j<count($response[0]->response);$j++)
+                            <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ $resp->response[$j]['response'] }}
+                            </td>
+                            @endfor
 
-    <div class="w-full relative border overflow-y-auto mt-12 mb-20 customScroll">
-        <table class="w-full text-sm text-left text-gray-500 border-collapse">
-            <thead class="text-xs text-black uppercase bg-blue-100 text-center">
-                <tr>
-                    <th scope="col" class="py-3 px-6">
-                        Nama Mahasiswa
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        NIM
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Pengalaman 1
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Pengalaman 2
-                    </th>
-                    <th scope="col" class="py-3 px-40">
-                        Alasan Mendaftar
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Link Google Drive
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Prestasi 1
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Prestasi 2
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Divisi 1
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Divisi 2
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Tanggal Lahir
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Tempat Lahir
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Nomer HP
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        ID Line
-                    </th>
-                    <th scope="col" class="py-3 px-12">
-                        Lulus
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="bg-white border-b align-top">
-                    <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Abdurrizqo Arrahman
-                    </td>
-                    <td class="py-4 px-6">
-                        195150401111026
-                    </td>
-                    <td class="py-4 px-6">
-                        Ketua Divisi Kegiatan Mahasiswa
-                    </td>
-                    <td class="py-4 px-6">
-                        Anggota Mahasiswa Sistem Informasi Filkom
-                    </td>
-                    <td class="py-4 px-6 w-96">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend imperdiet erat a congue. Morbi eros augue, pretium fringilla ex vitae, auctor pharetra sapien. Nam augue sem, porttitor at mollis sit amet, blandit condimentum diam. Duis ultrices dolor cursus, posuere urna vel, malesuada justo.
-                    </td>
-                    <td class="py-4 px-6"><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Link</a></td>
-                    <td class="py-4 px-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </td>
-                    <td class="py-4 px-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </td>
-                    <td class="py-4 px-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </td>
-                    <td class="py-4 px-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </td>
-                    <td class="py-4 px-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </td>
-                    <td class="py-4 px-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </td>
-                    <td class="py-4 px-6">
-                        0000000000000
-                    </td>
-                    <td class="py-4 px-6">
-                        @RArara
-                    </td>
-                    <td class="py-4 px-6">
-                        <select name="isLulus" id="" class="block w-40 text-lg border-2 rounded p-2 mx-4">
-                            <option value="true">Lulus</option>
-                            <option value="false">Gagal</option>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="flex justify-end mb-20">
+            <input class="bg-mainColor text-white rounded-full shadow py-2 px-4" type="submit" value="Luluskan semua yang ditandai">
+        </div>
+    </form>
 </div>
 @stop

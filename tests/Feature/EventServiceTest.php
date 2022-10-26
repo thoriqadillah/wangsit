@@ -8,7 +8,9 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Event;
 use App\Services\EventService;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,6 +23,8 @@ class EventServiceTest extends TestCase
      */
     public function test_add_event()
     {
+        Storage::fake('avatars');
+
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
@@ -28,9 +32,9 @@ class EventServiceTest extends TestCase
 
         $nama = $faker->words(6, true);
         $slug = $faker->words(9, true);
-        $thumbnail = $faker->words(9, true);
         $adanyaKelulusan = 1;
-
+        $year = Carbon::now()->format('Y');
+        $thumbnail = UploadedFile::fake()->image('avatar.png');
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $nama,
@@ -55,6 +59,9 @@ class EventServiceTest extends TestCase
 
     public function test_update_event()
     {
+        Storage::fake('avatars');
+
+
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
@@ -62,14 +69,17 @@ class EventServiceTest extends TestCase
 
         $nama = $faker->words(6, true) . 'updated';
         $slug = $faker->words(9, true);
-        $thumbnail = $faker->words(9, true);
+        $thumbnail = UploadedFile::fake()->image('avatar.png');
         $adanyaKelulusan = 1;
+        $thumbnailLama = $faker->words(9, true);
+
 
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $nama,
             'slug' => $slug,
             'thumbnail' => $thumbnail,
+            'thumbnailLama' => $thumbnailLama,
             'adanya_kelulusan' => $adanyaKelulusan,
             'tgl_buka_pendaftaran' => Carbon::now(),
             'tgl_tutup_pendaftaran' => Carbon::now()->addDays(7),
