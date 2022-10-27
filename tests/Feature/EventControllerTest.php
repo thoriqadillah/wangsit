@@ -7,7 +7,9 @@ use Faker\Factory;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Event;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -20,6 +22,7 @@ class EventControllerTest extends TestCase
      */
     public function test_add_event()
     {
+
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
@@ -43,7 +46,8 @@ class EventControllerTest extends TestCase
         ];
 
         $response = $this->post('/admin/event/tambah', $input);
-        $response->assertRedirect('/event');
+        $response->assertRedirect(session()->previousUrl());
+
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 

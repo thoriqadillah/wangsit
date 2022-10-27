@@ -4,23 +4,23 @@
 
     <div class="flex flex-col gap-5 grow">
         <!-- Apps Section -->
-        <div class="w-full border border-mainColor rounded flex flex-col gap-5">
+        <div class="w-full border border-mainColor rounded flex flex-col gap-5 pb-8">
             <div class="w-full h-16 text-white rounded-t bg-mainColor flex items-center justify-center text-lg">
                 Apps
             </div>
 
-            <div class="flex flex-col sm:flex-row lg:justify-evenly ">
-                <div class="w-full px-3 rounded">
-                    <img src="{{url('/asset/icons/e-complaint.png')}}" class="block mx-auto" />
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 mx-4 gap-5 justify-items-center">
+                <a href="https://ecomplaint.kbmsi.or.id/" class="shadow-md w-60 sm:w-full border rounded lg:w-48 xl:w-60">
+                    <img src="{{url('/asset/icons/e-complaint.png')}}" class="rounded w-full h-full object-cover" />
+                </a>
 
-                <div class="w-full px-3 rounded">
-                    <img src="{{url('/asset/icons/website-kbmsi.png')}}" class="block mx-auto" />
-                </div>
+                <a href="http://kbmsi.filkom.ub.ac.id/" class="shadow-md w-60 sm:w-full rounded lg:w-48 xl:w-60">
+                    <img src="{{url('/asset/icons/website-kbmsi.png')}}" class="rounded w-full h-full object-cover" />
+                </a>
 
-                <div class="w-full px-3 rounded mb-8">
-                    <img src="{{url('/asset/icons/wakanda.png')}}" class="block mx-auto" />
-                </div>
+                <a href="https://wowsi.kbmsi.or.id/" class="shadow-md w-60 sm:w-full rounded lg:w-48 xl:w-60">
+                    <img src="{{url('/asset/icons/wowsi.png')}}" class="rounded w-full h-full object-cover" />
+                </a>
             </div>
         </div>
         <!-- Apps Section -->

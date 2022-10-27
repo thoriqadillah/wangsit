@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\EventFormResponseController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\SuccessfulRegistrationController;
 use App\Http\Livewire\AdminEvent;
@@ -44,10 +45,11 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin/event', AdminEvent::class);
-    // Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
+    Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
     Route::get('/admin/root', Root::class);
     Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::get('/admin/event/tambah', [EventController::class, 'addEventPage']);
+    Route::get('/admin/event/{slug}/form/response', [EventFormResponseController::class, 'getResponse']);
     Route::get('/admin/event/{slug}', [EventController::class, 'detailEvent']);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
@@ -63,5 +65,4 @@ Route::middleware('admin')->group(function () {
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/debug', function () {
     // Debug here
-
 });

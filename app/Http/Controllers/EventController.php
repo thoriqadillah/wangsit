@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Services\EventService;
+use Error;
 use Illuminate\Validation\Rules\File;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -39,7 +40,6 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'departement_id' => 'required',
             'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
@@ -63,9 +63,12 @@ class EventController extends Controller
 
     public function updateEvent(Request $request, int $id)
     {
+
+        // dd($request->thumbnail);
+
         $validated = $request->validate([
             'nama' => 'required',
-            'slug' => 'required',
+            'thumbnailLama' => 'required',
             'thumbnail' => 'mimes:jpeg,png,jpg|image|max:2000',
             'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
@@ -79,6 +82,11 @@ class EventController extends Controller
             'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
+
+        if (is_null($request->thumbnail)) {
+            $validated['thumbnail'] = $request->thumbnailLama;
+        }
+
 
         $updEvent = $this->event->updateEvent($validated, $id);
         if ($updEvent) {
@@ -96,5 +104,10 @@ class EventController extends Controller
             'departement' => $department
         ];
         return view('/admin/form-event', $data);
+    }
+
+    public function responseEvent($slug)
+    {
+        return view('/admin/form-response');
     }
 }

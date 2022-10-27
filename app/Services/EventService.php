@@ -40,37 +40,38 @@ class EventService
 
     public function showBy(string $column, $value)
     {
-        return Event::where($column, $value)
-            ->where('tgl_tutup_pendaftaran', ">", Carbon::now())
-            ->get();
+        return Event::where($column, $value)->get();
     }
 
-    public function showAktif(int $deptId) {
+    public function showAktif(int $deptId)
+    {
         if ($deptId != 0) {
             return Event::where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
                 ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
                 ->get();
-            }
+        }
         return Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
             ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
             ->get();
     }
 
-    public function showPengumuman(int $deptId) {
+    public function showPengumuman(int $deptId)
+    {
         if ($deptId !== 0) {
             return Event::where('departement_id', $deptId)
                 ->where('tgl_buka_pengumuman', '<=', Carbon::now())
                 ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
                 ->get();
-            }
+        }
 
         return Event::where('tgl_buka_pengumuman', '<=', Carbon::now())
             ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
             ->get();
     }
 
-    public function showWaiting(int $deptId) {
+    public function showWaiting(int $deptId)
+    {
         if ($deptId !== 0) {
             return Event::where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '>', Carbon::now())
@@ -78,15 +79,16 @@ class EventService
         }
 
         return Event::where('tgl_buka_pendaftaran', '<', Carbon::now())
-        ->get();
+            ->get();
     }
-    
-    public function showTutup(int $deptId) {
+
+    public function showTutup(int $deptId)
+    {
         if ($deptId !== 0) {
             return Event::where('departement_id', $deptId)
                 ->where('tgl_tutup_pengumuman', '<', Carbon::now())
                 ->get();
-            }
+        }
 
         return Event::where('tgl_tutup_pengumuman', '<', Carbon::now())
             ->get();
@@ -106,7 +108,7 @@ class EventService
         }
         $hash = bin2hex(random_bytes(6));
         return Event::create([
-            'departement_id' => $eventData['departement_id'],
+            'departement_id' => Auth::user()->admin->departement_id,
             'nama' => $eventData['nama'],
             'slug' => Str::slug($eventData['nama']) . '-' . $hash,
             'thumbnail' => $path,
@@ -120,6 +122,24 @@ class EventService
 
     public function updateEvent(array $eventData, int $id)
     {
+        // dd($eventData['thumbnail']);
+        $year = Carbon::now()->format('Y');
+
+        if ($eventData['thumbnail'] ===  $eventData['thumbnailLama']) {
+            $eventData['thumbnail'] = $eventData['thumbnailLama'];
+            dd($eventData['thumbnail']);
+        } else {
+            $path = $eventData['thumbnail']->store("/public/$year");
+            $eventData['thumbnail'] = $path;
+            // dd($eventData['thumbnail']);
+        }
+
+        if ($eventData['adanya_kelulusan'] == true) {
+            $eventData['adanya_kelulusan'] = 1;
+        } else {
+            $eventData['adanya_kelulusan'] = 0;
+        }
+
         $hash = bin2hex(random_bytes(6));
 
         return Event::where('id', $id)->update([
