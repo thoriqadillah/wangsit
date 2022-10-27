@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Http\Livewire\EventForm;
 use App\Models\Event;
 use App\Models\EventForm as EventFormModel;
+use App\Models\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
@@ -19,15 +20,25 @@ class EventFormTest extends TestCase
      */
     public function test_should_renders_component_with_existed_forms()
     {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+
         $event = Event::first();
 
         $existedForm = $event->form['format'];
         $component = Livewire::test(EventForm::class, ['slug' => $event->slug]);
         $component->assertSet('forms', $existedForm);
+
+        $user->delete();
     }
 
     public function test_should_renders_component_with_preset_forms()
     {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+
         Event::factory()->create();
         $event = Event::latest()->first();
         $component = Livewire::test(EventForm::class, ['slug' => $event->slug]);
@@ -48,10 +59,15 @@ class EventFormTest extends TestCase
         $component->assertSet('forms', $presetForm);
 
         $event->delete(); //biar gak kesimpen di db aja, jadi didelete
+        $user->delete();
     }
 
     public function test_should_redirect_after_successfully_update_form()
     {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+
         $faker = Factory::create();
         $forms = [];
         for ($i=0; $i < 10; $i++) { 
@@ -72,10 +88,16 @@ class EventFormTest extends TestCase
             ->call('updateForm')
             ->assertRedirect("/admin/event/$event->slug/form");
 
+        $user->delete();
+
     }
 
     public function test_should_redirect_after_successfully_create_form()
     {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+
         $faker = Factory::create();
         $forms = [];
         for ($i=0; $i < 10; $i++) { 
@@ -100,5 +122,6 @@ class EventFormTest extends TestCase
         //biar gak kesimpen di db aja, jadi didelete
         EventFormModel::latest()->first()->delete(); 
         $event->delete();
+        $user->delete();
     }
 }

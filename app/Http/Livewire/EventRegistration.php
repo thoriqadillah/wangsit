@@ -14,6 +14,8 @@ class EventRegistration extends Component {
 	public $event;
 	public $aggrement;
 
+	public $userDept;
+
 	protected EventFormService $eventFormService;
 	protected EventFormResponseService $formResponseService;
 	protected UserService $userService;

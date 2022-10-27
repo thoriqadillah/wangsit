@@ -16,6 +16,8 @@ class EventForm extends Component {
 	public $existedForm;
 	public $isUpdate = false;
 
+	public $userDept;
+
 	protected EventFormService $eventFormService;
 	protected EventService $eventService;
 	protected UserService $userService;
