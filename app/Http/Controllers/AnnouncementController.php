@@ -26,7 +26,7 @@ class AnnouncementController extends Controller {
         if (!$data) return abort(404);
 
         $isGraduated = $data->status_lulus;
-        return view('registration.announcement', [
+        return view('announcement', [
             'isGraduated' => $isGraduated,
             'event' => $event[0]
         ]);

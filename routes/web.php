@@ -45,7 +45,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin/event', AdminEvent::class);
-    Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
     Route::get('/admin/root', Root::class);
     Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::get('/admin/event/tambah', [EventController::class, 'addEventPage']);

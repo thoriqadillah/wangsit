@@ -10,11 +10,6 @@
             <a href="" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Add Academy</a>
             <a href="" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Preview Form</a>
         </div>
-
-        <div class="flex gap-4 items-center">
-            <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-            <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
-        </div>
     </div>
 
     <form>
@@ -49,8 +44,7 @@
                             <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $resp->response[$j]['response'] }}
                             </td>
-                            @endfor
-
+                        @endfor
                     </tr>
                     @endforeach
                 </tbody>
@@ -60,5 +54,11 @@
             <input class="bg-mainColor text-white rounded-full shadow py-2 px-4" type="submit" value="Luluskan semua yang ditandai">
         </div>
     </form>
+    {{--
+    <div class="flex gap-4 items-center justify-center my-4">
+        <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+        <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+    </div>
+    --}}
 </div>
 @stop

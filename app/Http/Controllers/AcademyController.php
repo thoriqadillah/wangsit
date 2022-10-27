@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 
 class AcademyController extends Controller
 {
-    //
+    public $userDept;
+
     protected AcademyService $academy;
     protected UserService $userService;
+
 
     public function __construct(AcademyService $academyService, UserService $userService)
     {
@@ -19,15 +21,19 @@ class AcademyController extends Controller
         $this->userService = $userService;
     }
 
+    public function abortIfRoot() {
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
+    }
+    
     public function showAcademy()
     {
         $academy =  $this->academy->showAcademy();
-        $userDept = $this->userService->getUserDept();
-
+        $this->abortIfRoot();
 
         $data = [
             'academy' => $academy,
-            'userDept' => $userDept
+            'userDept' => $this->userDept
         ];
 
         return view('admin/admin-academy', $data);
@@ -35,6 +41,7 @@ class AcademyController extends Controller
 
     public function detailAcademy($slug)
     {
+        $this->abortIfRoot();
         $detail = $this->academy->detailAcademy($slug);
         if (!$detail) return abort(404);
         
@@ -42,7 +49,6 @@ class AcademyController extends Controller
         $data = [
             'detail' => $detail,
             'materi' => $kategoriMateri
-
         ];
 
         return view('admin/form-academy', $data);
@@ -50,6 +56,7 @@ class AcademyController extends Controller
 
     public function addAcademyPage()
     {
+        $this->abortIfRoot();
         $kategoriMateri = AcademyCategory::all();
 
         $data = [

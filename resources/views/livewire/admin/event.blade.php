@@ -8,7 +8,7 @@
     <div class="flex justify-center md:justify-start gap-8 items-center mt-8">
         <label class="block mb-2 text-gray-900">Filter By</label>
         <select wire:model="filter" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3">
-            <option value="semua">Semua Event</option>
+            <option selected value="semua">Semua Event</option>
             <option value="aktif">Pendaftaran</option>
             <option value="waiting">Menunggu</option>
             <option value="pengumuman">Pengumuman</option>
@@ -28,11 +28,15 @@
                     <h1 class="font-medium truncate">{{ $event->nama }}</h1>
                 </div>
                 <div class="flex gap-4 mt-2">
-                    <a class="border border-mainColor rounded cursor-pointer grow block text-center text-mainColor py-2 bg-white" href="/admin/event/{{ $event->slug }}/form">Form</a>
+                    <a class="border border-mainColor rounded cursor-pointer grow block text-center text-mainColor py-2 bg-white" href="/admin/event/{{ $event->slug }}/form">{{ $event->form == null ? 'Tambah Form' : 'Form' }}</a>
                     <a class="border border-mainColor rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/event/{{ $event->slug }}">Edit</a>
                 </div>
                 <div class="flex gap-4 mt-2">
-                    <a class="border border-white rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/detail/event/{{ $event->slug }}/form/response">Pendaftar</a>
+                    @if ($event->form != null)
+                    <a class="border border-white rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/event/{{ $event->slug }}/form/response">Pendaftar</a>
+                    @else
+                    <a class="border border-white rounded grow block text-center text-white py-4 bg-white"></a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -46,10 +50,5 @@
             </div>
         </div>
         @endforeach
-    </div>
-
-    <div class="flex gap-4 items-center justify-center mb-8">
-        <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-        <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
     </div>
 </div>

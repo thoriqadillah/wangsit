@@ -8,13 +8,15 @@
                 <input type="submit" value="Search" class="px-3 py-1 rounded-full bg-mainColor cursor-pointer text-white">
             </div>
         </div>
+        <div>
+            <button wire:click="isAdding()" class="border border-mainColor rounded-full bg-mainColor w-40 py-2 text-white">Batal</button>
+        </div>
         @else
         <div>
-            <button wire:click="isAdding()" class="border border-mainColor rounded bg-mainColor w-40 py-2 text-white">Tambah Admin</button>
+            <button wire:click="isAdding()" class="border border-mainColor rounded-full bg-mainColor w-40 py-2 text-white">Tambah Admin</button>
         </div>
         @endif
     </div>
-
 
     <div class="overflow-x-auto relative pt-8">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -65,11 +67,31 @@
                     </td>
                 </tr>
                 @endif
-
+                @if ($admins->onFirstPage())
+                <tr class="bg-white border-b">
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        1
+                    </th>
+                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        KEMSI
+                    </th>
+                    <td class="py-4 px-6">
+                        0000000000kbmsi
+                    </td>
+                    <td class="py-4">
+                        <h1 class="mx-auto w-60 py-4 px-3 text-gray-900 text-sm text-center block">
+                            KEMSI
+                        </h1>
+                    </td>
+                    <td class="py-4">
+                        
+                    </td>
+                </tr>
+                @endif
                 @foreach ($admins as $i => $user)
                 <tr class="bg-white border-b">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                        {{ $i+1 }}
+                        {{ $admins->onFirstPage() ? $i+2 : $i + $perPage + 2 }}
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                         {{ $user->nama }}
@@ -77,31 +99,23 @@
                     <td class="py-4 px-6">
                         {{ $user->nim }}
                     </td>
-                    <td class="py-4">
-                        @if ($user->admin_id == 1)
-                        <h1 class="blox mx-auto w-60 py-4 px-3 text-gray-900 text-sm block">KEMSI</h1>
-                        @else
-                        <select class="bg-gray-50 blox mx-auto border border-gray-300 w-60 py-4 px-3 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block">
-                            @foreach ($departements as $dept)
-                            <option {{ $dept->id == $user->admin->departement_id ? 'selected' : '' }} value="{{ $dept->id }}">{{ $dept->nama }}</option>
-                            @endforeach 
-                        </select>
-                        @endif
+                    <td scope="row" class="mx-auto w-60 py-4 px-3 text-gray-900 text-sm text-center block">
+                        {{ $departements[$user->admin->departement_id]->nama }}
                     </td>
                     <td class="py-4">
-                    {{-- <!--TODO: implement update departemen--> --}}
-                        @if ($user->admin->departement_id != null)
                         <button title="Hapus admin" wire:click="deleteAdmin({{ $user->id }})" class="rounded-full border border-red-500 bg-red-500 text-white px-4 py-2 mx-auto block">X</button>
-                        @endif
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        
     </div>
-    @if ($toAdd)
-    <div>
-        <button wire:click="save()" class="border border-mainColor rounded bg-mainColor w-40 py-2 my-4 text-white">Simpan</button>
+    @if ($admins->hasPages())
+    <div class="flex gap-4 items-center justify-center my-4">
+        <img wire:click="previousPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+        {{ $admins->currentPage()}}
+        <img wire:click="nextPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
     </div>
     @endif
 

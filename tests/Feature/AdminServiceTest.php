@@ -49,10 +49,11 @@ class AdminServiceTest extends TestCase
         $adminM = Admin::latest()->first();
 
         $admin = new AdminService();
-        $admin->deleteAdmin($adminM->id);
+        $admin->unassignAdmin($adminM->id);
 
-        $this->assertDatabaseMissing('admins', [
-            'id' => $adminM->id
+        $this->assertDatabaseHas('users', [
+            'id' => $adminM->id,
+            'admin_id' => null
         ]);
 
         $user->delete();
@@ -64,8 +65,8 @@ class AdminServiceTest extends TestCase
         $user = User::latest()->first();
         $this->actingAs($user);
         $admin = new AdminService();
-        $show = $admin->getAdmin();
+        $show = $admin->getAdmin(10);
 
-        $this->assertJson($show);
+        $this->assertNotNull($show);
     }
 }

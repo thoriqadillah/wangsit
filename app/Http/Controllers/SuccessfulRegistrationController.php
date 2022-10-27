@@ -24,6 +24,6 @@ class SuccessfulRegistrationController extends Controller {
         $isRegistered = $this->eventFormResponseService->checkUserResponse($event[0]->id);
         if(!$isRegistered) return redirect('/event');
 
-        return view('registration.success');
+        return view('success');
     }
 }

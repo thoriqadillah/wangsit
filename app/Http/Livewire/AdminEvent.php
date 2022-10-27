@@ -11,7 +11,8 @@ use Livewire\Component;
 class AdminEvent extends Component {
 
     //TODO: tambahkan pagination
-    public $filter = 'aktif';
+
+    public $filter = 'semua';
     public $userDept;
     public $events;
 
@@ -25,7 +26,7 @@ class AdminEvent extends Component {
 
     public function mount() {
         $this->userDept = $this->userService->getUserDept();
-        $this->events = $this->eventService->showAktif($this->userDept->id);
+        $this->events = $this->eventService->showBy('departement_id', $this->userDept->id);
     }
     
     public function updatedFilter() {
@@ -40,7 +41,6 @@ class AdminEvent extends Component {
         } else {
             $this->events = $this->eventService->showBy('departement_id', $this->userDept->id);
         }
-
     }
 
     public function deleteEvent(int $id) {

@@ -9,17 +9,20 @@ use GuzzleHttp\Promise\Create;
 class AdminService
 {
 
-    public function getAdmin() {
+    public function getAdmin($perPage) {
         return User::with('admin')
             ->whereNotNull('admin_id')
-            ->get();
+            ->whereNot('admin_id', 1)
+            ->orderBy('nama')
+            ->paginate($perPage);
     }
 
     public function searchUser($query) {
         return User::where(function($q) use ($query) {
             $q->where('nama', 'like', "%$query%");
             $q->orWhere('nim', 'like', "%$query%");
-        })->whereNull('admin_id')->first();
+        })->whereNull('admin_id')
+        ->first();
     }
 
     public function unassignAdmin(int $id)
@@ -37,5 +40,11 @@ class AdminService
             'admin_id' => $admin->id
         ]);
         
+    }
+
+    public function updateAdmin(int $id, int $deptId) {
+        return User::where('id', $id)->update([
+            'admin_id' => $deptId + 1 //admin id adalah dept id + 1
+        ]);
     }
 }

@@ -46,12 +46,14 @@ class EventService
     public function showAktif(int $deptId)
     {
         if ($deptId != 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
                 ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
                 ->get();
         }
-        return Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
+        return Event::with('form')
+            ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
             ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
             ->get();
     }
@@ -59,13 +61,15 @@ class EventService
     public function showPengumuman(int $deptId)
     {
         if ($deptId !== 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_buka_pengumuman', '<=', Carbon::now())
                 ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
                 ->get();
         }
 
-        return Event::where('tgl_buka_pengumuman', '<=', Carbon::now())
+        return Event::with('form')
+            ->where('tgl_buka_pengumuman', '<=', Carbon::now())
             ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
             ->get();
     }
@@ -73,24 +77,28 @@ class EventService
     public function showWaiting(int $deptId)
     {
         if ($deptId !== 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '>', Carbon::now())
                 ->get();
         }
 
-        return Event::where('tgl_buka_pendaftaran', '<', Carbon::now())
+        return Event::with('form')
+            ->where('tgl_buka_pendaftaran', '<', Carbon::now())
             ->get();
     }
 
     public function showTutup(int $deptId)
     {
         if ($deptId !== 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_tutup_pengumuman', '<', Carbon::now())
                 ->get();
         }
 
-        return Event::where('tgl_tutup_pengumuman', '<', Carbon::now())
+        return Event::with('form')
+            ->where('tgl_tutup_pengumuman', '<', Carbon::now())
             ->get();
     }
 

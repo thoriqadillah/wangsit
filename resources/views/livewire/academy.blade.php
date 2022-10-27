@@ -5,15 +5,6 @@
             <img src="{{url('/asset/icons/Search.svg')}}" alt="seacrh" class="absolute w-5 left-[4%] top-3">
             <input wire:model.debounce.500ms="search" type="text" class="block w-full rounded-full outline-mainColor border shadow py-2 pl-12 sm:pl-[10%] pr-4" placeholder="search" />
         </form>
-
-        <div class="flex justify-between items-center mt-8">
-            <div></div>
-
-            <div class="flex gap-4 items-center">
-                <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-                <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
-            </div>
-        </div>
     </div>
 
     <div class="grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-10 gap-x-8 gap-y-10 justify-items-center">
@@ -33,4 +24,10 @@
         </div>
         @endforeach
     </div>
+    {{--
+    <div class="flex gap-4 items-center justify-center my-4">
+        <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+        <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+    </div>
+    --}}
 </div>
