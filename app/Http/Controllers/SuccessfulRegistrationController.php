@@ -5,19 +5,31 @@ namespace App\Http\Controllers;
 use App\Services\EventFormResponseService;
 use App\Services\EventFormService;
 use App\Services\EventService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class SuccessfulRegistrationController extends Controller {
 
+    public $userDept;
+
     protected EventService $eventService;
     protected EventFormResponseService $eventFormResponseService;
+    protected UserService $userService;
 
-    public function __construct(EventService $eventService, EventFormResponseService $eventFormResponseService) {
+    public function __construct(EventService $eventService, EventFormResponseService $eventFormResponseService, UserService $userService) {
         $this->eventService = $eventService;
         $this->eventFormResponseService = $eventFormResponseService;
+        $this->userService = $userService;
+    }
+
+    public function abortIfRoot() {
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
     }
     
     public function index(string $slug) {
+        $this->abortIfRoot();
+        
         $event = $this->eventService->showBy('slug', $slug);
         if ($event->isEmpty()) return abort(404);
 

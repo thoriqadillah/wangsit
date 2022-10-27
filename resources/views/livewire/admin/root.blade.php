@@ -100,7 +100,7 @@
                         {{ $user->nim }}
                     </td>
                     <td scope="row" class="mx-auto w-60 py-4 px-3 text-gray-900 text-sm text-center block">
-                        {{ $departements[$user->admin->departement_id]->nama }}
+                        {{ $departements[$user->admin->departement_id - 1]->nama }}
                     </td>
                     <td class="py-4">
                         <button title="Hapus admin" wire:click="deleteAdmin({{ $user->id }})" class="rounded-full border border-red-500 bg-red-500 text-white px-4 py-2 mx-auto block">X</button>
@@ -114,7 +114,7 @@
     @if ($admins->hasPages())
     <div class="flex gap-4 items-center justify-center my-4">
         <img wire:click="previousPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-        {{ $admins->currentPage()}}
+        {{ $admins->currentPage() }}
         <img wire:click="nextPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
     </div>
     @endif

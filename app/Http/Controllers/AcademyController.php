@@ -14,7 +14,6 @@ class AcademyController extends Controller
     protected AcademyService $academy;
     protected UserService $userService;
 
-
     public function __construct(AcademyService $academyService, UserService $userService)
     {
         $this->academy = $academyService;
