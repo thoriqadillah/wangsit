@@ -11,7 +11,6 @@ use Tests\TestCase;
 
 class RootTest extends TestCase
 {
-    //TODO: buat test root
     /**
      * A basic feature test example.
      *
