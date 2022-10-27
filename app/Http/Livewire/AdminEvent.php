@@ -7,14 +7,16 @@ use App\Services\EventService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class AdminEvent extends Component {
 
+    use WithPagination;
     //TODO: tambahkan pagination
+    public $perPage = 20;
 
     public $filter = 'semua';
     public $userDept;
-    public $events;
 
     protected EventService $eventService;
     protected UserService $userService;
@@ -26,30 +28,18 @@ class AdminEvent extends Component {
 
     public function mount() {
         $this->userDept = $this->userService->getUserDept();
-        $this->events = $this->eventService->showBy('departement_id', $this->userDept->id);
     }
     
-    public function updatedFilter() {
-        if ($this->filter === 'aktif') {
-            $this->events = $this->eventService->showAktif($this->userDept->id);
-        } else if ($this->filter === 'waiting') {
-            $this->events = $this->eventService->showWaiting($this->userDept->id);
-        } else if ($this->filter === 'pengumuman') {
-            $this->events = $this->eventService->showPengumuman($this->userDept->id);
-        } else if ($this->filter === 'tutup') {
-            $this->events = $this->eventService->showTutup($this->userDept->id);
-        } else {
-            $this->events = $this->eventService->showBy('departement_id', $this->userDept->id);
-        }
-    }
-
     public function deleteEvent(int $id) {
         $this->eventService->deleteEvent($id);
         redirect()->to('/admin/event')->with('success', 'Event berhasil dihapus');
     }
 
     public function render() {
-        return view('livewire.admin.event')
+        $data = [
+            'events' => $this->eventService->showByFilter($this->filter, $this->userDept->id, $this->perPage)
+        ];
+        return view('livewire.admin.event', $data)
             ->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error
             ->section('content');
     }

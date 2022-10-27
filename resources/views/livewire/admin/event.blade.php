@@ -51,4 +51,17 @@
         </div>
         @endforeach
     </div>
+    @if ($events->hasPages())
+    <div class="flex gap-4 items-center justify-center my-4">
+        @if (!$events->onFirstPage())
+        <img wire:click="previousPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+        @endif
+
+        {{ $events->currentPage()}}
+        
+        @if ($events->hasMorePages())
+        <img wire:click="nextPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+        @endif
+    </div>
+    @endif
 </div>
