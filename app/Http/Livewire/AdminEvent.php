@@ -12,7 +12,7 @@ use Livewire\WithPagination;
 class AdminEvent extends Component {
 
     use WithPagination;
-    //TODO: tambahkan pagination
+
     public $perPage = 20;
 
     public $filter = 'semua';
@@ -24,10 +24,11 @@ class AdminEvent extends Component {
 	public function boot(EventService $eventService, UserService $userService) {
 		$this->eventService = $eventService;
 		$this->userService = $userService;
-	}
-
+    }
+    
     public function mount() {
         $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
     }
     
     public function deleteEvent(int $id) {
