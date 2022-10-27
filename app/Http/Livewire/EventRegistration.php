@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Services\EventFormResponseService;
 use App\Services\EventFormService;
+use App\Services\UserService;
 use Livewire\Component;
 
 class EventRegistration extends Component {
@@ -13,15 +14,26 @@ class EventRegistration extends Component {
 	public $event;
 	public $aggrement;
 
+	public $userDept;
+
 	protected EventFormService $eventFormService;
 	protected EventFormResponseService $formResponseService;
-
-	public function boot(EventFormService $eventFormService, EventFormResponseService $formResponseService) {
+	protected UserService $userService;
+	
+	public function boot(EventFormService $eventFormService, EventFormResponseService $formResponseService, UserService $userService) {
 		$this->eventFormService = $eventFormService;
 		$this->formResponseService = $formResponseService;
+		$this->userService = $userService;
+	}
+
+	public function abortIfRoot() {
+		$this->userDept = $this->userService->getUserDept();
+		if (!$this->userDept) return abort(404);
 	}
 
 	public function mount(string $slug) {
+		$this->abortIfRoot();
+		
 		$this->eventForm = $this->eventFormService->getEventForm($slug);
 		if (!$this->eventForm) return abort(404);
 

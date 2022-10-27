@@ -2,18 +2,12 @@
 @section('content')
 
 
-<div class="pt-20 px-10">
-    <h1 class=" text-2xl font-medium"> Event Starship</h1>
+<div class="pt-20 px-20">
+    <h1 class=" text-2xl font-medium">Pendaftar Event {{ $event->nama }}</h1>
 
     <div class="flex justify-between items-center">
         <div class="flex items-center gap-8">
-            <a href="" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Add Academy</a>
-            <a href="" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Preview Form</a>
-        </div>
-
-        <div class="flex gap-4 items-center">
-            <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-            <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+            <a href="/admin/event/{{ $event->slug }}/form" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Preview Form</a>
         </div>
     </div>
 
@@ -33,7 +27,7 @@
                                 {{-- {{ $response[0]->response[$j]['judul'] }} --}}
                                 {{ $head->format[$j]['judul'] }}
                             </th>
-                            @endfor
+                        @endfor
                     </tr>
                 </thead>
                 <tbody>
@@ -49,8 +43,7 @@
                             <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{ $resp->response[$j]['response'] }}
                             </td>
-                            @endfor
-
+                        @endfor
                     </tr>
                     @endforeach
                 </tbody>

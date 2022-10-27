@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\Root;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Livewire\Livewire;
@@ -16,8 +17,29 @@ class RootTest extends TestCase
      *
      * @return void
      */
-    public function test_see_root_admin_page()
+    public function test_delete_admin()
     {
-        $this->get('/admin/root')->assertOk();
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs(User::first());
+        Livewire::test(Root::class)
+            ->call('deleteAdmin', $user->id)
+            ->assertHasNoErrors('success');
+        
+        $user->delete();
+    }
+
+    public function test_add_new_admin()
+    {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs(User::first());
+        Livewire::test(Root::class)
+            ->set('searchedUser', $user)
+            ->set('selectedDept', 2)
+            ->call('setAdmin')
+            ->assertRedirect('/admin/root');
+        
+        $user->delete();
     }
 }

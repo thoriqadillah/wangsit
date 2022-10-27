@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\FormType;
 use App\Services\EventFormService;
 use App\Services\EventService;
+use App\Services\UserService;
 use Livewire\Component;
 
 class EventForm extends Component {
@@ -15,15 +16,26 @@ class EventForm extends Component {
 	public $existedForm;
 	public $isUpdate = false;
 
+	public $userDept;
+
 	protected EventFormService $eventFormService;
 	protected EventService $eventService;
+	protected UserService $userService;
 
-	public function boot(EventFormService $eventFormService, EventService $eventService) {
+	public function boot(EventFormService $eventFormService, EventService $eventService, UserService $userService) {
 		$this->eventFormService = $eventFormService;
 		$this->eventService = $eventService;
+		$this->userService = $userService;
+	}
+
+	public function abortIfRoot() {
+		$this->userDept = $this->userService->getUserDept();
+		if (!$this->userDept) return abort(404);
 	}
 
 	public function mount(string $slug) {
+		$this->abortIfRoot();
+			
 		$this->formTypes = FormType::all();
 		$this->event = $this->eventService->showBy('slug', $slug);
 		if ($this->event->isEmpty()) return abort(404);
@@ -111,7 +123,7 @@ class EventForm extends Component {
 		$updated = $this->eventFormService->updateForm($this->forms, $this->event->id);
 		if ($updated) {
 			return redirect()->to('/admin/event/'.$this->event->slug . '/form')
-				->with('status', 'Form berhasil diupdate');
+				->with('success', 'Form berhasil diupdate');
 		}
 	}
 

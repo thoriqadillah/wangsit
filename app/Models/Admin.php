@@ -10,6 +10,6 @@ class Admin extends Model
     use HasFactory;
 
     public function departement() {
-        return $this->hasOne(Departement::class, 'departement_id');
+        return $this->hasOne(Departement::class, 'id');
     }
 }

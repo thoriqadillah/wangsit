@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class AcademyController extends Controller
 {
-    //
+    public $userDept;
+
     protected AcademyService $academy;
     protected UserService $userService;
 
@@ -19,15 +20,19 @@ class AcademyController extends Controller
         $this->userService = $userService;
     }
 
+    public function abortIfRoot() {
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
+    }
+    
     public function showAcademy()
     {
         $academy =  $this->academy->showAcademy();
-        $userDept = $this->userService->getUserDept();
-
+        $this->abortIfRoot();
 
         $data = [
             'academy' => $academy,
-            'userDept' => $userDept
+            'userDept' => $this->userDept
         ];
 
         return view('admin/admin-academy', $data);
@@ -35,12 +40,14 @@ class AcademyController extends Controller
 
     public function detailAcademy($slug)
     {
+        $this->abortIfRoot();
         $detail = $this->academy->detailAcademy($slug);
+        if (!$detail) return abort(404);
+        
         $kategoriMateri = AcademyCategory::all();
         $data = [
             'detail' => $detail,
             'materi' => $kategoriMateri
-
         ];
 
         return view('admin/form-academy', $data);
@@ -48,6 +55,7 @@ class AcademyController extends Controller
 
     public function addAcademyPage()
     {
+        $this->abortIfRoot();
         $kategoriMateri = AcademyCategory::all();
 
         $data = [
@@ -70,10 +78,10 @@ class AcademyController extends Controller
 
         $academy = $this->academy->addAcademy($validated);
         if ($academy) {
-            return redirect('/admin/academy')->with('status', 'Academy berhasil ditambah');
+            return redirect('/admin/academy')->with('success', 'Academy berhasil ditambah');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Academy gagal ditambah']);
+        return redirect()->refresh()->withErrors(['error' => 'Academy gagal ditambah']);
     }
 
     public function updateAcademy(Request $request, int $id)
@@ -89,19 +97,19 @@ class AcademyController extends Controller
 
         $academy = $this->academy->updateAcademy($validated, $id);
         if ($academy) {
-            return redirect('/admin/academy')->with('status', 'Academy berhasil diupdate');
+            return redirect('/admin/academy')->with('success', 'Academy berhasil diupdate');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Academy gagal diupdate']);
+        return redirect()->refresh()->withErrors(['error' => 'Academy gagal diupdate']);
     }
 
     public function deleteAcademy(int $id)
     {
         $deleted = $this->academy->deleteAcademy($id);
         if ($deleted) {
-            return redirect()->back()->with('status', 'Academy berhasil dihapus');
+            return redirect()->back()->with('success', 'Academy berhasil dihapus');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Academy gagal dihapus']);
+        return redirect()->refresh()->withErrors(['error' => 'Academy gagal dihapus']);
     }
 }

@@ -127,7 +127,7 @@ class EventServiceTest extends TestCase
         $event = new EventService();
         $show = $event->showBy('departement_id', 1);
 
-        $this->assertJson($show);
+        $this->assertNotNull($show);
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
@@ -149,9 +149,9 @@ class EventServiceTest extends TestCase
         $user = User::latest()->first();
         $this->actingAs($user);
         $event = new EventService();
-        $show = $event->showAktif(2);
+        $show = $event->showByFilter('aktif', $user->admin->departement_id);
 
-        $this->assertJson($show);
+        $this->assertNotNull($show);
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 

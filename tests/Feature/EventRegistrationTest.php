@@ -7,7 +7,6 @@ use App\Models\Event;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -21,15 +20,19 @@ class EventRegistrationTest extends TestCase
      */
     public function test_should_redirect_to_404()
     {
+        User::factory()->create();
+        $user = User::latest()->first();
+        $this->actingAs($user);
+
         Event::factory()->create();
         $event = Event::latest()->first(); 
         $component = Livewire::test(EventRegistration::class, ['slug' => $event->slug]);
         $component->assertStatus(404);
 
         $event->delete(); //biar gak kesimpen di db aja, jadi didelete
+        $user->delete();
     }
 
-    //FIXME
     public function test_should_redirected_if_already_registered()
     {
         $this->actingAs(User::find(3));

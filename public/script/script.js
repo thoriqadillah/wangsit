@@ -40,3 +40,8 @@ function confirmDelete() {
             "fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] z-50 transition duration-100 scale-0";
     }
 }
+
+function closeAlert() {
+    const alert = document.querySelector('.alert')
+    alert.style.display = "none";
+}

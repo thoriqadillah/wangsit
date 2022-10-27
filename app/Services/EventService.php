@@ -38,60 +38,77 @@ class EventService
         return Event::where('slug', $slug)->first();
     }
 
-    public function showBy(string $column, $value)
+    public function showBy(string $column, $value, $perPage = 10)
     {
-        return Event::where($column, $value)->get();
+        return Event::where($column, $value)->paginate($perPage);
     }
 
-    public function showAktif(int $deptId)
+    public function showByFilter($filter, $deptId = 0, $perPage = 10) {
+        if ($filter == 'aktif') return $this->showAktif($deptId, $perPage);
+        if ($filter == 'pengumuman') return $this->showPengumuman($deptId, $perPage);
+        if ($filter == 'waiting') return $this->showWaiting($deptId, $perPage);
+        if ($filter == 'tutup') return $this->showTutup($deptId, $perPage);
+
+        return $this->showBy('departement_id', $deptId, $perPage);
+    }
+
+    public function showAktif(int $deptId, $perPage = 10)
     {
         if ($deptId != 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
                 ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
-                ->get();
+                ->paginate($perPage);
         }
-        return Event::where('tgl_buka_pendaftaran', '<=', Carbon::now())
+        return Event::with('form')
+            ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
             ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
-            ->get();
+            ->paginate($perPage);
     }
 
-    public function showPengumuman(int $deptId)
+    public function showPengumuman(int $deptId, $perPage = 10)
     {
         if ($deptId !== 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_buka_pengumuman', '<=', Carbon::now())
                 ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
-                ->get();
+                ->paginate($perPage);
         }
 
-        return Event::where('tgl_buka_pengumuman', '<=', Carbon::now())
+        return Event::with('form')
+            ->where('tgl_buka_pengumuman', '<=', Carbon::now())
             ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
-            ->get();
+            ->paginate($perPage);
     }
 
-    public function showWaiting(int $deptId)
+    public function showWaiting(int $deptId, $perPage = 10)
     {
         if ($deptId !== 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '>', Carbon::now())
-                ->get();
+                ->paginate($perPage);
         }
 
-        return Event::where('tgl_buka_pendaftaran', '<', Carbon::now())
-            ->get();
+        return Event::with('form')
+            ->where('tgl_buka_pendaftaran', '<', Carbon::now())
+            ->paginate($perPage);
     }
 
-    public function showTutup(int $deptId)
+    public function showTutup(int $deptId, $perPage = 10)
     {
         if ($deptId !== 0) {
-            return Event::where('departement_id', $deptId)
+            return Event::with('form')
+                ->where('departement_id', $deptId)
                 ->where('tgl_tutup_pengumuman', '<', Carbon::now())
-                ->get();
+                ->paginate($perPage);
         }
 
-        return Event::where('tgl_tutup_pengumuman', '<', Carbon::now())
-            ->get();
+        return Event::with('form')
+            ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+            ->paginate($perPage);
     }
 
     public function addEvent(array $eventData)
@@ -131,7 +148,6 @@ class EventService
         } else {
             $path = $eventData['thumbnail']->store("/public/$year");
             $eventData['thumbnail'] = $path;
-            // dd($eventData['thumbnail']);
         }
 
         if ($eventData['adanya_kelulusan'] == true) {

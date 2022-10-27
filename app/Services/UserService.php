@@ -17,8 +17,12 @@ class UserService {
             ->get();
     }
 
-    public function getUser() {
+    public function getCurrentUser() {
         return Auth::user();
+    }
+
+    public function getUserById(int $id) {
+        return User::find($id);
     }
 
     public function getUserDept() {

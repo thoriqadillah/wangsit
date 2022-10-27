@@ -45,20 +45,18 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('admin')->group(function () {
     Route::get('/admin/event', AdminEvent::class);
-    // Route::get('/admin/academy', [AcademyController::class, 'adminAcademy']);
     Route::get('/admin/root', Root::class);
     Route::get('/admin/event/{slug}/form', EventForm::class);
-    Route::get('/admin/detail/event/{slug}/form/response', [EventFormResponseController::class, 'getResponse']);
+    Route::get('/admin/event/tambah', [EventController::class, 'addEventPage']);
+    Route::get('/admin/event/{slug}/form/response', [EventFormResponseController::class, 'getResponse']);
     Route::get('/admin/event/{slug}', [EventController::class, 'detailEvent']);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);
-    Route::get('/admin/event/tambah', [EventController::class, 'addEventPage']);
     Route::post('/admin/event/tambah', [EventController::class, 'addEvent']);
     Route::get('/admin/academy', [AcademyController::class, 'showAcademy']);
+    Route::get('/admin/academy/tambah', [AcademyController::class, 'addAcademyPage']);
     Route::get('/admin/academy/{slug}', [AcademyController::class, 'detailAcademy']);
     Route::post('/admin/academy/tambah', [AcademyController::class, 'addAcademy']);
-    Route::get('/admin/academy/tambah', [AcademyController::class, 'addAcademyPage']);
-    // Route::delete('/admin/event/{id}/delete', [EventController::class, 'deleteEvent']);
     Route::delete('/admin/academy/{id}/delete', [AcademyController::class, 'deleteAcademy']);
 });
 

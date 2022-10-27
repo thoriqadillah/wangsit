@@ -1,8 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="pt-24 px-6 lg:px-12">
-    <h1 class=" text-2xl font-medium">List Academy</h1>
-
+<div class="pt-24 px-6 lg:px-20">
+    @include('layouts.flash-message')
     <div class="flex justify-between items-center w-full mt-8">
         <a href="/admin/academy/tambah" class="py-2 rounded-full bg-mainColor text-white text-sm block w-40 text-center">Tambah Academy</a>
         <div class="px-8 text-center py-2 border rounded-full border-grey-800 text-sm" title="Departement {{ $userDept->nama }}">{{ $userDept->nama }}</div>
@@ -33,11 +32,11 @@
         @endforeach
     </div>
 
-    <div class="flex justify-center items-center my-8">
-        <div class="flex gap-4 items-center">
-            <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-            <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
-        </div>
+    {{--
+    <div class="flex gap-4 items-center justify-center my-4">
+        <img src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+        <img src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
     </div>
+    --}}
 </div>
 @stop

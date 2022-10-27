@@ -2,27 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Services\EventService;
-use Error;
+use App\Services\UserService;
 use Illuminate\Validation\Rules\File;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class EventController extends Controller
 {
-    //
+    public $userDept;
+    
     protected EventService $event;
+    protected UserService $userService;
 
-    public function __construct(EventService $eventService)
+    public function __construct(EventService $eventService, UserService $userService)
     {
         $this->event = $eventService;
+        $this->userService = $userService;
+    }
+
+    public function abortIfRoot() {
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
     }
 
     public function detailEvent($slug)
     {
+        $this->abortIfRoot();
         $detail = $this->event->detailEvent($slug);
+        if (!$detail) return abort(404);
+        
         $department = Departement::all();
 
         $data = [
@@ -54,16 +64,13 @@ class EventController extends Controller
 
         $event = $this->event->addEvent($validated);
         if ($event) {
-            return redirect('/admin/event')->with('status', 'Event berhasil ditambah');
+            return redirect('/admin/event')->with('success', 'Event berhasil ditambah');
         }
-        return redirect()->refresh()->withInput()->withErrors(['status' => 'Event gagal ditambah']);
+        return redirect()->refresh()->withInput()->withErrors(['error' => 'Event gagal ditambah']);
     }
 
     public function updateEvent(Request $request, int $id)
     {
-
-        // dd($request->thumbnail);
-
         $validated = $request->validate([
             'nama' => 'required',
             'thumbnailLama' => 'required',
@@ -88,14 +95,15 @@ class EventController extends Controller
 
         $updEvent = $this->event->updateEvent($validated, $id);
         if ($updEvent) {
-            return redirect('/admin/event')->with('status', 'Event berhasil diupdate');
+            return redirect()->back()->with('success', 'Event berhasil diupdate');
         }
 
-        return redirect()->refresh()->withErrors(['status' => 'Event gagal diupdate']);
+        return redirect()->refresh()->withErrors(['error' => 'Event gagal diupdate']);
     }
 
     public function addEventPage()
     {
+        $this->abortIfRoot();
         $department = Departement::all();
 
         $data = [
@@ -106,6 +114,7 @@ class EventController extends Controller
 
     public function responseEvent($slug)
     {
+        $this->abortIfRoot();
         return view('/admin/form-response');
     }
 }
