@@ -52,15 +52,16 @@ Alasan menggunakan livewire:
 
 ## Improvements
 ### Backend
-#### **Pagination**
-Karena keterbatasan waktu pengembangan di awal, jadinya kami membuat WANGSIT yang baru ini dengan prioritas requirement utamanya, yaitu berfungsi dan bisa membuat form dinamis tersebut, makanya performa dinomor sekiankan. Nah, fungsi pagination disini adalah untuk melimit fetch data yang diambil dari database, agar load website tidak terlalu besar sehingga berimbas pada performansi website. Maka dari itu, untuk improvement diusahakan diberi pagination, mumpung masih awal
-
 #### **Authentication**
 Pada awal pembuatan, metode web scraping dipake buat registrasi akun jika belum punya akun di db. Nah, web scraping ini pada dasarnya ngambil data dari website lain, dalam kasus WANGSIT adalah SIAM. Jadi misal ada user pertama kali masuk WANGSIT dia belum punya akun, nanti nim dan passwordnya akan digunakan untuk login SIAM dan ngambil data diri yang ada di SIAM (tentu saja hal ini tidak boleh disalahgunakan). Ketika datanya sudah didapat, maka akan disimpan di db. Setelah itu akan login selanjutnya akan langsung ngambil dari db. Permasalhannya, hal ini bisa jadi bottleneck, karena untuk scraping datanya butuh waktu 3 detik (lama), dan bayangkan jika ada banyak orang sekaligus melakukan hal ini, maka akan jadi beban server. Nah untuk improvementnya, kalian bisa pakai API google account. Nah, hal yang patut diperhatikan, mungkin aja nanti dalam hal login bisa aja pake email, bukan nim, nanti tinggal disesuaikan aja, mungkin kalo bisa dibuat bisa login pake dua duanya
 #### **Refactoring**
 Refactoring disini berguna untuk membuat projek secara keseluruhan lebih maintanable dan lebih enak dibaca, biar nanti periode-periode selanjutnya gak kesusahan buat mahami project, dan kalian bisa enak ngasih penjelasan karena projeknya sendiri mudah adipahami, dari segi penamaan variabel, function, dan file, serta struktur foldernya. Contoh refactor bisa liat di video dari [Laracast](https://www.youtube.com/watch?v=c2YJ6GmahJk), atau beberapa video dari [Laravel Daily](https://www.youtube.com/results?search_query=laravel+refactoring)
+#### **Email system**
+Kalian bisa banget pake email system buat ngasih pengumuman ke pengguna. Kelebihannya tentu saja dia otomatis dan bisa dijadwal, bisa dikasih template email per event, dll. 
 ### Frontend
 #### **Responsif**
 Beberapa halaman di admin ada yang tidak responsif, karena pada waktu pengembangan sudah mepet dan cukup rumit dan stressful untuk dikerjakan pada waktu yang mepet
+#### **Refactoring**
+Masih ada bagian dari frontend yang kurang modular, sehingga bisa ngebuat website nya kurang maintainable dan konsisten dari segi frontend ke depannya. Contohnya, seharusnya pada bagian `@yield('content')` itu bisa dimasukkan ke dalam div, jadinya view yang jadi `content` tersebut gausah ngasih container `<div class="px-20 py-20"></div>` setiap kali nge extend layouts. Bisa kalian liat setiap view harus ditaro dalam div tersebut, dan jatuhnya malah kita kurang efisien dan ngulang-ngulang kodingan kita. Konsistensi juga ada dampak lebih ke kemudahan kita untuk ngoding ke depannya. Contoh lagi, semisal `@yield('content')` ditaro di dalam div, dan kita ingin nambahin `flash message`, maka kita cukup buat view `flash message` terus kita `@include` di atasnya `@yield('content')`, sesederhana itu, bukan diulang-ulang include di berbagai file. Selebihnya kalian coba cari bagian mana aja yang bisa kalian refactoring agar kodingannya lebih scalable kedepannya. 
 #### **Desain**
 Lagi-lagi karena keterbatasan waktu pengembangan, jadinya desainnya juga seadanya. Maka dari itu, buat WANGSIT jadi website yang eye catching kaya website KBMSI yang lainnya dari segi desain
