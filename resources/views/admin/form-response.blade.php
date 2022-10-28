@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div class="pt-20 px-20">
+<div class="p-20">
     <h1 class=" text-2xl font-medium">Pendaftar Event {{ $event->nama }}</h1>
 
     <div class="flex justify-between items-center">

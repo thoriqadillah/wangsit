@@ -139,14 +139,13 @@ class EventService
 
     public function updateEvent(array $eventData, int $id)
     {
-        // dd($eventData['thumbnail']);
         $year = Carbon::now()->format('Y');
 
         if ($eventData['thumbnail'] ===  $eventData['thumbnailLama']) {
             $eventData['thumbnail'] = $eventData['thumbnailLama'];
-            dd($eventData['thumbnail']);
         } else {
             $path = $eventData['thumbnail']->store("/public/$year");
+            Storage::delete($eventData['thumbnailLama']);
             $eventData['thumbnail'] = $path;
         }
 

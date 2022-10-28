@@ -1,4 +1,4 @@
-<div class="pt-20 px-20 flex flex-col">
+<div class="p-20 flex flex-col">
     @include('layouts.flash-message')
     <div class="flex flex-wrap flex-row-reverse justify-between items-end">
         <span class="px-8 text-center py-2 border rounded-full border-grey-800" title="Departement {{ $userDept->nama }}">{{ $userDept->nama }}</span>
@@ -40,15 +40,17 @@
                 </div>
             </div>
         </div>
+        
         <div class="fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] z-50 transition duration-100 scale-0" id="modalConfirm">
             <div class="rounded bg-white p-10 w-[500px] mx-auto mt-40">
                 <h1 class="text-lg font-medium text-center">Hapus Event Ini ?</h1>
                 <div class="flex px-6 items-center justify-between gap-8 mt-8">
-                    <button class="border rounded text-newRed bg-white border-newRed py-1 grow text-center" onclick="location.reload();">Cancel</button>
-                    <a href="/admin/event" wire:click="deleteEvent({{ $event->id }})" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</a>
+                    <button class="border rounded text-newRed bg-white border-newRed py-1 grow text-center">Cancel</button>
+                    <button wire:click="deleteEvent({{ $event->id }})" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</button>
                 </div>
             </div>
         </div>
+        
         @endforeach
     </div>
     @if ($events->hasPages())

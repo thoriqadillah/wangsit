@@ -92,10 +92,9 @@ class EventController extends Controller
             $validated['thumbnail'] = $request->thumbnailLama;
         }
 
-
         $updEvent = $this->event->updateEvent($validated, $id);
         if ($updEvent) {
-            return redirect()->back()->with('success', 'Event berhasil diupdate');
+            return redirect()->to('/admin/event')->with('success', 'Event berhasil diupdate');
         }
 
         return redirect()->refresh()->withErrors(['error' => 'Event gagal diupdate']);

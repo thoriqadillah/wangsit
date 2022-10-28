@@ -1,4 +1,4 @@
-<div class="pt-20 px-20">
+<div class="p-20">
     @include('layouts.flash-message')
     <div class="flex justify-between items-center mt-8">
         @if ($toAdd)

@@ -112,7 +112,7 @@ class EventForm extends Component {
 		$created = $this->eventFormService->createForm($this->forms, $this->event->id);
 		if ($created) {
 			return redirect()->to('/admin/event/'.$this->event->slug . '/form')
-				->with('status', 'Berhasil menambahkan form pada event '. $this->event->nama);
+				->with('success', 'Berhasil menambahkan form pada event '. $this->event->nama);
 		}
 	}
 
