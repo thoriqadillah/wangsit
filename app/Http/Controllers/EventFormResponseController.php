@@ -31,11 +31,12 @@ class EventFormResponseController extends Controller
 
     public function getResponse($slug)
     {
-        $this->abortIfRoot();
         $event = Event::where('slug', $slug)->first();
         $response = $this->eventResponse->getResponses($event->id);
         $head = EventForm::where('event_id', $event->id)->first();
         $lulus = EventLulusStatus::where('event_id', $event->id)->where('status_lulus', 1)->get();
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
 
         if (is_null($head)) return abort(404);
 

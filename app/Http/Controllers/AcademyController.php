@@ -19,16 +19,12 @@ class AcademyController extends Controller
         $this->academy = $academyService;
         $this->userService = $userService;
     }
-
-    public function abortIfRoot() {
-        $this->userDept = $this->userService->getUserDept();
-        if (!$this->userDept) return abort(404);
-    }
     
     public function showAcademy()
     {
         $academy =  $this->academy->showAcademy();
-        $this->abortIfRoot();
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
 
         $data = [
             'academy' => $academy,
@@ -40,8 +36,9 @@ class AcademyController extends Controller
 
     public function detailAcademy($slug)
     {
-        $this->abortIfRoot();
         $detail = $this->academy->detailAcademy($slug);
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
         
         $kategoriMateri = AcademyCategory::all();
@@ -55,8 +52,9 @@ class AcademyController extends Controller
 
     public function addAcademyPage()
     {
-        $this->abortIfRoot();
         $kategoriMateri = AcademyCategory::all();
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
 
         $data = [
             'materi' => $kategoriMateri

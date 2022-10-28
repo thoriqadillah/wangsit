@@ -31,8 +31,9 @@ class EventController extends Controller
 
     public function detailEvent($slug)
     {
-        $this->abortIfRoot();
         $detail = $this->event->detailEvent($slug);
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
 
         $department = Departement::all();
@@ -104,8 +105,9 @@ class EventController extends Controller
 
     public function addEventPage()
     {
-        $this->abortIfRoot();
         $department = Departement::all();
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
 
         $data = [
             'departement' => $department
@@ -115,7 +117,6 @@ class EventController extends Controller
 
     public function responseEvent($slug)
     {
-        $this->abortIfRoot();
         return view('/admin/form-response');
     }
 

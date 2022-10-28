@@ -28,16 +28,11 @@ class EventForm extends Component {
 		$this->userService = $userService;
 	}
 
-	public function abortIfRoot() {
-		$this->userDept = $this->userService->getUserDept();
-		if (!$this->userDept) return abort(404);
-	}
-
 	public function mount(string $slug) {
-		$this->abortIfRoot();
-			
 		$this->formTypes = FormType::all();
 		$this->event = $this->eventService->showBy('slug', $slug);
+		$this->userDept = $this->userService->getUserDept();
+		if (!$this->userDept) return abort(404);
 		if ($this->event->isEmpty()) return abort(404);
 		
 		$this->event = $this->event[0];

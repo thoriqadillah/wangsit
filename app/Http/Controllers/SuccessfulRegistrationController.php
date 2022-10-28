@@ -21,15 +21,8 @@ class SuccessfulRegistrationController extends Controller {
         $this->eventFormResponseService = $eventFormResponseService;
         $this->userService = $userService;
     }
-
-    public function abortIfRoot() {
-        $this->userDept = $this->userService->getUserDept();
-        if (!$this->userDept) return abort(404);
-    }
     
     public function index(string $slug) {
-        $this->abortIfRoot();
-        
         $event = $this->eventService->showBy('slug', $slug);
         if ($event->isEmpty()) return abort(404);
 
