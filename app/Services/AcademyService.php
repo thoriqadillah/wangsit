@@ -22,7 +22,7 @@ class AcademyService
     }
 
     public function search(string $query) {
-        return Academy::where('nama', 'like', "%$this->search%")->get();
+        return Academy::where('nama', 'like', "%$query%")->get();
     }
 
     public function addAcademy(array $academyData)

@@ -1,9 +1,9 @@
 <div class="w-full px-6 sm:px-16 md:px-32 lg:px-52 xl:px-80 py-20">
-  <div class="p-6 lg:p-10">
+  <div class="px-6 lg:px-10">
     <div class="bg-white border shadow rounded mb-10 p-6 lg:p-10">
       <h1 class="text-lg md:text-2xl font-medium text-mainColor">Form Pendaftaran {{ $event->nama }}</h1>
     </div>
-    <div class="flex flex-col gap-4 lg:gap-8">
+    <div class="flex flex-col gap-4">
       @foreach ($eventForm->format as $index => $form)
       <div class="bg-white border shadow rounded p-6 lg:p-10">
         <label class="block mb-2 lg:text-lg font-medium text-gray-600">{{ $form['judul'] }} <span class="text-newRed">{{ $form['required'] ? '*' : '' }}</span></label>

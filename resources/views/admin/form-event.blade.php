@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="pt-20">
+<div class="py-20">
     <div class="w-[700px] mx-auto rounded p-8 shadow border">
         <form class method="POST" action="{{ isset($detail) ? '/admin/event/'.$detail->id : '/admin/event/tambah'}}" enctype="multipart/form-data">
             @if (isset($detail))
@@ -60,9 +60,7 @@
             </div>
 
             <div class="flex flex-row mt-3 content-center">
-                @if (isset($detail->thumbnail))
-                <img src="{{ Storage::url($detail->thumbnail) }}" id="preview-img" class="mr-2" alt="thumbnail" style="width: 50px; height: 50px;">
-                @endif
+                <img src="{{ isset($detail) ? Storage::url($detail->thumbnail) : ' ' }}" class="{{ isset($detail) ? '' : 'hidden' }}" alt=" " id="preview-img" class="mr-2" style="width: 50px; height: 50px;">
                 <label class="block ">
                     @error('thumbnail')
                     <div class="text-newRed text-sm">*{{$message}}</div>
@@ -91,6 +89,7 @@
 <script>
     function loadfile(event) {
         const img = document.getElementById('preview-img')
+        img.classList = ''
         img.src = URL.createObjectURL(event.target.files[0])
     }
 </script>

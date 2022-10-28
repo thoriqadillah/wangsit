@@ -41,7 +41,7 @@
                             <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
                             <p class="text-sm text-gray-400">Berakhir {{ $event->countdown }} hari lagi</p>
                         </div>
-                        <button class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</button>
+                        <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</a>
                     </div>
                 </div>
                 @endforeach

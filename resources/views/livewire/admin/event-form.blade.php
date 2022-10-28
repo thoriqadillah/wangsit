@@ -1,4 +1,4 @@
-<div class="pt-20 mx-auto">
+<div class="py-20 mx-auto">
     <div class="w-[800px] mx-auto">
         @include('layouts.flash-message')
         <h1 class=" text-2xl font-medium">Form {{ $event->nama }}</h1>
