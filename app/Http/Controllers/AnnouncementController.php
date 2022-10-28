@@ -23,16 +23,10 @@ class AnnouncementController extends Controller {
         $this->userService = $userService;
     }
 
-    public function abortIfRoot() {
-        $this->userDept = $this->userService->getUserDept();
-        if (!$this->userDept) return abort(404);
-    }
-
     public function index(string $slug) {
-        $this->abortIfRoot();
-
         $event = $this->eventService->showBy('slug', $slug);
         if ($event->isEmpty()) return abort(404);
+
         if ($event[0]->tgl_buka_pengumuman > Carbon::now()) return abort(404);
 
         $data = $this->announcementService->checkUser($event[0]->id);

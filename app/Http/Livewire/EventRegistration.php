@@ -26,14 +26,7 @@ class EventRegistration extends Component {
 		$this->userService = $userService;
 	}
 
-	public function abortIfRoot() {
-		$this->userDept = $this->userService->getUserDept();
-		if (!$this->userDept) return abort(404);
-	}
-
 	public function mount(string $slug) {
-		$this->abortIfRoot();
-		
 		$this->eventForm = $this->eventFormService->getEventForm($slug);
 		if (!$this->eventForm) return abort(404);
 
