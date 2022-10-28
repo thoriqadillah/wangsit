@@ -1,4 +1,4 @@
-<div class="pt-20 px-20 flex flex-col">
+<div class="p-20 flex flex-col">
     @include('layouts.flash-message')
     <div class="flex flex-wrap flex-row-reverse justify-between items-end">
         <span class="px-8 text-center py-2 border rounded-full border-grey-800" title="Departement {{ $userDept->nama }}">{{ $userDept->nama }}</span>

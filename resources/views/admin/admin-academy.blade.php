@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="pt-24 px-6 lg:px-20">
+<div class="py-20 px-6 lg:px-20">
     @include('layouts.flash-message')
     <div class="flex justify-between items-center w-full mt-8">
         <a href="/admin/academy/tambah" class="py-2 rounded-full bg-mainColor text-white text-sm block w-40 text-center">Tambah Academy</a>

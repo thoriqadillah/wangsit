@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="pt-20">
+<div class="py-20">
     <div class="w-[700px] mx-auto rounded p-8 shadow border">
         <form class method="POST" action="{{ isset($detail) ? '/admin/academy/'. $detail->id  : '/admin/academy/tambah' }}">
             @if (isset($detail))
