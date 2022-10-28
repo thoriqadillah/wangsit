@@ -59,14 +59,18 @@
                 </div>
             </div>
 
-            <label class="block mb-3 mt-8">{{ isset($detail->thumbnail) ?$detail->thumbnail: 'Gambar Event' }}</label>
-            <label class="block ">
-                @error('thumbnail')
-                <div class="text-newRed text-sm">*{{$message}}</div>
-                @enderror
-                <span class="sr-only">Choose Thumbnail Event</span>
-                <input type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100" name="thumbnail" />
-            </label>
+            <div class="flex flex-row mt-3 content-center">
+                @if (isset($detail->thumbnail))
+                <img src="{{ Storage::url($detail->thumbnail) }}" id="preview-img" class="mr-2" alt="thumbnail" style="width: 50px; height: 50px;">
+                @endif
+                <label class="block ">
+                    @error('thumbnail')
+                    <div class="text-newRed text-sm">*{{$message}}</div>
+                    @enderror
+                    <span class="sr-only">Choose Thumbnail Event</span>
+                    <input onchange="loadfile(event)" type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100 my-2" name="thumbnail"/>
+                </label>
+            </div>
 
             <div class="flex items-center mt-8 gap-2">
                 <input type="hidden" name="adanya_kelulusan" value="true">
@@ -83,4 +87,11 @@
         </form>
     </div>
 </div>
+
+<script>
+    function loadfile(event) {
+        const img = document.getElementById('preview-img')
+        img.src = URL.createObjectURL(event.target.files[0])
+    }
+</script>
 @stop
