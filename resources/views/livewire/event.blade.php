@@ -1,11 +1,10 @@
 <div class="py-20 px-4 sm:px-8 lg:px-16">
     <div>
         <h1 class="text-mainColor text-3xl text-center lg:text-left">KBMSI Events</h1>
-        <div class="flex mt-3 gap-5 overflow-x-auto customScroll pb-8">
-            <button wire:click="setDept()" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">Active</button>
-            <button wire:click="setDept()" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">All</button>
+        <div class="flex mt-3 gap-5 overflow-x-auto justify-between pb-8">
+            <button wire:click="setDept()" class="px-8 {{ $deptId == 0 ? 'bg-gray-100' : '' }} hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">All</button>
             @foreach ($departements as $departement)
-            <button wire:click="setDept({{ $departement->id }})" class="px-8 focus:bg-gray-100 hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">{{ $departement->nama }}</button>
+            <button wire:click="setDept({{ $departement->id }})" class="px-8 {{ $deptId == $departement->id ? 'bg-gray-100' : '' }} hover:bg-gray-100 text-center shadow-md py-1 border rounded-full border-mainColor">{{ $departement->nama }}</button>
             @endforeach
         </div>
 

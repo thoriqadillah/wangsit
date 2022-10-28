@@ -23,6 +23,7 @@ class Root extends Component
     //untuk mount
     public $departements;
     public $perPage = 20;
+    public $userDept;
 
     protected AdminService $adminService;
     protected UserService $userService;
@@ -34,6 +35,8 @@ class Root extends Component
 
     public function mount() {
         $this->departements = Departement::all();
+        $this->userDept = $this->userService->getUserDept();
+        if ($this->userDept) return abort(404);
     }
     
     public function updatedSearch() {
