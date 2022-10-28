@@ -11,9 +11,9 @@
 </head>
 
 <body>
-    <!-- untuk 404 -->
     @yield('error')
 
+    @if (!isset($exception))
     @auth
     <nav class="w-full flex h-16 px-5 lg:px-16 items-center bg-white shadow z-20 fixed justify-between">
         <img src="{{url('/asset/icons/menu.svg')}}" class="w-6 lg:hidden" onclick="mySidebar()" />
@@ -117,6 +117,7 @@
     </div>
     <!-- sidebar -->
     @endauth
+    @endif
 
     @yield('content')
     <!-- background modal -->
