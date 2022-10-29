@@ -23,4 +23,8 @@ class Event extends Model
     {
         return $this->hasOne(EventForm::class, 'event_id');
     }
+
+    public function graduees() {
+        return $this->hasMany(EventLulusStatus::class, 'event_id');
+    }
 }

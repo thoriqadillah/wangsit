@@ -18,7 +18,8 @@
 
     <div class="grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-8 gap-x-8 gap-y-10 justify-items-center">
         @foreach ($events as $event)
-        @if ($event->form != null)
+        {{-- hanya menampilkan event yang sudah ada form nya --}}
+        @if ($filter == 'aktif' && $event->form != null)
         <div class="w-80 h-96 sm:w-full md:w-[360px] lg:w-full shadow">
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
@@ -29,7 +30,22 @@
             </div>
             <div class="px-4">
                 <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
-                <a href="/event/{{ $event->slug }}/daftar{{ $filter === 'aktif' ? '' : '/pengumuman' }}" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-4">{{ $filter === 'aktif' ? 'DAFTAR' : 'PENGUMUMAN' }}</a>
+                <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-4">DAFTAR</a>
+            </div>
+        </div>
+        {{-- hanya menampilkan pengumuman jika user telah mendaftar pada event tersebut --}}
+        @elseif ($filter == 'pengumuman' && $event->graduees()->user()->get() != null)
+        <div class="w-80 h-96 sm:w-full md:w-[360px] lg:w-full shadow">
+            <div class="w-full h-52">
+                <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="h-20 px-4 overflow-hidden">
+                <h1 class="text-lg font-medium text-mainColor">{{ $event->nama }} </h1>
+            </div>
+            <div class="px-4">
+                <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
+                <a href="/event/{{ $event->slug }}/daftar/pengumuman" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-4">PENGUMUMAN</a>
             </div>
         </div>
         @endif
