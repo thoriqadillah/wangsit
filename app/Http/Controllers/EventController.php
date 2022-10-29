@@ -40,7 +40,6 @@ class EventController extends Controller
 
         $data = [
             'detail' => $detail,
-            'departement' => $department
         ];
 
         return view('admin/form-event', $data);
@@ -51,7 +50,7 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000',
+            'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000|required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -105,19 +104,10 @@ class EventController extends Controller
 
     public function addEventPage()
     {
-        $department = Departement::all();
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
 
-        $data = [
-            'departement' => $department
-        ];
-        return view('/admin/form-event', $data);
-    }
-
-    public function responseEvent($slug)
-    {
-        return view('/admin/form-response');
+        return view('/admin/form-event');
     }
 
     public function lulusEvent(Request $request, $eventId)

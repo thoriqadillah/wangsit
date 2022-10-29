@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\Root;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -20,11 +21,14 @@ class RootTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
-        $this->actingAs(User::first());
-        Livewire::test(Root::class)
-            ->call('deleteAdmin', $user->id)
-            ->assertHasNoErrors('success');
+        $admin = Admin::create(['user_id' => $user->id, 'departement_id' => null]);
         
+        $this->actingAs($user);
+        
+        Livewire::test(Root::class)
+            ->call('deleteAdmin', $admin->user_id)
+            ->assertHasNoErrors(['success']);
+
         $user->delete();
     }
 
@@ -32,10 +36,17 @@ class RootTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
-        $this->actingAs(User::first());
+        $admin = Admin::create(['user_id' => $user->id, 'departement_id' => null]);
+        $this->actingAs($user);
+
+        $this->actingAs($user);
+
+        User::factory()->create();
+        $newuser = User::latest()->first();
+
         Livewire::test(Root::class)
-            ->set('searchedUser', $user)
-            ->set('selectedDept', 2)
+            ->set('searchedUser', $newuser)
+            ->set('selectedDept', rand(1, 7))
             ->call('setAdmin')
             ->assertRedirect('/admin/root');
         

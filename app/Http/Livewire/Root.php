@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Departement;
 use App\Services\AdminService;
+use App\Services\DepartementService;
 use App\Services\UserService;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,14 +28,16 @@ class Root extends Component
 
     protected AdminService $adminService;
     protected UserService $userService;
+    protected DepartementService $departementService;
 
-    public function boot(AdminService $adminService, UserService $userService) {
+    public function boot(AdminService $adminService, UserService $userService, DepartementService $departementService) {
         $this->adminService = $adminService;;
         $this->userService = $userService;;
+        $this->departementService = $departementService;;
     }
 
     public function mount() {
-        $this->departements = Departement::all();
+        $this->departements = $this->departementService->getAll();
         $this->userDept = $this->userService->getUserDept();
         if ($this->userDept) return abort(404);
     }
@@ -44,13 +47,14 @@ class Root extends Component
     }
 
     public function setAdmin() {
-        $this->adminService->assignAdmin($this->searchedUser->id, $this->selectedDept);
-        return redirect()->to('/admin/root')->with('success', 'Berhasil menjadikan ' . $this->searchedUser->nama . ' sebagai admin');
+        $admin = $this->adminService->assignAdmin($this->searchedUser->id, $this->selectedDept);
+        $dept = $this->departementService->getDept('id', $admin['data']->departement_id);
+        return redirect()->to('/admin/root')->with('success', 'Berhasil menjadikan ' . $this->searchedUser->nama . ' sebagai admin departement ' . $dept->nama);
     }
     
-    public function deleteAdmin(int $id) {
-        $this->adminService->unassignAdmin($id);
-        $user = $this->userService->getUserById($id);
+    public function deleteAdmin(int $userId) {
+        $this->adminService->unassignAdmin($userId);
+        $user = $this->userService->getUserById($userId);
         session()->flash('success', 'Berhasil menghapus ' . $user->nama . ' sebagai admin');
     }
 

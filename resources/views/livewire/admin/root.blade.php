@@ -13,7 +13,7 @@
         </div>
         @else
         <div>
-            <button wire:click="isAdding()" class="border border-mainColor rounded-full bg-mainColor w-40 py-2 text-white">Tambah Admin</button>
+            <button wire:click="isAdding()" class="border border-mainColor rounded-full bg-mainColor w-80 py-2 text-white">Tambah atau Update Admin</button>
         </div>
         @endif
     </div>
@@ -88,22 +88,22 @@
                     </td>
                 </tr>
                 @endif
-                @foreach ($admins as $i => $user)
+                @foreach ($admins as $i => $admin)
                 <tr class="bg-white border-b">
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                         {{ $admins->onFirstPage() ? $i+2 : $i + $perPage + 2 }}
                     </th>
                     <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                        {{ $user->nama }}
+                        {{ $admin->user->nama }}
                     </th>
                     <td class="py-4 px-6">
-                        {{ $user->nim }}
+                        {{ $admin->user->nim }}
                     </td>
                     <td scope="row" class="mx-auto w-60 py-4 px-3 text-gray-900 text-sm text-center block">
-                        {{ $departements[$user->admin->departement_id - 1]->nama }}
+                        {{ $departements[$admin->departement_id - 1]->nama }}
                     </td>
                     <td class="py-4">
-                        <button title="Hapus admin" wire:click="deleteAdmin({{ $user->id }})" class="rounded-full border border-red-500 bg-red-500 text-white px-4 py-2 mx-auto block">X</button>
+                        <button title="Hapus admin" wire:click="deleteAdmin({{ $admin->user_id }})" class="rounded-full border border-red-500 bg-red-500 text-white px-4 py-2 mx-auto block">X</button>
                     </td>
                 </tr>
                 @endforeach

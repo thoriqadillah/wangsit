@@ -15,7 +15,7 @@
                         <span class="text-newRed text-sm">*{{$message}}</span>
                         @enderror
                     </label>
-                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->nama) ? $detail->nama : '' }}">
+                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->nama) ? $detail->nama : old('nama') ?? '' }}">
                 </div>
 
                 <div class="w-full">
@@ -25,7 +25,7 @@
                         <span class="text-newRed text-sm">*{{$message}}</span>
                         @enderror
                     </label>
-                    <input type="text" name="link" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{isset ($detail->link) ? $detail->link : '' }}">
+                    <input type="text" name="link" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->link) ? $detail->link : old('link') ?? '' }}">
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
                         @if (isset($detail) && $detail->academy_category_id == $m->id)
                         <option selected value="{{ $m->id }}">{{ $m->nama }}</option>
                         @else
-                        <option value="{{ $m->id }}">{{ $m->nama }}</option>
+                        <option {{ old('academy_category_id') != null && old('academy_category_id') == $m->id ? 'selected' : '' }} value="{{ $m->id }}">{{ $m->nama }}</option>
                         @endif
                         @endforeach
                     </select>

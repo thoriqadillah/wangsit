@@ -25,7 +25,6 @@ class User extends Authenticatable
         'password',
         'tgl_lahir',
         'profile_pic',
-        'admin_id'
     ];
 
     /**
@@ -49,6 +48,6 @@ class User extends Authenticatable
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->hasOne(Admin::class, 'user_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use Carbon\Carbon;
 use Faker\Factory;
 use Tests\TestCase;
@@ -22,10 +23,12 @@ class EventControllerTest extends TestCase
      */
     public function test_add_event()
     {
-
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
+
         $faker = Factory::create();
 
         $nama = $faker->words(6, true);
@@ -48,6 +51,7 @@ class EventControllerTest extends TestCase
         $response = $this->post('/admin/event/tambah', $input);
         $response->assertRedirect(session()->previousUrl());
 
+        $admin->delete(); //biar gak kesimpen di db aja, jadi didelete
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
@@ -55,7 +59,10 @@ class EventControllerTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
+
         $faker = Factory::create();
 
         $nama = $faker->words(6, true) . 'Updated';
@@ -79,6 +86,7 @@ class EventControllerTest extends TestCase
         $response = $this->put('/admin/event/' . $eventM->id, $input);
         $response->assertRedirect(session()->previousUrl());
 
-        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
+        $admin->delete(); //biar gak kesimpen di db aja, jadi didelete
+        $user->delete();
     }
 }

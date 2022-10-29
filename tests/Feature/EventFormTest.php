@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Livewire\EventForm;
+use App\Models\Admin;
 use App\Models\Event;
 use App\Models\EventForm as EventFormModel;
 use App\Models\User;
@@ -22,6 +23,8 @@ class EventFormTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
 
         $event = Event::first();
@@ -30,6 +33,7 @@ class EventFormTest extends TestCase
         $component = Livewire::test(EventForm::class, ['slug' => $event->slug]);
         $component->assertSet('forms', $existedForm);
 
+        $admin->delete();
         $user->delete();
     }
 
@@ -37,6 +41,8 @@ class EventFormTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
 
         Event::factory()->create();
@@ -59,6 +65,7 @@ class EventFormTest extends TestCase
         $component->assertSet('forms', $presetForm);
 
         $event->delete(); //biar gak kesimpen di db aja, jadi didelete
+        $admin->delete();
         $user->delete();
     }
 
@@ -66,6 +73,8 @@ class EventFormTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
 
         $faker = Factory::create();
@@ -88,14 +97,16 @@ class EventFormTest extends TestCase
             ->call('updateForm')
             ->assertRedirect("/admin/event/$event->slug/form");
 
+        $admin->delete();
         $user->delete();
-
     }
 
     public function test_should_redirect_after_successfully_create_form()
     {
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
 
         $faker = Factory::create();
@@ -122,6 +133,7 @@ class EventFormTest extends TestCase
         //biar gak kesimpen di db aja, jadi didelete
         EventFormModel::latest()->first()->delete(); 
         $event->delete();
+        $admin->delete();
         $user->delete();
     }
 }

@@ -17,7 +17,7 @@
                         <span class="text-newRed text-sm">*{{$message}}</span>
                         @enderror
                     </label>
-                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ $detail->nama ?? '' }}">
+                    <input type="text" name="nama" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->nama) ? $detail->nama : old('nama') ?? '' }}">
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                     <label>
                         Tanggal Pendaftaran
                     </label>
-                    <input type="date" name="tgl_buka_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_buka_pendaftaran) ? date('Y-m-d',strtotime($detail->tgl_buka_pendaftaran)) : '' }}">
+                    <input type="date" name="tgl_buka_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_buka_pendaftaran) ? date('Y-m-d',strtotime($detail->tgl_buka_pendaftaran)) : old('tgl_buka_pendaftaran') ?? '' }}">
                     @error('tgl_buka_pendaftaran')
                     <div class="text-newRed text-sm">*{{$message}}</div>
                     @enderror
@@ -34,7 +34,7 @@
 
                 <div class="w-full">
                     <label>Tanggal Tutup Pendaftaran</label>
-                    <input type="date" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_tutup_pendaftaran) ? date('Y-m-d',strtotime($detail->tgl_tutup_pendaftaran)) : '' }}">
+                    <input type="date" name="tgl_tutup_pendaftaran" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_tutup_pendaftaran) ? date('Y-m-d',strtotime($detail->tgl_tutup_pendaftaran)) : old('tgl_tutup_pendaftaran') ?? '' }}">
                     @error('tgl_tutup_pendaftaran')
                     <div class="text-newRed text-sm">*{{$message}}</div>
                     @enderror
@@ -44,7 +44,7 @@
             <div class="flex gap-8 mt-10">
                 <div class="w-full">
                     <label>Tanggal Pengumuman</label>
-                    <input type="date" name="tgl_buka_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{isset( $detail->tgl_buka_pengumuman) ? date('Y-m-d',strtotime($detail->tgl_buka_pengumuman)) : '' }}">
+                    <input type="date" name="tgl_buka_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{isset( $detail->tgl_buka_pengumuman) ? date('Y-m-d',strtotime($detail->tgl_buka_pengumuman)) : old('tgl_buka_pengumuman') ?? '' }}">
                     @error('tgl_buka_pengumuman')
                     <div class="text-newRed text-sm">*{{$message}}</div>
                     @enderror
@@ -52,7 +52,7 @@
 
                 <div class="w-full">
                     <label>Tanggal Akhir Pengumuman</label>
-                    <input type="date" name="tgl_tutup_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_tutup_pengumuman) ? date('Y-m-d',strtotime($detail->tgl_tutup_pengumuman)) : '' }}">
+                    <input type="date" name="tgl_tutup_pengumuman" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor" value="{{ isset($detail->tgl_tutup_pengumuman) ? date('Y-m-d',strtotime($detail->tgl_tutup_pengumuman)) : old('tgl_tutup_pengumuman') ?? '' }}">
                     @error('tgl_tutup_pengumuman')
                     <div class="text-newRed text-sm">*{{$message}}</div>
                     @enderror
@@ -62,11 +62,11 @@
             <div class="flex flex-row mt-3 content-center">
                 <img src="{{ isset($detail) ? Storage::url($detail->thumbnail) : ' ' }}" class="{{ isset($detail) ? '' : 'hidden' }}" alt=" " id="preview-img" class="mr-2" style="width: 50px; height: 50px;">
                 <label class="block ">
+                    <span class="sr-only">Choose Thumbnail Event</span>
+                    <input onchange="loadfile(event)" type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100 my-2" name="thumbnail"/>
                     @error('thumbnail')
                     <div class="text-newRed text-sm">*{{$message}}</div>
                     @enderror
-                    <span class="sr-only">Choose Thumbnail Event</span>
-                    <input onchange="loadfile(event)" type="file" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-mainColor hover:file:bg-violet-100 my-2" name="thumbnail"/>
                 </label>
             </div>
 
@@ -79,9 +79,6 @@
             <div class="flex justify-end">
                 <input type="submit" value="Simpan" class="cursor-pointer rounded text-center w-28 py-1 mt-8 bg-mainColor text-white">
             </div>
-            @error('status')
-            <h1>{{$message}}</h1>
-            @enderror
         </form>
     </div>
 </div>

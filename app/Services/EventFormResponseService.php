@@ -30,7 +30,7 @@ class EventFormResponseService
 
   public function getResponses(int $eventId, int $perPage = 15)
   {
-    return EventFormResponse::where('event_id', $eventId)->get();
+    return EventFormResponse::with('user')->where('event_id', $eventId)->get();
   }
 
   public function checkUserResponse(int $eventId)

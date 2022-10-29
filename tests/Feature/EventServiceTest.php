@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Admin;
 use Carbon\Carbon;
 use Faker\Factory;
 use Tests\TestCase;
@@ -27,7 +28,10 @@ class EventServiceTest extends TestCase
 
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
+
         $faker = Factory::create();
 
         $nama = $faker->words(6, true);
@@ -53,18 +57,21 @@ class EventServiceTest extends TestCase
         $this->assertDatabaseHas('events', [
             'nama' => $nama
         ]);
-        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
 
+        $admin->delete(); //biar gak kesimpen di db aja, jadi didelete
+        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_update_event()
     {
         Storage::fake('avatars');
 
-
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
+        
         $faker = Factory::create();
 
         $nama = $faker->words(6, true) . 'updated';
@@ -72,7 +79,6 @@ class EventServiceTest extends TestCase
         $thumbnail = UploadedFile::fake()->image('avatar.png');
         $adanyaKelulusan = 1;
         $thumbnailLama = $faker->words(9, true);
-
 
         $input = [
             'departement_id' => Auth::user()->admin->departement_id,
@@ -96,15 +102,12 @@ class EventServiceTest extends TestCase
         $this->assertDatabaseHas('events', [
             'nama' => $nama
         ]);
+        $admin->delete(); //biar gak kesimpen di db aja, jadi didelete
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
-
     }
 
     public function test_delete_event()
     {
-        User::factory()->create();
-        $user = User::latest()->first();
-        $this->actingAs($user);
         Event::factory()->create();
         $eventM = Event::latest()->first();
 
@@ -114,40 +117,34 @@ class EventServiceTest extends TestCase
         $this->assertDatabaseMissing('events', [
             'id' => $eventM->id
         ]);
-
-        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
-
     }
 
     public function test_show_by()
     {
-        User::factory()->create();
-        $user = User::latest()->first();
-        $this->actingAs($user);
         $event = new EventService();
         $show = $event->showBy('departement_id', 1);
 
         $this->assertNotNull($show);
-        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_show_by_filter_aktif()
     {
         User::factory()->create();
         $user = User::latest()->first();
+        Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
+        $admin = Admin::latest()->first();
         $this->actingAs($user);
+
         $event = new EventService();
         $show = $event->showByFilter('pendaftaran', $user->admin->departement_id);
 
         $this->assertNotNull($show);
+        $admin->delete(); //biar gak kesimpen di db aja, jadi didelete
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
     public function test_detail_event()
     {
-        User::factory()->create();
-        $user = User::latest()->first();
-        $this->actingAs($user);
         $event = new EventService();
 
         $eventM = Event::latest()->first();
