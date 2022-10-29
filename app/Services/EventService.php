@@ -5,9 +5,10 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\EventLulusStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
 
 class EventService
 {
@@ -40,7 +41,8 @@ class EventService
             ->paginate($perPage);
     }
 
-    public function showByFilter($filter, $deptId = 0, string $eargerWith = 'form', $perPage = 10, $forAdmin = true) {
+    public function showByFilter($filter, $deptId = 0, string $eargerWith = 'form', $perPage = 10, $forAdmin = true)
+    {
         if ($forAdmin && $filter == 'pengumuman') return $this->showPengumuman($deptId, $eargerWith, $perPage);
         if (!$forAdmin && $filter == 'pengumuman') return $this->showPengumumanUser($deptId, $eargerWith, $perPage);
         if ($filter == 'pendaftaran') return $this->showAktif($deptId, $eargerWith, $perPage);
@@ -65,7 +67,8 @@ class EventService
             ->paginate($perPage);
     }
 
-    public function showPengumumanUser(int $deptId, string $eagerWith = 'form', $perPage = 10) {
+    public function showPengumumanUser(int $deptId, string $eagerWith = 'form', $perPage = 10)
+    {
         if ($deptId !== 0) {
             return Event::join('event_lulus_statuses', 'event_lulus_statuses.event_id', '=', 'events.id')
                 ->where('departement_id', $deptId)
@@ -189,5 +192,18 @@ class EventService
     {
         $event = Event::find($id);
         return $event->delete();
+    }
+
+    public function lulusEvent(array $lulusData, $eventId)
+    {
+        $userId = $lulusData['userId'];
+        $lulus = $lulusData['lulus'];
+        for ($i = 0; $i < count($lulus); $i++) {
+            $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
+                'status_lulus' => $lulus[$i]
+            ]);
+        }
+
+        return $update;
     }
 }

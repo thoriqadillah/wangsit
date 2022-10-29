@@ -33,23 +33,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($response as $resp)
-                    <tr class="border-b align-top">
-                        {{-- <input type="text" value="{{ $event->id }}"> --}}
-                        <input type="hidden" name="userId[]" value="{{ $resp->user_id }}">
+                    @for($i=0;$i<count($response);$i++)
+                        <tr class="border-b align-top">
+                        <input type="hidden" name="userId[]" value="{{ $response[$i]['user_id'] }}">
                         <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
-                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ isset($lulus)?"checked":"" }}>
-                                <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 ">Lulus</label>
+                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ ($lulus[$i]['status_lulus']==1)?"checked":"" }}>
+                                <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus</label>
                             </div>
                         </td>
                         @for($j=0;$j<count($response[0]->response);$j++)
                             <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{ $resp->response[$j]['response'] }}
+                                {{ $response[$i]->response[$j]['response'] }}
                             </td>
                             @endfor
                     </tr>
-                    @endforeach
+                    @endfor
                 </tbody>
             </table>
         </div>

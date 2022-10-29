@@ -33,8 +33,16 @@ class EventFormResponseController extends Controller
     {
         $event = Event::where('slug', $slug)->first();
         $response = $this->eventResponse->getResponses($event->id);
-        $head = EventForm::where('event_id', $event->id)->first();
-        $lulus = EventLulusStatus::where('event_id', $event->id)->where('status_lulus', 1)->get();
+        // $head = EventForm::where('event_id', $event->id)->first();
+        $head = $this->eventResponse->getHeadResponse($slug);
+        // $lulus = EventLulusStatus::where('event_id', $event->id)->where('status_lulus', 1)->get();
+        $lulus = $this->eventResponse->getLulusResponse($slug);
+        // foreach ($lulus as $lulus) {
+        //     echo ($lulus['status_lulus']);
+        //     echo ",";
+        // }
+        // dd($lulus[2]['status_lulus']);
+
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
 

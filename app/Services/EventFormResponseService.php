@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Event;
+use App\Models\EventForm;
 use App\Models\EventFormResponse;
 use App\Models\EventLulusStatus;
 use Illuminate\Database\Eloquent\Collection;
@@ -37,5 +38,18 @@ class EventFormResponseService
     return EventFormResponse::where('event_id', $eventId)
       ->where('user_id', Auth::id())
       ->first();
+  }
+
+  public function getHeadResponse(string $slug)
+  {
+    $event = Event::where('slug', $slug)->first();
+
+    return EventForm::where('id', $event->id)->first();
+  }
+
+  public function getLulusResponse(string $slug)
+  {
+    $event = Event::where('slug', $slug)->first();
+    return EventLulusStatus::where('event_id', $event->id)->get();
   }
 }

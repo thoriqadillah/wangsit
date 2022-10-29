@@ -122,17 +122,18 @@ class EventController extends Controller
 
     public function lulusEvent(Request $request, $eventId)
     {
-        $userId = $request->userId;
-        $lulus = $request->lulus;
-        for ($i = 0; $i < count($lulus); $i++) {
-            $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
-                'status_lulus' => $lulus[$i]
-            ]);
-        }
+        $dataLulus = $request->all();
+        $update = $this->event->lulusEvent($dataLulus, $eventId);
+        // $userId = $request->userId;
+        // $lulus = $request->lulus;
+        // for ($i = 0; $i < count($lulus); $i++) {
+        //     $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
+        //         'status_lulus' => $lulus[$i]
+        //     ]);
+        // }
 
         if ($update) {
-            // return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');
-            dd($lulus);
+            return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');
         }
         return redirect()->refresh()->withErrors(['error' => 'Data peserta diupdate']);
     }
