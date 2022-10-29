@@ -40,7 +40,7 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'nama' => 'required',
-            'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000',
+            'thumbnail' =>  'mimes:jpeg,png,jpg|image|max:2000|required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
