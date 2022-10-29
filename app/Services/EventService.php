@@ -28,85 +28,100 @@ class EventService
         return $events;
     }
 
-    public function showEvent()
-    {
-        return Event::where('tgl_tutup_pendaftaran', ">", Carbon::now())->get();
-    }
-
     public function detailEvent($slug)
     {
         return Event::where('slug', $slug)->first();
     }
 
-    public function showBy(string $column, $value, $perPage = 10)
+    public function showBy(string $column, $value, $eagerWith = 'form', $perPage = 10)
     {
-        return Event::where($column, $value)->paginate($perPage);
+        return Event::with($eagerWith)
+            ->where($column, $value)
+            ->paginate($perPage);
     }
 
-    public function showByFilter($filter, $deptId = 0, $perPage = 10) {
-        if ($filter == 'aktif') return $this->showAktif($deptId, $perPage);
-        if ($filter == 'pengumuman') return $this->showPengumuman($deptId, $perPage);
-        if ($filter == 'waiting') return $this->showWaiting($deptId, $perPage);
-        if ($filter == 'tutup') return $this->showTutup($deptId, $perPage);
+    public function showByFilter($filter, $deptId = 0, string $eargerWith = 'form', $perPage = 10, $forAdmin = true) {
+        if ($forAdmin && $filter == 'pengumuman') return $this->showPengumuman($deptId, $eargerWith, $perPage);
+        if (!$forAdmin && $filter == 'pengumuman') return $this->showPengumumanUser($deptId, $eargerWith, $perPage);
+        if ($filter == 'pendaftaran') return $this->showAktif($deptId, $eargerWith, $perPage);
+        if ($filter == 'waiting') return $this->showWaiting($deptId, $eargerWith, $perPage);
+        if ($filter == 'tutup') return $this->showTutup($deptId, $eargerWith, $perPage);
 
-        return $this->showBy('departement_id', $deptId, $perPage);
+        return $this->showBy('departement_id', $deptId, $eargerWith, $perPage);
     }
 
-    public function showAktif(int $deptId, $perPage = 10)
+    public function showAktif(int $deptId, string $eagerWith = 'form', $perPage = 10)
     {
         if ($deptId != 0) {
-            return Event::with('form')
+            return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
                 ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
                 ->paginate($perPage);
         }
-        return Event::with('form')
+        return Event::with($eagerWith)
             ->where('tgl_buka_pendaftaran', '<=', Carbon::now())
             ->where('tgl_tutup_pendaftaran', '>=', Carbon::now())
             ->paginate($perPage);
     }
 
-    public function showPengumuman(int $deptId, $perPage = 10)
+    public function showPengumumanUser(int $deptId, string $eagerWith = 'form', $perPage = 10) {
+        if ($deptId !== 0) {
+            return Event::join('event_lulus_statuses', 'event_lulus_statuses.event_id', '=', 'events.id')
+                ->where('departement_id', $deptId)
+                ->where('tgl_buka_pengumuman', '<=', Carbon::now())
+                ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
+                ->where('user_id', Auth::id())
+                ->paginate($perPage);
+        }
+
+        return Event::join('event_lulus_statuses', 'event_lulus_statuses.event_id', '=', 'events.id')
+            ->where('tgl_buka_pengumuman', '<=', Carbon::now())
+            ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
+            ->where('user_id', Auth::id())
+            ->paginate($perPage);
+    }
+
+    public function showPengumuman(int $deptId, string $eagerWith = 'form', $perPage = 10)
     {
         if ($deptId !== 0) {
-            return Event::with('form')
+            return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
                 ->where('tgl_buka_pengumuman', '<=', Carbon::now())
                 ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
                 ->paginate($perPage);
         }
 
-        return Event::with('form')
+        return Event::with($eagerWith)
             ->where('tgl_buka_pengumuman', '<=', Carbon::now())
             ->where('tgl_tutup_pengumuman', '>=', Carbon::now())
             ->paginate($perPage);
     }
 
-    public function showWaiting(int $deptId, $perPage = 10)
+    public function showWaiting(int $deptId, string $eagerWith = 'form', $perPage = 10)
     {
         if ($deptId !== 0) {
-            return Event::with('form')
+            return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
                 ->where('tgl_buka_pendaftaran', '>', Carbon::now())
                 ->paginate($perPage);
         }
 
-        return Event::with('form')
+        return Event::with($eagerWith)
             ->where('tgl_buka_pendaftaran', '<', Carbon::now())
             ->paginate($perPage);
     }
 
-    public function showTutup(int $deptId, $perPage = 10)
+    public function showTutup(int $deptId, string $eagerWith = 'form', $perPage = 10)
     {
         if ($deptId !== 0) {
-            return Event::with('form')
+            return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
                 ->where('tgl_tutup_pengumuman', '<', Carbon::now())
                 ->paginate($perPage);
         }
 
-        return Event::with('form')
+        return Event::with($eagerWith)
             ->where('tgl_tutup_pengumuman', '<', Carbon::now())
             ->paginate($perPage);
     }

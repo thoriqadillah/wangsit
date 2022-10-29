@@ -131,25 +131,13 @@ class EventServiceTest extends TestCase
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
     }
 
-    public function test_show()
-    {
-        User::factory()->create();
-        $user = User::latest()->first();
-        $this->actingAs($user);
-        $event = new EventService();
-        $show = $event->showEvent();
-
-        $this->assertJson($show);
-        $user->delete(); //biar gak kesimpen di db aja, jadi didelete
-    }
-
     public function test_show_by_filter_aktif()
     {
         User::factory()->create();
         $user = User::latest()->first();
         $this->actingAs($user);
         $event = new EventService();
-        $show = $event->showByFilter('aktif', $user->admin->departement_id);
+        $show = $event->showByFilter('pendaftaran', $user->admin->departement_id);
 
         $this->assertNotNull($show);
         $user->delete(); //biar gak kesimpen di db aja, jadi didelete
