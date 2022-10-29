@@ -13,7 +13,7 @@ class UserService {
         $date = Carbon::now();
         return User::whereMonth('tgl_lahir', $date->month)
             ->whereDay('tgl_lahir', $date->day)
-            ->where('admin_id', '!=', 1)
+            ->where('id', '!=', 1)
             ->get();
     }
 

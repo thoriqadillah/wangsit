@@ -14,4 +14,8 @@ class EventFormResponse extends Model
     protected $casts = [
         'response' => 'array',
     ];
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

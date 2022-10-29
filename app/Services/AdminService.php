@@ -5,15 +5,14 @@ namespace App\Services;
 use App\Models\Admin;
 use App\Models\User;
 use GuzzleHttp\Promise\Create;
+use Illuminate\Support\Facades\Auth;
 
 class AdminService
 {
 
     public function getAdmin($perPage) {
-        return User::with('admin')
-            ->whereNotNull('admin_id')
-            ->whereNot('admin_id', 1)
-            ->orderBy('nama')
+        return Admin::with('user')
+            ->whereNotNull('departement_id')
             ->paginate($perPage);
     }
 
@@ -21,25 +20,39 @@ class AdminService
         return User::where(function($q) use ($query) {
             $q->where('nama', 'like', "%$query%");
             $q->orWhere('nim', 'like', "%$query%");
-        })->whereNull('admin_id')
+        })->where('id', '!=', 1)
         ->first();
     }
 
     public function unassignAdmin(int $id)
     {
-        return User::where('id', $id)->update([
-            'admin_id' => null
-        ]);
+        $admin = Admin::where('user_id', $id)->first();
+        return $admin->delete();
     }
 
     public function assignAdmin(int $id, int $deptId)
     {
-        $admin = Admin::where('departement_id', $deptId)->first();
 
-        return User::where('id', $id)->update([
-            'admin_id' => $admin->id
+        $admin = Admin::where('user_id', $id)->first();
+        if ($admin) {
+            $admin->departement_id = $deptId;
+            $result = $admin->save();
+
+            return [
+                'data' => $admin,
+                'status' => 'updated'
+            ];
+        }
+
+        $result = Admin::create([
+            'user_id' => $id,
+            'departement_id' => $deptId
         ]);
-        
+
+        return [
+            'data' => $result,
+            'status' => 'created'
+        ];
     }
 
     public function updateAdmin(int $id, int $deptId) {

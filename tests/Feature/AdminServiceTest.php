@@ -12,35 +12,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminServiceTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    // public function test_assign_admin()
-    // {
-    //     User::factory()->create();
-    //     $user = User::latest()->first();
-    //     $this->actingAs($user);
-
-    //     $faker = Factory::create();
-
-    //     // $input = [];
-    //     // for ($i = 0; $i < 8; $i++) {
-    //     $input = [
-    //         'id' => 9,
-    //         'userDept' => 8
-    //     ];
-    //     // }
-
-    //     $admin = new AdminService();
-    //     $admin->assignAdmin($input);
-
-    //     $this->assertDatabaseHas('users', [
-    //         'admin_id' => 8
-    //     ]);
-    // }
-
     public function test_delete_admin()
     {
         User::factory()->create();
