@@ -52,9 +52,9 @@ class Root extends Component
         return redirect()->to('/admin/root')->with('success', 'Berhasil menjadikan ' . $this->searchedUser->nama . ' sebagai admin departement ' . $dept->nama);
     }
     
-    public function deleteAdmin(int $id) {
-        $this->adminService->unassignAdmin($id);
-        $user = $this->userService->getUserById($id);
+    public function deleteAdmin(int $userId) {
+        $this->adminService->unassignAdmin($userId);
+        $user = $this->userService->getUserById($userId);
         session()->flash('success', 'Berhasil menghapus ' . $user->nama . ' sebagai admin');
     }
 

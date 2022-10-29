@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Academy;
 use App\Models\AcademyCategory;
+use App\Models\Admin;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,7 +22,9 @@ class AcademyControllerTest extends TestCase
     {
         User::factory()->create();
         $user = User::latest()->first();
+        $admin = Admin::create(['user_id' => $user->id, 'departement_id' => rand(1, 7)]);
         $this->actingAs($user);
+
         $faker = Factory::create();
 
         $kategoriM = AcademyCategory::latest()->first();
@@ -40,6 +43,7 @@ class AcademyControllerTest extends TestCase
         $response->assertRedirect('/admin/academy');
 
         $user->delete();
+        $admin->delete();
     }
 
     public function test_update_academy()

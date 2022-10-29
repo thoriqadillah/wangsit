@@ -99,9 +99,4 @@ class EventController extends Controller
 
         return view('/admin/form-event');
     }
-
-    public function responseEvent($slug)
-    {
-        return view('/admin/form-response');
-    }
 }

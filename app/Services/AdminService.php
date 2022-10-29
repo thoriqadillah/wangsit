@@ -24,15 +24,14 @@ class AdminService
         ->first();
     }
 
-    public function unassignAdmin(int $id)
+    public function unassignAdmin(int $userId)
     {
-        $admin = Admin::where('user_id', $id)->first();
+        $admin = Admin::where('user_id', $userId)->first();
         return $admin->delete();
     }
 
     public function assignAdmin(int $id, int $deptId)
     {
-
         $admin = Admin::where('user_id', $id)->first();
         if ($admin) {
             $admin->departement_id = $deptId;
