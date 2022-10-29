@@ -41,7 +41,7 @@ class EventFormResponseController extends Controller
         //     echo ($lulus['status_lulus']);
         //     echo ",";
         // }
-        // dd($lulus[2]['status_lulus']);
+        // dd($head);
 
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
