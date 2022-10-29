@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Event extends Model
 {
@@ -19,8 +20,11 @@ class Event extends Model
         'adanya_kelulusan' => 'boolean'
     ];
 
-    public function form()
-    {
+    public function form() {
         return $this->hasOne(EventForm::class, 'event_id');
+    }
+
+    public function graduees() {
+        return $this->hasMany(EventLulusStatus::class, 'event_id')->where('user_id', Auth::id());
     }
 }

@@ -50,6 +50,15 @@ Alasan menggunakan livewire:
 - Pada dasarnya livewire itu kaya laravel biasa, pake bahasa php, syntaxnya pun sama, jadi laravel developer kaya kita bisa lumayan cepet buat adaptasi.
 - Livewire memungkinkan membuat website yang interaktif tadi menggunakan PHP, baik dari frontend dan backendnya. Jadi semua orang harusnya bisa cepet adaptasi ke framework ini. Dan kita bisa nentuin halaman mana saja yang perlu dibuat dinamis. Contoh di projek WANGSIT ini adalah di `event` dan `academy`, dan `event-registration` pada user dan `event-form` dan `root` pada admin. Bisa dilihat perubahan data dilakukan tanpa merefresh website.
 
+## Penjelasan DB
+<!-- TODO:  -->
+
+## Pastikan kalian melakukan unit test untuk backend
+<!-- TODO -->
+
+## Debugging
+<!-- TODO -->
+
 ## Improvements
 ### Backend
 #### **Authentication**
