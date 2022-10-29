@@ -13,7 +13,7 @@ class Event extends Component {
 
 	private $perPage = 20;
 	
-	public $filter = 'aktif';
+	public $filter = 'pendaftaran';
 	public $departements;
 	public $deptId = 0;
 
@@ -33,7 +33,7 @@ class Event extends Component {
 
 	public function render() {
 		$data = [
-			'events' => $this->eventService->showByFilter($this->filter, $this->deptId, $this->filter == 'aktif' ? 'form' : 'graduees', $this->perPage)
+			'events' => $this->eventService->showByFilter($this->filter, $this->deptId, $this->filter == 'pendaftaran' ? 'form' : 'graduees', $this->perPage, false)
 		];
 		return view('livewire.event', $data)
 			->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error

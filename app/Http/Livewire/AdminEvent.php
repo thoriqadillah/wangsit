@@ -38,7 +38,7 @@ class AdminEvent extends Component {
 
     public function render() {
         $data = [
-            'events' => $this->eventService->showByFilter($this->filter, $this->userDept->id, $this->perPage)
+            'events' => $this->eventService->showByFilter($this->filter, $this->userDept->id, 'form', $this->perPage)
         ];
         return view('livewire.admin.event', $data)
             ->extends('layouts.app') //ini kodingannya jalan ya, cuma entah kenapa error

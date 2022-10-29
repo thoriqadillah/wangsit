@@ -10,7 +10,7 @@
 
         <div class="flex justify-between items-center">
             <select wire:model="filter" class="text-lg border-2 mt-8 bg-white rounded-md py-2 px-4 outline-mainColor">
-                <option value="aktif">Pendaftaran</option>
+                <option value="pendaftaran">Pendaftaran</option>
                 <option value="pengumuman">Pengumuman</option>
             </select>
         </div>
@@ -19,7 +19,7 @@
     <div class="grid grid-col-1 lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 mt-8 gap-x-8 gap-y-10 justify-items-center">
         @foreach ($events as $event)
         {{-- hanya menampilkan event yang sudah ada form nya --}}
-        @if ($filter == 'aktif' && $event->form != null)
+        @if ($filter == 'pendaftaran' && $event->form != null)
         <div class="w-80 h-96 sm:w-full md:w-[360px] lg:w-full shadow">
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
@@ -34,7 +34,7 @@
             </div>
         </div>
         {{-- hanya menampilkan pengumuman jika user telah mendaftar pada event tersebut --}}
-        @elseif ($filter == 'pengumuman' && $event->graduees != null)
+        @elseif ($filter == 'pengumuman')
         <div class="w-80 h-96 sm:w-full md:w-[360px] lg:w-full shadow">
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />

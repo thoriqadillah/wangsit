@@ -9,7 +9,7 @@
         <label class="block mb-2 text-gray-900">Filter By</label>
         <select wire:model="filter" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3">
             <option selected value="semua">Semua Event</option>
-            <option value="aktif">Pendaftaran</option>
+            <option value="pendaftaran">Pendaftaran</option>
             <option value="waiting">Menunggu</option>
             <option value="pengumuman">Pengumuman</option>
             <option value="tutup">Tutup</option>
