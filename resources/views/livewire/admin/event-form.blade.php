@@ -2,9 +2,6 @@
     <div class="w-[800px] mx-auto">
         @include('layouts.flash-message')
         <h1 class=" text-2xl font-medium">Form {{ $event->nama }}</h1>
-        @error("forms.*.*")
-            <span class="text-newRed mt-1">{{ $message }}</span> <!-- buat nampilin error -->
-        @enderror
 
         @foreach ($forms as $i => $form)
         <div class="w-full border rounded shadow bg-white p-8 mt-8">
