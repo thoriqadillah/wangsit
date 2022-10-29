@@ -16,9 +16,11 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        //untuk root => kemsi
         DB::table('admins')->insert([
             'id' => 1,
-            'departement_id' => null, //null untuk root => kemsi
+            'user_id' => 1,
+            'departement_id' => null, 
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -26,7 +28,8 @@ class AdminSeeder extends Seeder
         for ($i = 0; $i < 7; $i++) {
             DB::table('admins')->insert([
                 'id' => ($i + 2),
-                'departement_id' => $i + 1,
+                'user_id' => ($i + 2),
+                'departement_id' => rand(1, 7),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);

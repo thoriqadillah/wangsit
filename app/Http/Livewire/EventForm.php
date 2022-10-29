@@ -96,10 +96,6 @@ class EventForm extends Component {
 		}
 	}
 
-	public function setRequired(int $index) {
-		$this->forms[$index]['required'] = !$this->forms[$index]['required'];
-	}
-
 	public function createForm() {
 		$validatorRules = $this->createRule($this->forms);
 		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
@@ -126,9 +122,10 @@ class EventForm extends Component {
 		$validatorRules = [];
 		foreach ($forms as $i => $form) {
 			$validatorRules["forms.$i.judul"] = ['required'];
-			$validatorRules["forms.$i.placeholder"] = ['required'];
 			
-			if ($form['form_type'] !== "Text" && $form['form_type'] !== "Textarea") {
+			if ($form['form_type'] == "Text" || $form['form_type'] == "Textarea") {
+				$validatorRules["forms.$i.placeholder"] = ['required'];
+			} else {
 				foreach ($form['value_options'] as $j => $opt) {
 					$validatorRules["forms.$i.value_options.$j.text"] = ['required'];
 					$validatorRules["forms.$i.value_options.$j.value"] = ['required'];

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Departement;
+use App\Services\DepartementService;
 use App\Services\EventService;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,13 +18,15 @@ class Event extends Component {
 	public $deptId = 0;
 
 	protected EventService $eventService;
+	protected DepartementService $departementService;
 
-	public function boot(EventService $eventService) {
+	public function boot(EventService $eventService, DepartementService $departementService) {
 		$this->eventService = $eventService;
+		$this->departementService = $departementService;
 	}
 
 	public function mount() {
-		$this->departements = Departement::all();
+		$this->departements = $this->departementService->getAll();
 	}
 
 	public function setDept(int $deptId = 0) {

@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Departement;
 use App\Services\EventService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;

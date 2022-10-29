@@ -8,6 +8,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -19,12 +20,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'nim' => '0000000000kbmsi',
+            'nim' => '0051504000kbmsi',
             'nama' => 'KEMSI',
             'email' => 'kemsi@gmail.com',
             'hp' => '000000000000',
-            'password' => bcrypt('semangatpagi'),
-            'admin_id' => 1,
+            'password' => Hash::make('semangatpagi'),
             'tgl_lahir' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -39,8 +39,7 @@ class UserSeeder extends Seeder
                 'nama' => $faker->name,
                 'email' => $faker->email,
                 'hp' => $faker->phoneNumber(),
-                'password' => bcrypt('12345678'),
-                'admin_id' => $role[rand(0, 1)],
+                'password' => Hash::make('12345678'),
                 'profile_pic' => $faker->imageUrl(480, 640, 'technics'),
                 'tgl_lahir' => $faker->dateTimeBetween('-22 years', '-20 years'),
                 'created_at' => Carbon::now(),

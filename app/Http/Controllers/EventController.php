@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Services\EventService;
 use App\Services\UserService;
@@ -29,11 +28,8 @@ class EventController extends Controller
         if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
         
-        $department = Departement::all();
-
         $data = [
             'detail' => $detail,
-            'departement' => $department
         ];
 
         return view('admin/form-event', $data);
@@ -98,18 +94,9 @@ class EventController extends Controller
 
     public function addEventPage()
     {
-        $department = Departement::all();
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
 
-        $data = [
-            'departement' => $department
-        ];
-        return view('/admin/form-event', $data);
-    }
-
-    public function responseEvent($slug)
-    {
-        return view('/admin/form-response');
+        return view('/admin/form-event');
     }
 }

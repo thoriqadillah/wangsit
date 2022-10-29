@@ -23,7 +23,6 @@ return new class extends Migration
             $table->date('tgl_lahir');
             $table->string('profile_pic')->nullable();
             $table->string('hp');
-            $table->unsignedBigInteger('admin_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
