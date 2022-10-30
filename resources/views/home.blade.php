@@ -3,7 +3,6 @@
 <div class="flex flex-col lg:flex-row gap-5 px-4 md:px-8 lg:px-12 xl:px-20 py-20 lg:py-28">
 
     <div class="flex flex-col gap-5 grow">
-        <!-- Apps Section -->
         <div class="w-full border border-mainColor rounded flex flex-col gap-5 pb-8">
             <div class="w-full h-16 text-white rounded-t bg-mainColor flex items-center justify-center text-lg">
                 Apps
@@ -23,23 +22,20 @@
                 </a>
             </div>
         </div>
-        <!-- Apps Section -->
 
-
-        <!-- Event Section -->
         <div class="w-full">
             <h1 class="text-mainColor text-2xl text-center font-bold mt-10">Current KBMSI Events</h1>
             <div class="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 w-full mt-8 gap-8 justify-items-center">
                 @foreach ($latestEvent as $event)
                 <div class="w-80 md:w-[340px] lg:w-full h-96 shadow">
                     <div class="w-full h-52">
-                        <img src="{{ $event->thumbnail }}" class="w-full h-full object-cover" />
+                        <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
                     </div>
 
                     <div class="p-4 h-40 flex flex-col justify-between">
                         <div>
                             <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
-                            <p class="text-sm text-gray-400">Berakhir {{ $event->countdown }} hari lagi</p>
+                            <p class="text-sm text-gray-400">Berakhir {{ $event->countdown == 0 ? "hari ini" : "$event->countdown hari lagi" }}</p>
                         </div>
                         <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</a>
                     </div>
@@ -47,10 +43,7 @@
                 @endforeach
             </div>
         </div>
-        <!-- Event Section -->
-
     </div>
-
 
     <div class="flex flex-col gap-5 lg:w-[400px]">
         <!-- Profile Section -->
@@ -69,10 +62,7 @@
             </div>
 
         </div>
-        <!-- Profile Section -->
 
-
-        <!-- Birthday Section-->
         <div class="w-80 sm:w-96 lg:w-full mx-auto  border border-mainColor rounded">
             <div class="w-full h-16 text-white rounded-t bg-mainColor flex items-center justify-center text-lg mb-5">
                 Happy Birthday!
@@ -91,7 +81,6 @@
                 @endforeach
             </div>
         </div>
-        <!-- Birthday Section-->
     </div>
 </div>
 @stop

@@ -35,13 +35,13 @@
                 <tbody>
                     @foreach($response as $resp)
                     <tr class="border-b align-top">
-                        <td scope="row" class="pt-5 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        <td scope="row" class="pt-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
                                 <input id="default-checkbox" name="lulus" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900 ">Lulus</label>
                             </div>
                         </td>
-                        <td scope="row" class="py-5 font-medium text-gray-900 whitespace-nowrap">
+                        <td scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
                             {{ $resp->user->nama }}
                         </td>
                         @foreach ($resp->response as $r)

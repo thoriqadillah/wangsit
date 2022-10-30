@@ -24,13 +24,12 @@
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
             </div>
-
-            <div class="h-20 px-4 overflow-hidden">
+            <div class="h-20 px-4 overflow-hidden mt-2">
                 <h1 class="text-lg font-medium text-mainColor">{{ $event->nama }} </h1>
             </div>
             <div class="px-4">
                 <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
-                <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-4">DAFTAR</a>
+                <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-2">DAFTAR</a>
             </div>
         </div>
         {{-- hanya menampilkan pengumuman jika user telah mendaftar pada event tersebut --}}
@@ -39,13 +38,12 @@
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
             </div>
-
             <div class="h-20 px-4 overflow-hidden">
                 <h1 class="text-lg font-medium text-mainColor">{{ $event->nama }} </h1>
             </div>
             <div class="px-4">
                 <p class="text-sm text-gray-400">Berakhir pada {{ $event->tgl_tutup_pendaftaran->format('j F Y') }}</p>
-                <a href="/event/{{ $event->slug }}/daftar/pengumuman" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-4">PENGUMUMAN</a>
+                <a href="/event/{{ $event->slug }}/daftar/pengumuman" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-2">PENGUMUMAN</a>
             </div>
         </div>
         @endif
