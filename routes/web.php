@@ -16,6 +16,7 @@ use App\Http\Controllers\SuccessfulRegistrationController;
 use App\Http\Livewire\AdminEvent;
 use App\Http\Livewire\EventRegistration;
 use App\Http\Livewire\Root;
+use Barryvdh\Debugbar\DataCollector\EventCollector;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::get('/admin/event/tambah', [EventController::class, 'addEventPage']);
     Route::get('/admin/event/{slug}/form/response', [EventFormResponseController::class, 'getResponse']);
+    Route::put('/admin/event/{id}/lulus', [EventController::class, 'lulusEvent']);
     Route::get('/admin/event/{slug}', [EventController::class, 'detailEvent']);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);

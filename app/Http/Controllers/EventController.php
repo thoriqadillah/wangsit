@@ -2,23 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departement;
 use Illuminate\Http\Request;
-use App\Services\EventService;
 use App\Services\UserService;
+use App\Services\EventService;
+use App\Models\EventLulusStatus;
+use App\Services\DepartementService;
 use Illuminate\Validation\Rules\File;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class EventController extends Controller
 {
     public $userDept;
-    
+
     protected EventService $event;
     protected UserService $userService;
+    protected DepartementService $departmentService;
 
-    public function __construct(EventService $eventService, UserService $userService)
+    public function __construct(EventService $eventService, UserService $userService, DepartementService $departmentService)
     {
         $this->event = $eventService;
         $this->userService = $userService;
+        $this->departmentService = $departmentService;
+    }
+
+    public function abortIfRoot()
+    {
+        $this->userDept = $this->userService->getUserDept();
+        if (!$this->userDept) return abort(404);
     }
 
     public function detailEvent($slug)
@@ -27,7 +38,9 @@ class EventController extends Controller
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
-        
+
+        $department = $this->departmentService->getAll();
+
         $data = [
             'detail' => $detail,
         ];
@@ -98,5 +111,16 @@ class EventController extends Controller
         if (!$this->userDept) return abort(404);
 
         return view('/admin/form-event');
+    }
+
+    public function lulusEvent(Request $request, $eventId)
+    {
+        $dataLulus = $request->all();
+        $update = $this->event->lulusEvent($dataLulus, $eventId);
+
+        if ($update) {
+            return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');
+        }
+        return redirect()->refresh()->withErrors(['error' => 'Data peserta diupdate']);
     }
 }
