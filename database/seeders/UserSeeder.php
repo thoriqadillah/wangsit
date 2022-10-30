@@ -30,21 +30,21 @@ class UserSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
 
-        $faker = Factory::create('id_ID');
-        for ($i = 0; $i < 20; $i++) {
-            $role = [null, rand(2, 7)];
+        // $faker = Factory::create('id_ID');
+        // for ($i = 0; $i < 20; $i++) {
+        //     $role = [null, rand(2, 7)];
 
-            DB::table('users')->insert([
-                'nim' => Str::random(15),
-                'nama' => $faker->name,
-                'email' => $faker->email,
-                'hp' => $faker->phoneNumber(),
-                'password' => Hash::make('12345678'),
-                'profile_pic' => $faker->imageUrl(480, 640, 'technics'),
-                'tgl_lahir' => $faker->dateTimeBetween('-22 years', '-20 years'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-        }
+        //     DB::table('users')->insert([
+        //         'nim' => Str::random(15),
+        //         'nama' => $faker->name,
+        //         'email' => $faker->email,
+        //         'hp' => $faker->phoneNumber(),
+        //         'password' => Hash::make('12345678'),
+        //         'profile_pic' => $faker->imageUrl(480, 640, 'technics'),
+        //         'tgl_lahir' => $faker->dateTimeBetween('-22 years', '-20 years'),
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now()
+        //     ]);
+        // }
     }
 }

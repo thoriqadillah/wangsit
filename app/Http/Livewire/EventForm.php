@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\FormType;
 use App\Services\EventFormService;
 use App\Services\EventService;
 use App\Services\UserService;
@@ -11,7 +10,6 @@ use Livewire\Component;
 class EventForm extends Component {
 
 	public $forms = [];
-	public $formTypes;
 	public $event;
 	public $existedForm;
 	public $isUpdate = false;
@@ -29,7 +27,6 @@ class EventForm extends Component {
 	}
 
 	public function mount(string $slug) {
-		$this->formTypes = FormType::all();
 		$this->event = $this->eventService->showBy('slug', $slug);
 		$this->userDept = $this->userService->getUserDept();
 		if (!$this->userDept) return abort(404);
