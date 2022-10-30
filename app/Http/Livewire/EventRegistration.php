@@ -12,7 +12,7 @@ class EventRegistration extends Component {
 	public $formResponse = [];
 	public $eventForm;
 	public $event;
-	public $aggrement;
+	public $aggreement;
 
 	public $userDept;
 
@@ -59,7 +59,7 @@ class EventRegistration extends Component {
 
 	public function createRule($formResponse) {
 		$validatorRules = [];
-		$validatorRules['aggrement'] = ['required'];
+		$validatorRules['aggreement'] = ['required'];
 
 		foreach ($formResponse as $i => $form) {
 			if ($form['required']) {
