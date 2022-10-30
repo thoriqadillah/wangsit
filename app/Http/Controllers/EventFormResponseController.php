@@ -31,17 +31,11 @@ class EventFormResponseController extends Controller
 
     public function getResponse($slug)
     {
-        $event = Event::where('slug', $slug)->first();
+        $event = $this->eventResponse->getEventSlug($slug);
         $response = $this->eventResponse->getResponses($event->id);
-        // $head = EventForm::where('event_id', $event->id)->first();
         $head = $this->eventResponse->getHeadResponse($slug);
-        // $lulus = EventLulusStatus::where('event_id', $event->id)->where('status_lulus', 1)->get();
         $lulus = $this->eventResponse->getLulusResponse($slug);
-        // foreach ($lulus as $lulus) {
-        //     echo ($lulus['status_lulus']);
-        //     echo ",";
-        // }
-        // dd($head);
+
 
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);

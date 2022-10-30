@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departement;
-use App\Models\EventLulusStatus;
 use Illuminate\Http\Request;
-use App\Services\EventService;
 use App\Services\UserService;
+use App\Services\EventService;
+use App\Models\EventLulusStatus;
+use App\Services\DepartementService;
 use Illuminate\Validation\Rules\File;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -16,11 +17,13 @@ class EventController extends Controller
 
     protected EventService $event;
     protected UserService $userService;
+    protected DepartementService $departmentService;
 
-    public function __construct(EventService $eventService, UserService $userService)
+    public function __construct(EventService $eventService, UserService $userService, DepartementService $departmentService)
     {
         $this->event = $eventService;
         $this->userService = $userService;
+        $this->departmentService = $departmentService;
     }
 
     public function abortIfRoot()
@@ -36,7 +39,7 @@ class EventController extends Controller
         if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
 
-        $department = Departement::all();
+        $department = $this->departmentService->getAll();
 
         $data = [
             'detail' => $detail,
@@ -114,13 +117,6 @@ class EventController extends Controller
     {
         $dataLulus = $request->all();
         $update = $this->event->lulusEvent($dataLulus, $eventId);
-        // $userId = $request->userId;
-        // $lulus = $request->lulus;
-        // for ($i = 0; $i < count($lulus); $i++) {
-        //     $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
-        //         'status_lulus' => $lulus[$i]
-        //     ]);
-        // }
 
         if ($update) {
             return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');

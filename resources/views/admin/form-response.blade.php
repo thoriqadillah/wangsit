@@ -38,7 +38,6 @@
                 <tbody>
                     @for($i=0;$i<count($response);$i++)
                         <tr class="border-b align-top">
-                            {{-- <input type="text" value="{{ $lulus['status_lulus'] }}"> --}}
                         <input type="hidden" name="userId[]" value="{{ $response[$i]['user_id'] }}">
                         <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
