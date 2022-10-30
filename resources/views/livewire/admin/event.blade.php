@@ -33,39 +33,39 @@
                     </div>
                     <div class="flex gap-4 mt-2">
                         @if ($event->form != null)
-                        <a class="border border-white rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/event/{{ $event->slug }}/form/response">Pendaftar</a>
+                            <a class="border border-white rounded cursor-pointer grow block text-center text-white py-2 bg-mainColor" href="/admin/event/{{ $event->slug }}/form/response">Pendaftar</a>
                         @else
-                        <a class="border border-white rounded grow block text-center text-white py-4 bg-white"></a>
+                            <a class="border border-white rounded grow block text-center text-white py-4 bg-white"></a>
                         @endif
                     </div>
                 </div>
             </div>
 
             @if ($deleting)
-            <div class="fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] {{ $event->id == $selectForDelete ? 'z-50' : 'z-20' }}">
-                <div class="rounded bg-white p-10 w-[500px] mx-auto mt-40">
-                    <h1 class="text-lg font-medium text-center">Hapus Event {{ $event->nama }}?</h1>
-                    <div class="flex px-6 items-center justify-between gap-8 mt-8">
-                        <button wire:click="setDeleting()" class="border rounded text-newRed bg-white border-newRed py-1 grow text-center">Cancel</button>
-                        <button wire:click="deleteEvent({{ $event->id }})" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</button>
+                <div class="fixed w-full top-0 bottom-0 right-0 left-0 bg-[#000000e1] {{ $event->id == $selectForDelete ? 'z-50' : 'z-20' }}">
+                    <div class="rounded bg-white p-10 w-[500px] mx-auto mt-40">
+                        <h1 class="text-lg font-medium text-center">Hapus Event {{ $event->nama }}?</h1>
+                        <div class="flex px-6 items-center justify-between gap-8 mt-8">
+                            <button wire:click="setDeleting()" class="border rounded text-newRed bg-white border-newRed py-1 grow text-center">Cancel</button>
+                            <button wire:click="deleteEvent({{ $event->id }})" class="border rounded text-white bg-mainColor border-mainColor py-1 grow text-center">Hapus</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
         @endforeach
     </div>
 
     @if ($events->hasPages())
-    <div class="flex gap-4 items-center justify-center my-4">
-        @if (!$events->onFirstPage())
-        <img wire:click="previousPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
-        @endif
+        <div class="flex gap-4 items-center justify-center my-4">
+            @if (!$events->onFirstPage())
+                <img wire:click="previousPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kiri.svg')}}" alt="" class="w-10 cursor-pointer">
+            @endif
 
-        {{ $events->currentPage() }}
-        
-        @if ($events->hasMorePages())
-        <img wire:click="nextPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
-        @endif
-    </div>
+            {{ $events->currentPage() }}
+            
+            @if ($events->hasMorePages())
+                <img wire:click="nextPage" wire:loading.attr="disabled" src="{{url('/asset/icons/kanan.svg')}}" alt="" class="w-10 cursor-pointer">
+            @endif
+        </div>
     @endif
 </div>

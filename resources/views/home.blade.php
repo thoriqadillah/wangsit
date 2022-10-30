@@ -27,19 +27,21 @@
             <h1 class="text-mainColor text-2xl text-center font-bold mt-10">Current KBMSI Events</h1>
             <div class="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 w-full mt-8 gap-8 justify-items-center">
                 @foreach ($latestEvent as $event)
-                <div class="w-80 md:w-[340px] lg:w-full h-96 shadow">
-                    <div class="w-full h-52">
-                        <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
-                    </div>
+                    @if ($event->form != null)
+                        <div class="w-80 md:w-[340px] lg:w-full h-96 shadow">
+                            <div class="w-full h-52">
+                                <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
+                            </div>
 
-                    <div class="p-4 h-40 flex flex-col justify-between">
-                        <div>
-                            <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
-                            <p class="text-sm text-gray-400">Berakhir {{ $event->countdown == 0 ? "hari ini" : "$event->countdown hari lagi" }}</p>
+                            <div class="p-4 h-40 flex flex-col justify-between">
+                                <div>
+                                    <h1 class="text-lg font-medium text-mainColor truncate">{{ $event->nama }}</h1>
+                                    <p class="text-sm text-gray-400">Berakhir {{ $event->countdown == 0 ? "hari ini" : "$event->countdown hari lagi" }}</p>
+                                </div>
+                                <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</a>
+                            </div>
                         </div>
-                        <a href="/event/{{ $event->slug }}/daftar" class="block w-full rounded-md shadow-md bg-mainColor text-center text-white py-3 mt-6">DAFTAR</a>
-                    </div>
-                </div>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -69,15 +71,15 @@
             </div>
             <div class="grid grid-cols-1 gap-y-4 px-3 pb-8">
                 @foreach ($birthdayUsers as $userr)
-                <div class="flex gap-x-3 items-center">
-                    <div class="w-12 h-12">
-                        <img src="{{ $userr->profile_pic }}" class="w-full h-full rounded-full object-cover">
+                    <div class="flex gap-x-3 items-center">
+                        <div class="w-12 h-12">
+                            <img src="{{ $userr->profile_pic }}" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <div>
+                            <h1>{{ $userr->nama }}</h1>
+                            <p class="text-sm text-gray-400">{{ $userr->tgl_lahir }}</p>
+                        </div>
                     </div>
-                    <div>
-                        <h1>{{ $userr->nama }}</h1>
-                        <p class="text-sm text-gray-400">{{ $userr->tgl_lahir }}</p>
-                    </div>
-                </div>
                 @endforeach
             </div>
         </div>
