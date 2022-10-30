@@ -38,7 +38,7 @@
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />
             </div>
-            <div class="h-20 px-4 overflow-hidden">
+            <div class="h-20 px-4 overflow-hidden mt-2">
                 <h1 class="text-lg font-medium text-mainColor">{{ $event->nama }} </h1>
             </div>
             <div class="px-4">

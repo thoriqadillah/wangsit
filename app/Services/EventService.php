@@ -190,7 +190,7 @@ class EventService
 
     public function deleteEvent(int $id): bool
     {
-        $event = Event::find($id);
+        $event = Event::where('id',$id)->first();
         Storage::delete($event->thumbnail);
         return $event->delete();
     }
