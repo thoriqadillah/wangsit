@@ -32,7 +32,7 @@ use Barryvdh\Debugbar\DataCollector\EventCollector;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index');
     Route::post('/logout', 'logout');
-    Route::post('/login', 'login')->name('login')->middleware(['throttle:30,1']); //limit rate request 30/menit
+    Route::post('/login', 'login')->name('login')->middleware(['throttle:10,1']); //limit rate request 10/menit
 });
 
 Route::middleware('auth')->group(function () {

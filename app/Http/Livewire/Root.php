@@ -12,8 +12,6 @@ use Livewire\WithPagination;
 class Root extends Component
 {
     use WithPagination;
-
-    //TODO: implement update karena masih ngebug
     
     //untuk nambah admin
     public $searchedUser;
@@ -48,7 +46,7 @@ class Root extends Component
 
     public function setAdmin() {
         $admin = $this->adminService->assignAdmin($this->searchedUser->id, $this->selectedDept);
-        $dept = $this->departementService->getDept('id', $admin['data']->departement_id);
+        $dept = $this->departementService->getDept('id', $admin->departement_id);
         return redirect()->to('/admin/root')->with('success', 'Berhasil menjadikan ' . $this->searchedUser->nama . ' sebagai admin departement ' . $dept->nama);
     }
     

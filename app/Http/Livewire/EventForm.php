@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\FormType;
 use App\Services\EventFormService;
 use App\Services\EventService;
 use App\Services\UserService;
@@ -11,7 +10,6 @@ use Livewire\Component;
 class EventForm extends Component {
 
 	public $forms = [];
-	public $formTypes;
 	public $event;
 	public $existedForm;
 	public $isUpdate = false;
@@ -29,7 +27,6 @@ class EventForm extends Component {
 	}
 
 	public function mount(string $slug) {
-		$this->formTypes = FormType::all();
 		$this->event = $this->eventService->showBy('slug', $slug);
 		$this->userDept = $this->userService->getUserDept();
 		if (!$this->userDept) return abort(404);
@@ -47,12 +44,7 @@ class EventForm extends Component {
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
-				'value_options' => [
-					[
-						'text' => '',
-						'value' => ''
-					]
-				]
+				'options' => ['']
 			];
 		}
 	}
@@ -64,28 +56,20 @@ class EventForm extends Component {
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
-				'value_options' => [
-					[
-						'text' => '',
-						'value' => ''
-					]
-				]
+				'options' => ['']
 			]
 		];
 		array_splice($this->forms, $position, 0, $newInput);
 	}
 
 	public function addInputOption(int $index) {
-		$this->forms[$index]['value_options'][] = [
-			'text' => '',
-			'value' => ''
-		];
+		$this->forms[$index]['options'][] = '';
 	}
 
 	public function deleteInputOption(int $inputId, int $optionId) {
-		if (count($this->forms[$inputId]['value_options']) > 1) {
-			unset($this->forms[$inputId]['value_options'][$optionId]);
-			$this->forms[$inputId]['value_options'] = array_values($this->forms[$inputId]['value_options']);
+		if (count($this->forms[$inputId]['options']) > 1) {
+			unset($this->forms[$inputId]['options'][$optionId]);
+			$this->forms[$inputId]['options'] = array_values($this->forms[$inputId]['options']);
 		}
 	}
 
@@ -126,9 +110,8 @@ class EventForm extends Component {
 			if ($form['form_type'] == "Text" || $form['form_type'] == "Textarea") {
 				$validatorRules["forms.$i.placeholder"] = ['required'];
 			} else {
-				foreach ($form['value_options'] as $j => $opt) {
-					$validatorRules["forms.$i.value_options.$j.text"] = ['required'];
-					$validatorRules["forms.$i.value_options.$j.value"] = ['required'];
+				foreach ($form['options'] as $j => $opt) {
+					$validatorRules["forms.$i.options.$j"] = ['required'];
 				}
 			}
 		}

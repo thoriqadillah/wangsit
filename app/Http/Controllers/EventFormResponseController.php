@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Event;
-use App\Models\EventForm;
-use App\Models\EventLulusStatus;
 use Illuminate\Http\Request;
 use App\Services\EventFormResponseService;
 use App\Services\UserService;
@@ -53,10 +49,7 @@ class EventFormResponseController extends Controller
 
     public function lulusEvent(Request $request, $eventId)
     {
-
         $dataLulus = $request->all();
-        // dd($dataLulus);
-
         $update = $this->eventResponse->lulusEvent($dataLulus, $eventId);
 
         if ($update) {

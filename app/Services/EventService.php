@@ -123,12 +123,12 @@ class EventService
         if ($deptId !== 0) {
             return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
-                ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+                ->where('tgl_tutup_pendaftaran', '<', Carbon::now())
                 ->paginate($perPage);
         }
 
         return Event::with($eagerWith)
-            ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+            ->where('tgl_tutup_pendaftaran', '<', Carbon::now())
             ->paginate($perPage);
     }
 
@@ -166,14 +166,20 @@ class EventService
         }
 
         if ($eventData['adanya_kelulusan'] == 1) {
-            $responseId = EventFormResponse::where('event_id', $id)->get();
+            $responses = EventFormResponse::where('event_id', $id)->get();
 
-            foreach ($responseId as $resp) {
-                EventLulusStatus::firstOrCreate([
-                    'event_id' => $id,
-                    'user_id' => $resp['user_id'],
-                    'status_lulus' => 0
-                ]);
+            //jika ada user yang telah mendaftar pada saat adanya kelulusan == false kemudian admin memutuskan untuk mengganti adanya kelulusan menjadi true, maka buat data user dengan default tidak lulus pada event_lulus_statuses
+            $data = [];
+            if (!$responses->isEmpty()) {
+                foreach ($responses as $resp) {
+                    $data[] = [
+                        'event_id' => $id,
+                        'user_id' => $resp['user_id'],
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ];
+                }
+                EventLulusStatus::insertOrIgnore($data);
             }
         }
 

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('status_lulus');
+            $table->unique(['event_id', 'user_id']); //untuk menghalangi duplikat data pada kolom tersebut
+            $table->boolean('status_lulus')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

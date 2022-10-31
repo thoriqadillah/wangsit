@@ -26,9 +26,7 @@ class EventFormServiceTest extends TestCase
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
-                'value_options' => [
-                    ['text' => '','value' => '']
-                ]
+                'options' => ['']
             ];
         }
         Event::factory()->create();
@@ -56,9 +54,7 @@ class EventFormServiceTest extends TestCase
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
-                'value_options' => [
-                    ['text' => '','value' => '']
-                ]
+                'options' => ['']
             ];
         }
         $event = Event::first(); //pastikan di db gak ada, biar unik

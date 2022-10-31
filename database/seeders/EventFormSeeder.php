@@ -25,9 +25,7 @@ class EventFormSeeder extends Seeder
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
-                'value_options' => [
-                    ['text' => '','value' => '']
-                ]
+                'options' => ['']
             ];
         }
 

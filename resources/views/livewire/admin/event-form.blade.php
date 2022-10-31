@@ -7,9 +7,11 @@
             <div class="w-full border rounded shadow bg-white p-8 mt-8">
                 <label class="block mb-2 text-gray-900">Jenis Form</label>
                 <select wire:model="forms.{{$i}}.form_type" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3 w-80">
-                @foreach ($formTypes as $type)
-                    <option value="{{ $type->nama }}">{{ $type->nama }}</option>
-                @endforeach
+                    <option value="Text">Text</option>
+                    <option value="Textarea">Textarea</option>
+                    <option value="Checkbox">Checkbox</option>
+                    <option value="Radio">Radio</option>
+                    <option value="Dropdown">Dropdown</option>
                 </select>
 
                 <div class="flex gap-8 mt-6">
@@ -33,7 +35,7 @@
                 </div>
 
                 @if ($forms[$i]['form_type'] != "Text" && $forms[$i]['form_type'] != "Textarea") 
-                    @foreach ($forms[$i]['value_options'] as $j => $options)
+                    @foreach ($forms[$i]['options'] as $j => $options)
                         <div class="rounded bg-white shadow border p-8 mt-6 mx-3 relative">
                             <img wire:click="deleteInputOption({{ $i }}, {{ $j }})" src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
 
@@ -41,11 +43,7 @@
                             <div class="flex gap-8 mt-4">
                                 <div class="w-full">
                                     <label>Judul Opsi</label>
-                                    <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.text" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
-                                </div>
-                                <div class="w-full">
-                                    <label>Value Opsi</label>
-                                    <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.value" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                                    <input type="text" wire:model.lazy="forms.{{$i}}.options.{{$j}}" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                                 </div>
                             </div>
                         </div>
