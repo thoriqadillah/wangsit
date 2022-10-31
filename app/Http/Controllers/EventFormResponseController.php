@@ -33,12 +33,8 @@ class EventFormResponseController extends Controller
     {
         $event = $this->eventResponse->getEventSlug($slug);
         $response = $this->eventResponse->getResponses($event->id);
-        $head = $this->eventResponse->getHeadResponse($slug);
-        $lulus = $this->eventResponse->getLulusResponse($slug);
-        $jmlLulus = $this->eventResponse->getLulus($slug);
-
-        // dd($lulus);
-        // dd(count($jmlLulus));
+        $head = $this->eventResponse->getHeadResponse($event->id);
+        $lulus = $this->eventResponse->getLulusResponse($event->id);
 
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
@@ -49,10 +45,23 @@ class EventFormResponseController extends Controller
             'head' => $head,
             'response' => $response,
             'event' => $event,
-            'lulus' => $lulus,
-            'jmlLulus' => $jmlLulus
+            'lulus' => $lulus
         ];
 
         return view('admin/form-response', $data);
+    }
+
+    public function lulusEvent(Request $request, $eventId)
+    {
+
+        $dataLulus = $request->all();
+        // dd($dataLulus);
+
+        $update = $this->eventResponse->lulusEvent($dataLulus, $eventId);
+
+        if ($update) {
+            return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');
+        }
+        return redirect()->refresh()->withErrors(['error' => 'Data peserta diupdate']);
     }
 }

@@ -122,18 +122,4 @@ class EventController extends Controller
 
         return view('/admin/form-event');
     }
-
-    public function lulusEvent(Request $request, $eventId)
-    {
-
-        $dataLulus = $request->all();
-        // dd($dataLulus);
-
-        $update = $this->event->lulusEvent($dataLulus, $eventId);
-
-        if ($update) {
-            return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');
-        }
-        return redirect()->refresh()->withErrors(['error' => 'Data peserta diupdate']);
-    }
 }

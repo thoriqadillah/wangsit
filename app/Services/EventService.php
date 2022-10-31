@@ -177,12 +177,6 @@ class EventService
             }
         }
 
-        // if ($eventData['adanya_kelulusan'] == true) {
-        //     $eventData['adanya_kelulusan'] = 1;
-        // } else {
-        //     $eventData['adanya_kelulusan'] = 0;
-        // }
-
         $hash = bin2hex(random_bytes(6));
 
         return Event::where('id', $id)->update([
@@ -206,22 +200,5 @@ class EventService
         EventFormResponse::where('event_id', $event->id)->delete();
         EventLulusStatus::where('event_id', $event->id)->delete();
         return $event->delete();
-    }
-
-    public function lulusEvent(array $lulusData, $eventId)
-    {
-        $upd = EventLulusStatus::where('event_id', $eventId)->update([
-            'status_lulus' => 0
-        ]);
-
-        if (isset($lulusData['lulus'])) {
-            $lulus = $lulusData['lulus'];
-            $update = EventLulusStatus::where('event_id', $eventId)->whereIn('user_id', $lulus)->update([
-                'status_lulus' => 1
-            ]);
-            return $update;
-        }
-
-        return $upd;
     }
 }

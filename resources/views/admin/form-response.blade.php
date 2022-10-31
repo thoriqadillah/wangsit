@@ -23,7 +23,7 @@
                         @if($event->adanya_kelulusan ==1)
                         <th scope="col" class="py-3 px-6">
                             <div class="flex items-center">
-                                <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ (count($jmlLulus)==count($lulus))?"checked":"" }}>
+                                <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ ($lulus->where('status_lulus', 1)->count()==count($lulus))?"checked":"" }}>
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus Semua</label>
                             </div>
                         </th>
