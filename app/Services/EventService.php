@@ -166,14 +166,19 @@ class EventService
         }
 
         if ($eventData['adanya_kelulusan'] == 1) {
-            $responseId = EventFormResponse::where('event_id', $id)->get();
+            $responses = EventFormResponse::where('event_id', $id)->get();
 
-            foreach ($responseId as $resp) {
-                EventLulusStatus::firstOrCreate([
-                    'event_id' => $id,
-                    'user_id' => $resp['user_id'],
-                    'status_lulus' => 0
-                ]);
+            $data = [];
+            if (!$responses->isEmpty()) {
+                foreach ($responses as $resp) {
+                    $data[] = [
+                        'event_id' => $id,
+                        'user_id' => $resp['user_id'],
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ];
+                }
+                EventLulusStatus::insertOrIgnore($data);
             }
         }
 

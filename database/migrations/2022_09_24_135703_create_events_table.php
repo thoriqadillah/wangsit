@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('departement_id');
             $table->string('nama', 100);
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->string('thumbnail')->nullable();
             $table->boolean('adanya_kelulusan');
             $table->date('tgl_buka_pendaftaran'); //waktu buka pendaftaran
