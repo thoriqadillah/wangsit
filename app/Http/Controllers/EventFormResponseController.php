@@ -35,6 +35,7 @@ class EventFormResponseController extends Controller
         $response = $this->eventResponse->getResponses($event->id);
         $head = $this->eventResponse->getHeadResponse($event->id);
         $lulus = $this->eventResponse->getLulusResponse($event->id);
+        // dd($lulus);
 
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
@@ -53,10 +54,7 @@ class EventFormResponseController extends Controller
 
     public function lulusEvent(Request $request, $eventId)
     {
-
         $dataLulus = $request->all();
-        // dd($dataLulus);
-
         $update = $this->eventResponse->lulusEvent($dataLulus, $eventId);
 
         if ($update) {

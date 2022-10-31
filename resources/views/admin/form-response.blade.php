@@ -39,14 +39,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for($i=0;$i<count($response);$i++)
+                    @for($i = 0; $i < count($response); $i++)
                         <tr class="border-b align-top">
 
-                        @if($event->adanya_kelulusan==1)
+                        @if($event->adanya_kelulusan == 1)
                         <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
-                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="{{ $response[$i]['user_id'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
-                                {{ ($lulus[$i]['status_lulus']==1)?"checked":"" }} >
+                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="{{ $response[$i]['user_id'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ $lulus[$i]['status_lulus'] == 1 ? "checked" : "" }}>
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus</label>
                             </div>
                         </td>

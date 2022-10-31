@@ -24,7 +24,7 @@
         </div>
 
         <div class="w-full">
-            <h1 class="text-mainColor text-2xl text-center font-bold mt-10">Current KBMSI Events</h1>
+            <h1 class="text-mainColor text-2xl text-center font-bold mt-10">Event KBMSI Terbaru</h1>
             <div class="grid grid-col-1 md:grid-cols-2 xl:grid-cols-3 w-full mt-8 gap-8 justify-items-center">
                 @foreach ($latestEvent as $event)
                     @if ($event->form != null)

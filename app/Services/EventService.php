@@ -123,12 +123,12 @@ class EventService
         if ($deptId !== 0) {
             return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
-                ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+                ->where('tgl_tutup_pendaftaran', '<', Carbon::now())
                 ->paginate($perPage);
         }
 
         return Event::with($eagerWith)
-            ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+            ->where('tgl_tutup_pendaftaran', '<', Carbon::now())
             ->paginate($perPage);
     }
 

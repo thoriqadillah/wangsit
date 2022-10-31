@@ -17,6 +17,9 @@ use App\Http\Livewire\AdminEvent;
 use App\Http\Livewire\EventRegistration;
 use App\Http\Livewire\Root;
 use Barryvdh\Debugbar\DataCollector\EventCollector;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,4 +69,14 @@ Route::middleware('admin')->group(function () {
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/debug', function () {
     // Debug here
+    DB::table('users')->insert([
+        'nim' => '005150400000001',
+        'nama' => 'WAKEMSI2',
+        'email' => 'wakemsi2@gmail.com',
+        'hp' => '000000000000',
+        'password' => Hash::make('12345678'),
+        'tgl_lahir' => Carbon::now(),
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now()
+    ]);
 });
