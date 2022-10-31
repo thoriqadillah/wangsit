@@ -33,7 +33,7 @@
             </div>
         </div>
         {{-- hanya menampilkan pengumuman jika user telah mendaftar pada event tersebut --}}
-        @elseif ($filter == 'pengumuman')
+        @elseif ($filter == 'pengumuman' && $event->adanya_kelulusan)
         <div class="w-80 h-96 sm:w-full md:w-[360px] lg:w-full shadow">
             <div class="w-full h-52">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full object-cover" />

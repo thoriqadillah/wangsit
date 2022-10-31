@@ -48,7 +48,7 @@ class EventRegistration extends Component {
 
 	public function saveResponse() {
 		$validatorRules = $this->createRule($this->formResponse);
-		$this->validate($validatorRules, ['required' => 'input wajib diisi']);
+		$this->validate($validatorRules, ['required' => 'input wajib diisi', 'in' => 'input wajib diisi']);
 		
 		$created = $this->formResponseService->saveResponse($this->event->id, $this->formResponse);
 		if ($created) {
@@ -59,7 +59,7 @@ class EventRegistration extends Component {
 
 	public function createRule($formResponse) {
 		$validatorRules = [];
-		$validatorRules['aggreement'] = ['required'];
+		$validatorRules['aggreement'] = ['required', 'in:true'];
 
 		foreach ($formResponse as $i => $form) {
 			if ($form['required']) {

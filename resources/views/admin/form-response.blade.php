@@ -40,7 +40,7 @@
                     @for($i=0;$i<count($response);$i++)
                         <tr class="border-b align-top">
                         <input type="hidden" name="userId[]" value="{{ $response[$i]['user_id'] }}">
-                        <td scope="row" class="py-3 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
                                 <input id="default-checkbox" name="lulus[]" type="checkbox" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ isset($lulus[$i]['status_lulus'])?"checked":"" }}>
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus</label>

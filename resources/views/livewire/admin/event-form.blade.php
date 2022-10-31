@@ -33,7 +33,7 @@
                 </div>
 
                 @if ($forms[$i]['form_type'] != "Text" && $forms[$i]['form_type'] != "Textarea") 
-                    @foreach ($forms[$i]['value_options'] as $j => $options)
+                    @foreach ($forms[$i]['options'] as $j => $options)
                         <div class="rounded bg-white shadow border p-8 mt-6 mx-3 relative">
                             <img wire:click="deleteInputOption({{ $i }}, {{ $j }})" src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer -top-3 -right-4">
 
@@ -41,11 +41,7 @@
                             <div class="flex gap-8 mt-4">
                                 <div class="w-full">
                                     <label>Judul Opsi</label>
-                                    <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.text" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
-                                </div>
-                                <div class="w-full">
-                                    <label>Value Opsi</label>
-                                    <input type="text" wire:model.lazy="forms.{{$i}}.value_options.{{$j}}.value" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
+                                    <input type="text" wire:model.lazy="forms.{{$i}}.options.{{$j}}" class="w-full border border-gray-400 rounded bg-white py-1 px-3 mt-3 outline-mainColor">
                                 </div>
                             </div>
                         </div>
