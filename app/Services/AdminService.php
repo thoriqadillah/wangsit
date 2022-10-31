@@ -32,26 +32,19 @@ class AdminService
 
     public function assignAdmin(int $id, int $deptId)
     {
+        //jika ada user id tabel admin, maka update departmennya. Jika tidak, maka set dia sebagai admin dari departement tersebut
         $admin = Admin::where('user_id', $id)->first();
         if ($admin) {
             $admin->departement_id = $deptId;
-            $result = $admin->save();
+            $admin->save();
 
-            return [
-                'data' => $admin,
-                'status' => 'updated'
-            ];
+            return $admin;
         }
 
-        $result = Admin::create([
+        return Admin::create([
             'user_id' => $id,
             'departement_id' => $deptId
         ]);
-
-        return [
-            'data' => $result,
-            'status' => 'created'
-        ];
     }
 
     public function updateAdmin(int $id, int $deptId) {

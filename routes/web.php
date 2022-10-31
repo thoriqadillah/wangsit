@@ -17,9 +17,6 @@ use App\Http\Livewire\AdminEvent;
 use App\Http\Livewire\EventRegistration;
 use App\Http\Livewire\Root;
 use Barryvdh\Debugbar\DataCollector\EventCollector;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +32,7 @@ use Illuminate\Support\Facades\Hash;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index');
     Route::post('/logout', 'logout');
-    Route::post('/login', 'login')->name('login')->middleware(['throttle:30,1']); //limit rate request 30/menit
+    Route::post('/login', 'login')->name('login')->middleware(['throttle:10,1']); //limit rate request 10/menit
 });
 
 Route::middleware('auth')->group(function () {
@@ -69,14 +66,4 @@ Route::middleware('admin')->group(function () {
 Route::get('/example', [ExampleController::class, 'index']);
 Route::get('/debug', function () {
     // Debug here
-    DB::table('users')->insert([
-        'nim' => '005150400000001',
-        'nama' => 'WAKEMSI2',
-        'email' => 'wakemsi2@gmail.com',
-        'hp' => '000000000000',
-        'password' => Hash::make('12345678'),
-        'tgl_lahir' => Carbon::now(),
-        'created_at' => Carbon::now(),
-        'updated_at' => Carbon::now()
-    ]);
 });

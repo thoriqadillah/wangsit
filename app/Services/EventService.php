@@ -168,6 +168,7 @@ class EventService
         if ($eventData['adanya_kelulusan'] == 1) {
             $responses = EventFormResponse::where('event_id', $id)->get();
 
+            //jika ada user yang telah mendaftar pada saat adanya kelulusan == false kemudian admin memutuskan untuk mengganti adanya kelulusan menjadi true, maka buat data user dengan default tidak lulus pada event_lulus_statuses
             $data = [];
             if (!$responses->isEmpty()) {
                 foreach ($responses as $resp) {
