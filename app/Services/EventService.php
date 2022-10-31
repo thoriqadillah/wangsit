@@ -187,7 +187,7 @@ class EventService
 
     public function deleteEvent(int $id): bool
     {
-        $event = Event::find($id);
+        $event = Event::where('id',$id)->first();
         Storage::delete($event->thumbnail);
         EventForm::where('event_id', $event->id)->delete();
         EventFormResponse::where('event_id', $event->id)->delete();

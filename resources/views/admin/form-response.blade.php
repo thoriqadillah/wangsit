@@ -3,6 +3,7 @@
 
 
 <div class="p-20">
+    @include('layouts.flash-message')
     <h1 class=" text-2xl font-medium">Pendaftar Event {{ $event->nama }}</h1>
 
     <div class="flex justify-between items-center">

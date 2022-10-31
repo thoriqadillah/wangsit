@@ -16,6 +16,8 @@ class AdminEvent extends Component {
 
     public $filter = 'semua';
     public $userDept;
+    public $deleting = false;
+    public $selectForDelete = 0;
 
     protected EventService $eventService;
     protected UserService $userService;
@@ -33,6 +35,11 @@ class AdminEvent extends Component {
     public function deleteEvent(int $id) {
         $this->eventService->deleteEvent($id);
         redirect()->to('/admin/event')->with('success', 'Event berhasil dihapus');
+    }
+
+    public function setDeleting($id = 0) {
+        $this->deleting = !$this->deleting;
+        $this->selectForDelete = $id;
     }
 
     public function render() {

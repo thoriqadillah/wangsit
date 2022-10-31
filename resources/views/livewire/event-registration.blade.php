@@ -46,7 +46,7 @@
         <input wire:model.lazy="aggrement" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-red-300">
         <label>Dengan ini saya menyetujui seluruh prasyarat yang ada <span class="text-newRed">*</span></label>
       </div>
-      @error("formResponse.$index.response")
+      @error("aggreement")
         <span class="text-newRed mt-1">{{ $message }}</span>
       @enderror
       <div class="flex items-center gap-4 mt-4">
