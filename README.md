@@ -66,7 +66,7 @@ Tempat dimana menyimpan format form dari setiap event. Nah data format formnya i
   'judul' => string,
   'placeholder' => string,
   'required' => boolean,
-  'value_options' => [
+  'options' => [
   	[
   		'text' => string,
   		'value' => string
@@ -75,7 +75,7 @@ Tempat dimana menyimpan format form dari setiap event. Nah data format formnya i
 ```
 dimana `form_type` untuk sekarang ini ada `Text`, `Textarea`, `Checkbox`, `Radio`, dan `Dropdown`. Nah format ini bakal digunain buat merender form-form input yang dibutuhkan.
 
-Tanda `|` maksudnya itu adalah pilihan antara berbagai tipe data yang ada. Required dipake buat validasinya. `value_options` ini dipake buat jadi pilihan buat tipe form selain `text` dan `textarea`
+Tanda `|` maksudnya itu adalah pilihan antara berbagai tipe data yang ada. Required dipake buat validasinya. `options` ini dipake buat jadi pilihan buat tipe form selain `text` dan `textarea`
 
 `event_form_responses`
 
