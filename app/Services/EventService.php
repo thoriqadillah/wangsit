@@ -5,7 +5,10 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Support\Str;
+use App\Http\Livewire\EventForm;
 use App\Models\EventLulusStatus;
+use App\Models\EventFormResponse;
+use App\Models\EventForm as EForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
@@ -136,11 +139,6 @@ class EventService
         $path = $eventData['thumbnail']->store("/public/$year");
         $eventData['thumbnail'] = $path;
 
-        if ($eventData['adanya_kelulusan'] == true) {
-            $eventData['adanya_kelulusan'] = 1;
-        } else {
-            $eventData['adanya_kelulusan'] = 0;
-        }
         $hash = bin2hex(random_bytes(6));
         return Event::create([
             'departement_id' => Auth::user()->admin->departement_id,
@@ -167,10 +165,16 @@ class EventService
             $eventData['thumbnail'] = $path;
         }
 
-        if ($eventData['adanya_kelulusan'] == true) {
-            $eventData['adanya_kelulusan'] = 1;
-        } else {
-            $eventData['adanya_kelulusan'] = 0;
+        if ($eventData['adanya_kelulusan'] == 1) {
+            $responseId = EventFormResponse::where('event_id', $id)->get();
+
+            foreach ($responseId as $resp) {
+                EventLulusStatus::firstOrCreate([
+                    'event_id' => $id,
+                    'user_id' => $resp['user_id'],
+                    'status_lulus' => 0
+                ]);
+            }
         }
 
         $hash = bin2hex(random_bytes(6));
@@ -190,21 +194,11 @@ class EventService
 
     public function deleteEvent(int $id): bool
     {
-        $event = Event::where('id',$id)->first();
+        $event = Event::where('id', $id)->first();
         Storage::delete($event->thumbnail);
+        EForm::where('event_id', $event->id)->delete();
+        EventFormResponse::where('event_id', $event->id)->delete();
+        EventLulusStatus::where('event_id', $event->id)->delete();
         return $event->delete();
-    }
-
-    public function lulusEvent(array $lulusData, $eventId)
-    {
-        $userId = $lulusData['userId'];
-        $lulus = $lulusData['lulus'];
-        for ($i = 0; $i < count($lulus); $i++) {
-            $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
-                'status_lulus' => $lulus[$i]
-            ]);
-        }
-
-        return $update;
     }
 }
