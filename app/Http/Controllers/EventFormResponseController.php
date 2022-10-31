@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\Event;
-use App\Models\EventForm;
-use App\Models\EventLulusStatus;
 use Illuminate\Http\Request;
 use App\Services\EventFormResponseService;
 use App\Services\UserService;
@@ -35,7 +31,6 @@ class EventFormResponseController extends Controller
         $response = $this->eventResponse->getResponses($event->id);
         $head = $this->eventResponse->getHeadResponse($event->id);
         $lulus = $this->eventResponse->getLulusResponse($event->id);
-        // dd($lulus);
 
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
