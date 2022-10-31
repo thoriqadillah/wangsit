@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Livewire\EventForm;
 use Carbon\Carbon;
 use App\Models\Event;
+use App\Models\EventFormResponse;
 use Illuminate\Support\Str;
 use App\Models\EventLulusStatus;
 use Illuminate\Support\Facades\Auth;
@@ -136,11 +138,6 @@ class EventService
         $path = $eventData['thumbnail']->store("/public/$year");
         $eventData['thumbnail'] = $path;
 
-        if ($eventData['adanya_kelulusan'] == true) {
-            $eventData['adanya_kelulusan'] = 1;
-        } else {
-            $eventData['adanya_kelulusan'] = 0;
-        }
         $hash = bin2hex(random_bytes(6));
         return Event::create([
             'departement_id' => Auth::user()->admin->departement_id,
@@ -192,18 +189,35 @@ class EventService
     {
         $event = Event::find($id);
         Storage::delete($event->thumbnail);
+        EventForm::where('event_id', $event->id)->delete();
+        EventFormResponse::where('event_id', $event->id)->delete();
+        EventLulusStatus::where('event_id', $event->id)->delete();
         return $event->delete();
     }
 
     public function lulusEvent(array $lulusData, $eventId)
     {
+        $participant = EventLulusStatus::where('event_id', $eventId)->get();
         $userId = $lulusData['userId'];
         $lulus = $lulusData['lulus'];
-        for ($i = 0; $i < count($lulus); $i++) {
-            $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
-                'status_lulus' => $lulus[$i]
+
+
+        EventLulusStatus::where('event_id', $eventId)->update([
+            'status_lulus' => 0
+        ]);
+
+        if (isset($lulus)) {
+            for ($i = 0; $i < count($lulus); $i++) {
+                $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $lulus[$i])->update([
+                    'status_lulus' => 1
+                ]);
+            }
+        } else {
+            $update = EventLulusStatus::where('event_id', $eventId)->update([
+                'status_lulus' => 0
             ]);
         }
+
 
         return $update;
     }

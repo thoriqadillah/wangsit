@@ -36,7 +36,6 @@ class EventFormResponseController extends Controller
         $head = $this->eventResponse->getHeadResponse($slug);
         $lulus = $this->eventResponse->getLulusResponse($slug);
 
-
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
 

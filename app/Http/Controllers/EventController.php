@@ -57,8 +57,7 @@ class EventController extends Controller
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
-            'tgl_tutup_pengumuman' => 'required',
-            'adanya_kelulusan' => 'required'
+            'tgl_tutup_pengumuman' => 'required'
         ], [
             'required' => ':attribute wajib diisi',
             'tgl_buka_pendaftaran.required' => 'waktu mulai wajib diisi',
@@ -66,6 +65,11 @@ class EventController extends Controller
             'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
+
+        if (is_null($request->adanya_kelulusan)) {
+            $validated['adanya_kelulusan'] = 1;
+        } else
+            $validated['adanya_kelulusan'] = 0;
 
         $event = $this->event->addEvent($validated);
         if ($event) {
@@ -115,7 +119,10 @@ class EventController extends Controller
 
     public function lulusEvent(Request $request, $eventId)
     {
+
         $dataLulus = $request->all();
+        // dd($dataLulus);
+
         $update = $this->event->lulusEvent($dataLulus, $eventId);
 
         if ($update) {
