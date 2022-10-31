@@ -12,8 +12,6 @@ use Livewire\WithPagination;
 class Root extends Component
 {
     use WithPagination;
-
-    //TODO: implement update karena masih ngebug
     
     //untuk nambah admin
     public $searchedUser;

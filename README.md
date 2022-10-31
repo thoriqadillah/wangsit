@@ -51,7 +51,7 @@ Alasan menggunakan livewire:
 - Livewire memungkinkan membuat website yang interaktif tadi menggunakan PHP, baik dari frontend dan backendnya. Jadi semua orang harusnya bisa cepet adaptasi ke framework ini. Dan kita bisa nentuin halaman mana saja yang perlu dibuat dinamis. Contoh di projek WANGSIT ini adalah di `event` dan `academy`, dan `event-registration` pada user dan `event-form` dan `root` pada admin. Bisa dilihat perubahan data dilakukan tanpa merefresh website.
 
 ## Penjelasan DB
-Secara general kalian bisa liat design dari database wangsit ini disini. Tabel-tabel ini gak make foreign key karena ternyata pas development awal malah jadi ribet, makanya gak pake foreign key. Tapi tetep bisa direlasikan kok, tenang. Mungkin dari tabel-tabel nya biasa aja kecuali bagian event dan kawan-kawannya, karena rada beda design nya.
+Secara general kalian bisa liat design dari database wangsit ini [disini](https://drive.google.com/file/d/1yG4Jcv_jA2Iuu5TYvoWcz2BvUGLOgNW2/view?usp=sharing). Tabel-tabel ini gak make foreign key karena ternyata pas development awal malah jadi ribet, makanya gak pake foreign key. Tapi tetep bisa direlasikan kok, tenang. Mungkin dari tabel-tabel nya biasa aja kecuali bagian event dan kawan-kawannya, karena rada beda design nya.
 
 `events`
 
@@ -66,11 +66,7 @@ Tempat dimana menyimpan format form dari setiap event. Nah data format formnya i
   'judul' => string,
   'placeholder' => string,
   'required' => boolean,
-  'options' => [
-  	[
-  		'text' => string,
-  		'value' => string
-  	]
+  'options' => [string]
 ]
 ```
 dimana `form_type` untuk sekarang ini ada `Text`, `Textarea`, `Checkbox`, `Radio`, dan `Dropdown`. Nah format ini bakal digunain buat merender form-form input yang dibutuhkan.
@@ -84,7 +80,7 @@ Kalo kalian pernah bikin gform, maka penamaan data responden akan dinamai respon
 [
   'judul' => string,
   'required' => boolean,
-  'response' => [] | string
+  'response' => [string] | string
 ]
 ```
 Tanda `|` maksudnya itu adalah pilihan antara berbagai tipe data yang ada. Required dipake buat validasinya. Sedangkan response punya 2 tipe response, string dan array. Array ini dipake ketika tipe inputnya adalah checkbox, karena checkbox ini bisa menampung lebih dari satu pilihan, sedangkan sisanya string biasa.

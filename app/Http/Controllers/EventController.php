@@ -17,13 +17,11 @@ class EventController extends Controller
 
     protected EventService $event;
     protected UserService $userService;
-    protected DepartementService $departmentService;
 
-    public function __construct(EventService $eventService, UserService $userService, DepartementService $departmentService)
+    public function __construct(EventService $eventService, UserService $userService)
     {
         $this->event = $eventService;
         $this->userService = $userService;
-        $this->departmentService = $departmentService;
     }
 
     public function abortIfRoot()
@@ -38,8 +36,6 @@ class EventController extends Controller
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
-
-        $department = $this->departmentService->getAll();
 
         $data = [
             'detail' => $detail,
@@ -95,8 +91,6 @@ class EventController extends Controller
             'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
-
-        // dd($request->adanya_kelulusan);
 
         if (is_null($request->adanya_kelulusan)) {
             $validated['adanya_kelulusan'] = 1;
