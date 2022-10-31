@@ -53,6 +53,12 @@ class EventFormResponseService
     return EventLulusStatus::where('event_id', $event->id)->get();
   }
 
+  public function getLulus(string $slug)
+  {
+    $event = Event::where('slug', $slug)->first();
+    return EventLulusStatus::where('event_id', $event->id)->where('status_lulus', 1)->get();
+  }
+
   public function getEventSlug(string $slug)
   {
     $event = Event::where('slug', $slug)->first();

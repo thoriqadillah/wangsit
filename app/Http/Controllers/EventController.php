@@ -84,7 +84,6 @@ class EventController extends Controller
             'nama' => 'required',
             'thumbnailLama' => 'required',
             'thumbnail' => 'mimes:jpeg,png,jpg|image|max:2000',
-            'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -96,6 +95,13 @@ class EventController extends Controller
             'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
+
+        // dd($request->adanya_kelulusan);
+
+        if (is_null($request->adanya_kelulusan)) {
+            $validated['adanya_kelulusan'] = 1;
+        } else
+            $validated['adanya_kelulusan'] = 0;
 
         if (is_null($request->thumbnail)) {
             $validated['thumbnail'] = $request->thumbnailLama;

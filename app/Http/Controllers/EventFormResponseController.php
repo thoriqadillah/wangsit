@@ -35,6 +35,10 @@ class EventFormResponseController extends Controller
         $response = $this->eventResponse->getResponses($event->id);
         $head = $this->eventResponse->getHeadResponse($slug);
         $lulus = $this->eventResponse->getLulusResponse($slug);
+        $jmlLulus = $this->eventResponse->getLulus($slug);
+
+        // dd($lulus);
+        // dd(count($jmlLulus));
 
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
@@ -45,7 +49,8 @@ class EventFormResponseController extends Controller
             'head' => $head,
             'response' => $response,
             'event' => $event,
-            'lulus' => $lulus
+            'lulus' => $lulus,
+            'jmlLulus' => $jmlLulus
         ];
 
         return view('admin/form-response', $data);

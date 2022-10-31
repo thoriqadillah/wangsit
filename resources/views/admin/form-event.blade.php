@@ -72,7 +72,7 @@
 
             <div class="flex items-center mt-8 gap-2">
                 {{-- <input type="hidden" name="adanya_kelulusan" value="true"> --}}
-                <input id="checked-checkbox" type="checkbox" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" name="adanya_kelulusan" {{ isset($detail->adanya_kelulusan) ? (($detail->adanya_kelulusan = 1) ? "" : "checked" ): "" }}>
+                <input id="checked-checkbox" type="checkbox" value="0" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" name="adanya_kelulusan" {{ isset($detail->adanya_kelulusan) ? (($detail->adanya_kelulusan == 1) ? "" : "checked" ): "" }}>
                 <label for="checked-checkbox" class="ml-2 font-medium text-gray-900">Jadikan Event Tanpa Kelulusan</label>
             </div>
 

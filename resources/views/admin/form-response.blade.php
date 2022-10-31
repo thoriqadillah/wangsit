@@ -23,7 +23,7 @@
                         @if($event->adanya_kelulusan ==1)
                         <th scope="col" class="py-3 px-6">
                             <div class="flex items-center">
-                                <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ (count($jmlLulus)==count($lulus))?"checked":"" }}>
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus Semua</label>
                             </div>
                         </th>
@@ -41,12 +41,11 @@
                 <tbody>
                     @for($i=0;$i<count($response);$i++)
                         <tr class="border-b align-top">
-                        <input type="hidden" name="userId[]" value="{{ $response[$i]['user_id'] }}">
                         @if($event->adanya_kelulusan==1)
                         <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
-                                {{-- <input type="hidden" name="lulus[]" value="0"> --}}
-                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="{{ $response[$i]['user_id'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ ($lulus[$i]['status_lulus']==1)?"checked":"" }}>
+                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="{{ $response[$i]['user_id'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                {{ ($lulus[$i]['status_lulus']==1)?"checked":"" }} >
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus</label>
                             </div>
                         </td>
@@ -64,9 +63,11 @@
                 </tbody>
             </table>
         </div>
+        @if($event->adanya_kelulusan ==1)
         <div class="flex justify-end mb-20">
             <input class="bg-mainColor text-white rounded-full shadow py-2 px-4" type="submit" value="Luluskan semua yang ditandai">
         </div>
+        @endif
     </form>
 </div>
 @stop
