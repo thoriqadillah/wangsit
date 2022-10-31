@@ -19,11 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(DepartementSeeder::class);
         $this->call(AdminSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(FormTypeSeeder::class);
-        $this->call(EventSeeder::class);
-        $this->call(EventFormResponseSeeder::class);
-        $this->call(AcademySeeder::class);
+        // $this->call(EventSeeder::class);
+        // $this->call(EventFormResponseSeeder::class);
+        // $this->call(AcademySeeder::class);
         $this->call(AcademyCategorySeeder::class);
-        $this->call(EventFormSeeder::class);
+        // $this->call(EventFormSeeder::class);
     }
 }

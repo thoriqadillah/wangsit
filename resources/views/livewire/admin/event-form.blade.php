@@ -7,9 +7,11 @@
             <div class="w-full border rounded shadow bg-white p-8 mt-8">
                 <label class="block mb-2 text-gray-900">Jenis Form</label>
                 <select wire:model="forms.{{$i}}.form_type" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg outline-none py-2 px-3 w-80">
-                @foreach ($formTypes as $type)
-                    <option value="{{ $type->nama }}">{{ $type->nama }}</option>
-                @endforeach
+                    <option value="Text">Text</option>
+                    <option value="Textarea">Textarea</option>
+                    <option value="Checkbox">Checkbox</option>
+                    <option value="Radio">Radio</option>
+                    <option value="Dropdown">Dropdown</option>
                 </select>
 
                 <div class="flex gap-8 mt-6">
