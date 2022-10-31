@@ -8,7 +8,7 @@
 
     <div class="flex justify-between items-center">
         <div class="flex items-center gap-8">
-            <a href="/admin/event/{{ $event->slug }}/form" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Preview Form</a>
+            <a href="/admin/event/{{ $event->slug }}/form" class="py-2 rounded-full bg-white border border-mainColor text-mainColor mt-8 block w-40 text-center">Edit Form</a>
         </div>
     </div>
 
@@ -33,12 +33,11 @@
                             <th scope="col" class="py-3 px-6">
                                 {{ $head->format[$j]['judul'] }}
                             </th>
-                        @endfor
+                            @endfor
                     </tr>
                 </thead>
                 <tbody>
-                    @for($i=0;$i<count($response);$i++)
-                        <tr class="border-b align-top">
+                    @for($i=0;$i<count($response);$i++) <tr class="border-b align-top">
                         <input type="hidden" name="userId[]" value="{{ $response[$i]['user_id'] }}">
                         <td scope="row" class="py-3 px-6 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
@@ -50,12 +49,12 @@
                             {{ $response[$i]->user->nama }}
                         </td>
                         @foreach ($response[$i]->response as $r)
-                            <td scope="row" class="pt-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                {{ is_array($r['response']) ? implode(', ' , $r['response']) : $r['response'] }}
-                            </td>
+                        <td scope="row" class="pt-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                            {{ is_array($r['response']) ? implode(', ' , $r['response']) : $r['response'] }}
+                        </td>
                         @endforeach
-                    </tr>
-                    @endfor
+                        </tr>
+                        @endfor
                 </tbody>
             </table>
         </div>
