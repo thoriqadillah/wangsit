@@ -169,7 +169,7 @@ class EventService
             $responseId = EventFormResponse::where('event_id', $id)->get();
 
             foreach ($responseId as $resp) {
-                EventLulusStatus::create([
+                EventLulusStatus::firstOrCreate([
                     'event_id' => $id,
                     'user_id' => $resp['user_id'],
                     'status_lulus' => 0
