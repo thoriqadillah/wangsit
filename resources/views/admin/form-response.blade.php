@@ -20,12 +20,14 @@
             <table class="w-full text-sm text-left text-gray-500 border-collapse">
                 <thead class="text-xs text-black uppercase bg-blue-100 text-left">
                     <tr>
+                        @if($event->adanya_kelulusan ==1)
                         <th scope="col" class="py-3 px-6">
                             <div class="flex items-center">
-                                <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
+                                <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ ($lulus->where('status_lulus', 1)->count()==count($lulus))?"checked":"" }}>
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus Semua</label>
                             </div>
                         </th>
+                        @endif
                         <th scope="col" class="py-3">
                             Nama
                         </th>
@@ -39,14 +41,16 @@
                 <tbody>
                     @for($i=0;$i<count($response);$i++)
                         <tr class="border-b align-top">
-                        <input type="hidden" name="userId[]" value="{{ $response[$i]['user_id'] }}">
-                        <td scope="row" class="py-3 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        @if($event->adanya_kelulusan==1)
+                        <td scope="row" class="p-4 font-medium text-gray-900 whitespace-nowrap">
                             <div class="flex items-center mb-4">
-                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2" {{ isset($lulus[$i]['status_lulus'])?"checked":"" }}>
+                                <input id="default-checkbox" name="lulus[]" type="checkbox" value="{{ $response[$i]['user_id'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                {{ ($lulus[$i]['status_lulus']==1)?"checked":"" }} >
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus</label>
                             </div>
                         </td>
-                        <td scope="row" class="py-4 font-medium text-gray-900 whitespace-nowrap">
+                        @endif
+                        <td scope="row" class="py-5 font-medium text-gray-900 whitespace-nowrap">
                             {{ $response[$i]->user->nama }}
                         </td>
                         @foreach ($response[$i]->response as $r)
@@ -59,9 +63,11 @@
                 </tbody>
             </table>
         </div>
+        @if($event->adanya_kelulusan ==1)
         <div class="flex justify-end mb-20">
             <input class="bg-mainColor text-white rounded-full shadow py-2 px-4" type="submit" value="Luluskan semua yang ditandai">
         </div>
+        @endif
     </form>
 </div>
 @stop
