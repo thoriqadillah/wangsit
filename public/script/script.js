@@ -27,10 +27,14 @@ modal.addEventListener("click", (e) => {
     }
 });
 
+const alert = document.querySelector(".alert");
 function closeAlert() {
-    const alert = document.querySelector(".alert");
     alert.style.display = "none";
 }
+
+setTimeout(function () {
+    alert.style.display = "none";
+}, 3000);
 
 function toggle(source) {
     const checkboxes = document.getElementsByName("lulus[]");

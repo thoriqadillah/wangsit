@@ -20,7 +20,7 @@
             <table class="w-full text-sm text-left text-gray-500 border-collapse">
                 <thead class="text-xs text-black uppercase bg-blue-100 text-left">
                     <tr>
-                        <th scope="col" class="py-3 px-6">
+                        <th scope="col" class="py-3 px-12">
                             <div class="flex items-center">
                                 <input id="default-checkbox" onclick="toggle(this)" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 focus:ring-2">
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Lulus Semua</label>
@@ -49,7 +49,7 @@
                             {{ $response[$i]->user->nama }}
                         </td>
                         @foreach ($response[$i]->response as $r)
-                        <td scope="row" class="pt-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                        <td scope="row" class="pt-4 break-words px-6 w-40 font-medium text-gray-900 whitespace-nowrap">
                             {{ is_array($r['response']) ? implode(', ' , $r['response']) : $r['response'] }}
                         </td>
                         @endforeach
