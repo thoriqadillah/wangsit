@@ -17,13 +17,11 @@ class EventController extends Controller
 
     protected EventService $event;
     protected UserService $userService;
-    protected DepartementService $departmentService;
 
-    public function __construct(EventService $eventService, UserService $userService, DepartementService $departmentService)
+    public function __construct(EventService $eventService, UserService $userService)
     {
         $this->event = $eventService;
         $this->userService = $userService;
-        $this->departmentService = $departmentService;
     }
 
     public function abortIfRoot()
@@ -38,8 +36,6 @@ class EventController extends Controller
         $this->userDept = $this->userService->getUserDept();
         if (!$this->userDept) return abort(404);
         if (!$detail) return abort(404);
-
-        $department = $this->departmentService->getAll();
 
         $data = [
             'detail' => $detail,
@@ -57,8 +53,7 @@ class EventController extends Controller
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
-            'tgl_tutup_pengumuman' => 'required',
-            'adanya_kelulusan' => 'required'
+            'tgl_tutup_pengumuman' => 'required'
         ], [
             'required' => ':attribute wajib diisi',
             'tgl_buka_pendaftaran.required' => 'waktu mulai wajib diisi',
@@ -66,6 +61,11 @@ class EventController extends Controller
             'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
+
+        if (is_null($request->adanya_kelulusan)) {
+            $validated['adanya_kelulusan'] = 1;
+        } else
+            $validated['adanya_kelulusan'] = 0;
 
         $event = $this->event->addEvent($validated);
         if ($event) {
@@ -80,7 +80,6 @@ class EventController extends Controller
             'nama' => 'required',
             'thumbnailLama' => 'required',
             'thumbnail' => 'mimes:jpeg,png,jpg|image|max:2000',
-            'adanya_kelulusan' => 'required',
             'tgl_buka_pendaftaran' => 'required',
             'tgl_tutup_pendaftaran' => 'required',
             'tgl_buka_pengumuman' => 'required',
@@ -92,6 +91,11 @@ class EventController extends Controller
             'tgl_buka_pengumuman.required' => 'waktu mulai wajib diisi',
             'tgl_tutup_pengumuman.required' => 'waktu selesai wajib diisi'
         ]);
+
+        if (is_null($request->adanya_kelulusan)) {
+            $validated['adanya_kelulusan'] = 1;
+        } else
+            $validated['adanya_kelulusan'] = 0;
 
         if (is_null($request->thumbnail)) {
             $validated['thumbnail'] = $request->thumbnailLama;
@@ -111,16 +115,5 @@ class EventController extends Controller
         if (!$this->userDept) return abort(404);
 
         return view('/admin/form-event');
-    }
-
-    public function lulusEvent(Request $request, $eventId)
-    {
-        $dataLulus = $request->all();
-        $update = $this->event->lulusEvent($dataLulus, $eventId);
-
-        if ($update) {
-            return redirect()->to('/admin/event')->with('success', 'Data peserta lulus berhasil diupdate');
-        }
-        return redirect()->refresh()->withErrors(['error' => 'Data peserta diupdate']);
     }
 }

@@ -5,7 +5,10 @@ namespace App\Services;
 use Carbon\Carbon;
 use App\Models\Event;
 use Illuminate\Support\Str;
+use App\Http\Livewire\EventForm;
 use App\Models\EventLulusStatus;
+use App\Models\EventFormResponse;
+use App\Models\EventForm as EForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
@@ -120,12 +123,12 @@ class EventService
         if ($deptId !== 0) {
             return Event::with($eagerWith)
                 ->where('departement_id', $deptId)
-                ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+                ->where('tgl_tutup_pendaftaran', '<', Carbon::now())
                 ->paginate($perPage);
         }
 
         return Event::with($eagerWith)
-            ->where('tgl_tutup_pengumuman', '<', Carbon::now())
+            ->where('tgl_tutup_pendaftaran', '<', Carbon::now())
             ->paginate($perPage);
     }
 
@@ -136,11 +139,6 @@ class EventService
         $path = $eventData['thumbnail']->store("/public/$year");
         $eventData['thumbnail'] = $path;
 
-        if ($eventData['adanya_kelulusan'] == true) {
-            $eventData['adanya_kelulusan'] = 1;
-        } else {
-            $eventData['adanya_kelulusan'] = 0;
-        }
         $hash = bin2hex(random_bytes(6));
         return Event::create([
             'departement_id' => Auth::user()->admin->departement_id,
@@ -167,10 +165,22 @@ class EventService
             $eventData['thumbnail'] = $path;
         }
 
-        if ($eventData['adanya_kelulusan'] == true) {
-            $eventData['adanya_kelulusan'] = 1;
-        } else {
-            $eventData['adanya_kelulusan'] = 0;
+        if ($eventData['adanya_kelulusan'] == 1) {
+            $responses = EventFormResponse::where('event_id', $id)->get();
+
+            //jika ada user yang telah mendaftar pada saat adanya kelulusan == false kemudian admin memutuskan untuk mengganti adanya kelulusan menjadi true, maka buat data user dengan default tidak lulus pada event_lulus_statuses
+            $data = [];
+            if (!$responses->isEmpty()) {
+                foreach ($responses as $resp) {
+                    $data[] = [
+                        'event_id' => $id,
+                        'user_id' => $resp['user_id'],
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ];
+                }
+                EventLulusStatus::insertOrIgnore($data);
+            }
         }
 
         $hash = bin2hex(random_bytes(6));
@@ -190,21 +200,11 @@ class EventService
 
     public function deleteEvent(int $id): bool
     {
-        $event = Event::where('id',$id)->first();
+        $event = Event::where('id', $id)->first();
         Storage::delete($event->thumbnail);
+        EForm::where('event_id', $event->id)->delete();
+        EventFormResponse::where('event_id', $event->id)->delete();
+        EventLulusStatus::where('event_id', $event->id)->delete();
         return $event->delete();
-    }
-
-    public function lulusEvent(array $lulusData, $eventId)
-    {
-        $userId = $lulusData['userId'];
-        $lulus = $lulusData['lulus'];
-        for ($i = 0; $i < count($lulus); $i++) {
-            $update = EventLulusStatus::where('event_id', $eventId)->where('user_id', $userId[$i])->update([
-                'status_lulus' => $lulus[$i]
-            ]);
-        }
-
-        return $update;
     }
 }

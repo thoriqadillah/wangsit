@@ -54,12 +54,7 @@ class EventFormTest extends TestCase
 				'judul' => '',
 				'placeholder' => '',
 				'required' => false,
-				'value_options' => [
-					[
-						'text' => '',
-						'value' => ''
-					]
-				]
+				'options' => ['']
 			]
         ];
         $component->assertSet('forms', $presetForm);
@@ -85,9 +80,7 @@ class EventFormTest extends TestCase
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
-                'value_options' => [
-                    ['text' => '','value' => '']
-                    ]
+                'options' => ['']
                 ];
             }
             
@@ -117,9 +110,7 @@ class EventFormTest extends TestCase
                 'judul' => $faker->sentence(),
                 'placeholder' => $faker->sentence(),
                 'required' => $faker->boolean(),
-                'value_options' => [
-                    ['text' => '','value' => '']
-                ]
+                'options' => ['']
             ];
         }
         

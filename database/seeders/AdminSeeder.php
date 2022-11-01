@@ -25,14 +25,14 @@ class AdminSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
 
-        for ($i = 0; $i < 7; $i++) {
-            DB::table('admins')->insert([
-                'id' => ($i + 2),
-                'user_id' => ($i + 2),
-                'departement_id' => rand(1, 7),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
-        }
+        // for ($i = 0; $i < 7; $i++) {
+        //     DB::table('admins')->insert([
+        //         'id' => ($i + 2),
+        //         'user_id' => ($i + 2),
+        //         'departement_id' => rand(1, 7),
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now()
+        //     ]);
+        // }
     }
 }

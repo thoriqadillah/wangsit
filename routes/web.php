@@ -32,7 +32,7 @@ use Barryvdh\Debugbar\DataCollector\EventCollector;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'index');
     Route::post('/logout', 'logout');
-    Route::post('/login', 'login')->name('login')->middleware(['throttle:30,1']); //limit rate request 30/menit
+    Route::post('/login', 'login')->name('login')->middleware(['throttle:10,1']); //limit rate request 10/menit
 });
 
 Route::middleware('auth')->group(function () {
@@ -50,7 +50,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/event/{slug}/form', EventForm::class);
     Route::get('/admin/event/tambah', [EventController::class, 'addEventPage']);
     Route::get('/admin/event/{slug}/form/response', [EventFormResponseController::class, 'getResponse']);
-    Route::put('/admin/event/{id}/lulus', [EventController::class, 'lulusEvent']);
+    Route::put('/admin/event/{id}/lulus', [EventFormResponseController::class, 'lulusEvent']);
     Route::get('/admin/event/{slug}', [EventController::class, 'detailEvent']);
     Route::put('/admin/event/{id}', [EventController::class, 'updateEvent']);
     Route::put('/admin/academy/{id}', [AcademyController::class, 'updateAcademy']);

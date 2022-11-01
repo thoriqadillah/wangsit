@@ -11,9 +11,7 @@ class EventFormService {
     //memastikan opsinya dihapus semisal admin udah milih opsi selain text atau textare dan udah ngisi opsinya terus berubah pikiran tanpa menghapus opsinya
     for ($i=0; $i < count($format); $i++) { 
       if ($format[$i]['form_type'] === "Text" || $format[$i]['form_type'] === "Textarea") {
-        $format[$i]['value_options'] = [
-          ['text' => '', 'value' => '']
-        ];
+        $format[$i]['options'] = [''];
       //memastikan placeholdernya dihapus semisal admin udah milih opsi selain radio atau checkbox dan udah ngisi opsinya terus berubah pikiran tanpa menghapus opsinya
       } else {
         $format[$i]['placeholder'] = '';

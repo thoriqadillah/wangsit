@@ -13,23 +13,23 @@
             @elseif ($form['form_type'] == 'Textarea')
               <textarea wire:model.lazy="formResponse.{{$index}}.response" placeholder="{{ $form['placeholder'] }}" class="block p-2 lg:p-4 h-24 w-full outline-none bg-gray-50 rounded lg:rounded-lg border border-gray-300 resize-none"></textarea>
             @elseif ($form['form_type'] == 'Radio')
-              @foreach ($form['value_options'] as $option)
+              @foreach ($form['options'] as $option)
               <div class="flex items-center mb-2">
-                <input wire:model.lazy="formResponse.{{$index}}.response" type="radio" value="{{ $option['value'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-                <label class="ml-2 text-sm font-medium text-gray-900">{{ $option['text'] }}</label>
+                <input wire:model.lazy="formResponse.{{$index}}.response" type="radio" value="{{ $option }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <label class="ml-2 text-sm font-medium text-gray-900">{{ $option }}</label>
               </div>
               @endforeach
             @elseif ($form['form_type'] == 'Dropdown')
               <select wire:model.lazy="formResponse.{{$index}}.response" class="w-full border px-3 py-1 lg:py-2 rounded border-gray-300 outline-none">
                 <option selected value="" disabled>Pilih salah satu</option>
-                @foreach ($form['value_options'] as $option)
-                <option value="{{ $option['value'] }}">{{ $option['text'] }}</option>
+                @foreach ($form['options'] as $option)
+                <option value="{{ $option }}">{{ $option }}</option>
                 @endforeach
               </select>
             @else
-              @foreach ($form['value_options'] as $option)
+              @foreach ($form['options'] as $option)
               <div class="flex items-center gap-4 mt-2">
-                <input wire:model.lazy="formResponse.{{$index}}.response" type="checkbox" value="{{ $option['value'] }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300">{{ $option['text'] }}</label>
+                <input wire:model.lazy="formResponse.{{$index}}.response" type="checkbox" value="{{ $option }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300">{{ $option }}</label>
               </div>
               @endforeach
             @endif
@@ -43,7 +43,7 @@
 
     <div class="mt-10">
       <div class="flex items-center gap-4">
-        <input wire:model.lazy="aggreement" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-red-300">
+        <input wire:model.lazy="aggreement" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-red-300" value="true">
         <label>Dengan ini saya menyetujui seluruh prasyarat yang ada <span class="text-newRed">*</span></label>
       </div>
       @error("aggreement")

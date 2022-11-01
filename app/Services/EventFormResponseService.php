@@ -40,22 +40,42 @@ class EventFormResponseService
       ->first();
   }
 
-  public function getHeadResponse(string $slug)
+  public function getHeadResponse(int $id)
   {
-    $event = Event::where('slug', $slug)->first();
-
-    return EventForm::where('event_id', $event->id)->first();
+    return EventForm::where('event_id', $id)->first();
   }
 
-  public function getLulusResponse(string $slug)
+  public function getLulusResponse(int $id)
   {
-    $event = Event::where('slug', $slug)->first();
-    return EventLulusStatus::where('event_id', $event->id)->where('status_lulus', 1)->get();
+    return EventLulusStatus::where('event_id', $id)
+      ->orderBy('id', 'asc')
+      ->get();
+  }
+
+  public function getLulus(int $id)
+  {
+    return EventLulusStatus::where('event_id', $id)->where('status_lulus', 1)->get();
   }
 
   public function getEventSlug(string $slug)
   {
     $event = Event::where('slug', $slug)->first();
     return $event;
+  }
+
+  public function lulusEvent(array $lulusData, $eventId)
+  {
+    $update = EventLulusStatus::where('event_id', $eventId)->update([
+      'status_lulus' => 0
+    ]);
+
+    if (isset($lulusData['lulus'])) {
+      $lulus = $lulusData['lulus'];
+      $update = EventLulusStatus::where('event_id', $eventId)
+        ->whereIn('user_id', $lulus)
+        ->update([ 'status_lulus' => 1 ]);
+    }
+
+    return $update;
   }
 }
