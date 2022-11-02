@@ -20,7 +20,7 @@
         @foreach ($events as $i => $event)
         <div class="w-80 h-96 lg:w-96 bg-white border rounded shadow relative p-3">
             <img wire:click="setDeleting({{ $event->id }})" src="{{url('/asset/icons/close.svg')}}" alt="" class="absolute cursor-pointer w-7 h-7 -top-3 -right-4">
-            <div class="w-full h-52 bg-red-400">
+            <div class="w-full h-52 bg-gray-300">
                 <img src="{{ Storage::url($event->thumbnail) }}" class="w-full h-full" alt="">
             </div>
             <div class="mt-5 flex flex-col h-28 justify-between">

@@ -34,7 +34,7 @@ function closeAlert() {
 
 setTimeout(function () {
     alert.style.display = "none";
-}, 3000);
+}, 1800);
 
 function toggle(source) {
     const checkboxes = document.getElementsByName("lulus[]");
