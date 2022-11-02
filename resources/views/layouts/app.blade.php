@@ -38,17 +38,17 @@
             @if (auth()->check() && auth()->user()->admin != null)
             <div class="relative cursor-default group">
                 <div class="flex items-center gap-2">
-                    <h1>Admin</h1>
+                    <h1 class="{{ (request()->is('admin/*')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">Admin</h1>
                     <img src="{{url('/asset/icons/drop.svg')}}" class="w-3" />
                 </div>
 
                 <div class="absolute hidden -left-6 group-hover:block p-3 w-60">
                     <div class="flex flex-col gap-5 bg-white shadow-lg border p-5">
                         @if (auth()->check() && auth()->user()->admin != null && auth()->user()->admin->departement_id != null)
-                        <a href="/admin/event" class="{{ (request()->is('admin/event')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">Event</a>
-                        <a href="/admin/academy" class="{{ (request()->is('admin/academy')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">Academy</a>
+                        <a class="hover:after:content-[''] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2" href="/admin/event">Event</a>
+                        <a class="hover:after:content-[''] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2" href="/admin/academy">Academy</a>
                         @else
-                        <a href=" /admin/root" class="{{ (request()->is('admin/root')) ? 'after:content-[\'\'] after:w-full after:h-[2px] after:bg-mainColor after:absolute after:-bottom-1 after:rounded-full after:left-0 relative px-2' : 'hover:after:content-[\'\'] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2' }}">Root</a>
+                        <a class="hover:after:content-[''] hover:after:w-full hover:after:h-[2px] hover:after:bg-mainColor hover:after:absolute hover:after:-bottom-1 hover:after:rounded-full hover:after:left-0 hover:relative  after:transition after:ease-in after:duration-500 px-2" href=" /admin/root">Root</a>
                         @endif
                     </div>
                 </div>
